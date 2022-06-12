@@ -1,23 +1,23 @@
 import { Button, Navbar } from '@mantine/core'
 import { FC } from 'react'
+import { Link } from 'react-router-dom'
 
 const AppNavbar: FC = () => {
 
 	const skills = [
-		'Mining',
-		'Farming',
-		'Woodcutting',
-		'Combat',
-		'Enchanting',
+		'Agriculture',
 		'Alchemy',
+		'Arcane',
+		'Architecture',
+		'Artificer',
+		'Astronomy',
+		'Culinary',
+		'Dungeoneering',
 		'Excavation',
 		'Fishing',
-		'Cooking',
+		'Mining',
 		'Smithing',
-		'Artificer',
-		'Runecrafting',
-		'Summoning',
-		'Astronomy'
+		'Survivalism'
 	]
 
 	return (
@@ -26,7 +26,12 @@ const AppNavbar: FC = () => {
 		}}>
 			{
 				skills.map(skill => {
-					return <Button key={skill} variant='default'>{skill}</Button>
+					return <Link key={skill} to={`/${skill.toLowerCase()}`}>
+						<Button
+							variant='default'
+							fullWidth
+						>{skill}</Button>
+					</Link>
 				})
 			}
 		</Navbar>

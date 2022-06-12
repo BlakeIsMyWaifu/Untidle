@@ -1,8 +1,8 @@
 {
   "$schema": "..\\node_modules/@tauri-apps/cli\\schema.json",
   "build": {
-    "beforeBuildCommand": "npm run build",
-    "beforeDevCommand": "npm run dev",
+    "beforeBuildCommand": "yarn run build-vite",
+    "beforeDevCommand": "yarn run dev-vite",
     "devPath": "http://localhost:3000",
     "distDir": "../dist"
   },
@@ -56,10 +56,10 @@
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "height": 1080,
         "resizable": true,
         "title": "Untidle",
-        "width": 800
+        "width": 1440
       }
     ]
   }
