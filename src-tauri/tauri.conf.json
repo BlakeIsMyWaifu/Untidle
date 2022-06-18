@@ -59,7 +59,8 @@
         "height": 1080,
         "resizable": true,
         "title": "Untidle",
-        "width": 1440
+        "width": 1440,
+        "maximized": true
       }
     ]
   }

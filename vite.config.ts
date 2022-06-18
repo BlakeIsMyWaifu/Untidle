@@ -10,5 +10,6 @@ export default defineConfig({
 		eslintPlugin(),
 		tsConfigPaths(),
 		ViteTips()
-	]
+	],
+	publicDir: 'public'
 })
