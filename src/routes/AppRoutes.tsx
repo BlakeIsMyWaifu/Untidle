@@ -15,7 +15,7 @@ const Excavation = lazy(() => import('pages/Excavation'))
 const Fishing = lazy(() => import('pages/Fishing'))
 const Mining = lazy(() => import('pages/Mining'))
 const Smithing = lazy(() => import('pages/Smithing'))
-const Survivalism = lazy(() => import('pages/Survivalism'))
+const Survival = lazy(() => import('pages/Survival/Survival'))
 
 const AppRoutes: FC = () => {
 	return (
@@ -33,7 +33,7 @@ const AppRoutes: FC = () => {
 			<Route path='/fishing' element={<Fishing />} />
 			<Route path='/mining' element={<Mining />} />
 			<Route path='/smithing' element={<Smithing />} />
-			<Route path='/survivalism' element={<Survivalism />} />
+			<Route path='/survivalism' element={<Survival />} />
 		</Routes>
 	)
 }
