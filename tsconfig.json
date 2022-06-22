@@ -38,7 +38,10 @@
     "baseUrl": "src"
   },
   "include": [
-    "src"
+    "src/**/*"
+  ],
+  "exclude": [
+    "node_modules"
   ],
   "references": [
     {

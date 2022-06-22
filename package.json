@@ -37,5 +37,8 @@
     "vite-plugin-eslint": "^1.6.1",
     "vite-plugin-tips": "^2.1.0",
     "vite-tsconfig-paths": "^3.5.0"
+  },
+  "resolutions": {
+    "@types/react": "^18.0.14"
   }
 }

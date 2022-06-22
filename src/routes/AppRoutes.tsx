@@ -17,6 +17,8 @@ const Mining = lazy(() => import('pages/Mining'))
 const Smithing = lazy(() => import('pages/Smithing'))
 const Survival = lazy(() => import('pages/Survival/Survival'))
 
+const Dev = lazy(() => import('pages/Dev'))
+
 const AppRoutes: FC = () => {
 	return (
 		<Routes>
@@ -34,6 +36,7 @@ const AppRoutes: FC = () => {
 			<Route path='/mining' element={<Mining />} />
 			<Route path='/smithing' element={<Smithing />} />
 			<Route path='/survivalism' element={<Survival />} />
+			<Route path='/dev' element={<Dev />} />
 		</Routes>
 	)
 }

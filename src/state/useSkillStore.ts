@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware'
 
 import { storage } from './storage'
 
-type Skill<T extends string = never> = Record<T | 'main', SkillStats>
+export type Skill<T extends string = never> = Record<T | 'main', SkillStats>
 
 interface SkillStats {
 	xp: number;
@@ -11,7 +11,7 @@ interface SkillStats {
 	xpNeeded: number;
 }
 
-type SkillList = keyof SkillStateSlice
+export type SkillList = keyof SkillStateSlice
 
 interface SkillStateSlice {
 	agriculture: Skill<'farming' | 'horticulture' | 'ranching'>;
@@ -33,7 +33,7 @@ interface SkillStateSlice {
 	survival: Skill<'woodcutting' | 'firemaking' | 'foraging'>;
 }
 
-const initialSkillState: SkillStateSlice = {
+export const initialSkillState: SkillStateSlice = {
 	agriculture: {
 		main: { xp: 0, level: 1, xpNeeded: 82 },
 		farming: { xp: 0, level: 1, xpNeeded: 82 },
