@@ -21,9 +21,12 @@ const AppNavbar: FC = () => {
 	]
 
 	return (
-		<Navbar width={{ base: 300 }} p='xs' style={{
-			gap: '6px'
-		}}>
+		<Navbar
+			width={{ base: 300 }}
+			p='xs'
+			style={{
+				gap: '6px'
+			}}>
 			{
 				skills.map(skill => {
 					return <Link key={skill} to={`/${skill.toLowerCase()}`}>

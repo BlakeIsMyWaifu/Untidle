@@ -17,7 +17,7 @@ const Mining = lazy(() => import('pages/Mining'))
 const Smithing = lazy(() => import('pages/Smithing'))
 const Survival = lazy(() => import('pages/Survival/Survival'))
 
-const Dev = lazy(() => import('pages/Dev'))
+const Dev = lazy(() => import('pages/Dev/Dev'))
 
 const AppRoutes: FC = () => {
 	return (

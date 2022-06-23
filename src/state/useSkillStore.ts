@@ -1,6 +1,7 @@
 import create, { StateCreator } from 'zustand'
 import { persist } from 'zustand/middleware'
 
+import { ZustandPersist } from './commonTypes'
 import { storage } from './storage'
 
 export type Skill<T extends string = never> = Record<T | 'main', SkillStats>
@@ -120,8 +121,6 @@ export const initialSkillState: SkillStateSlice = {
 }
 
 type SkillStore = SkillStateSlice & SkillActionSlice
-
-type ZustandPersist = ['zustand/persist', unknown]
 
 const createSkillStateSlice: StateCreator<SkillStore, [ZustandPersist], [], SkillStateSlice> = () => initialSkillState
 
