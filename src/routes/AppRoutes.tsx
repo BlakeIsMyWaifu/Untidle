@@ -12,9 +12,13 @@ const Astronomy = lazy(() => import('pages/Astronomy'))
 const Culinary = lazy(() => import('pages/Culinary'))
 const Dungeoneering = lazy(() => import('pages/Dungeoneering'))
 const Excavation = lazy(() => import('pages/Excavation'))
+const Hunter = lazy(() => import('pages/Hunter'))
 const Fishing = lazy(() => import('pages/Fishing'))
 const Mining = lazy(() => import('pages/Mining'))
+const Slayer = lazy(() => import('pages/Slayer'))
 const Smithing = lazy(() => import('pages/Smithing'))
+const Sorcery = lazy(() => import('pages/Sorcery'))
+const Strength = lazy(() => import('pages/Strength'))
 const Survival = lazy(() => import('pages/Survival/Survival'))
 
 const Dev = lazy(() => import('pages/Dev/Dev'))
@@ -32,10 +36,14 @@ const AppRoutes: FC = () => {
 			<Route path='/culinary' element={<Culinary />} />
 			<Route path='/dungeoneering' element={<Dungeoneering />} />
 			<Route path='/excavation' element={<Excavation />} />
+			<Route path='/hunter' element={<Hunter />} />
 			<Route path='/fishing' element={<Fishing />} />
 			<Route path='/mining' element={<Mining />} />
+			<Route path='/slayer' element={<Slayer />} />
 			<Route path='/smithing' element={<Smithing />} />
-			<Route path='/survivalism' element={<Survival />} />
+			<Route path='/sorcery' element={<Sorcery />} />
+			<Route path='/strength' element={<Strength />} />
+			<Route path='/survival' element={<Survival />} />
 			<Route path='/dev' element={<Dev />} />
 		</Routes>
 	)

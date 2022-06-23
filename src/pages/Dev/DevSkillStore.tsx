@@ -27,7 +27,7 @@ const DevSkillStore: FC = () => {
 			<td><Button
 				compact
 				size='xs'
-				color='gray'
+				variant='default'
 				onClick={() => skillStore.resetSkill(skillName as SkillList)}
 			>Reset</Button></td>
 		</tr>
@@ -66,7 +66,7 @@ const DevSkillStore: FC = () => {
 					step={100}
 				/>
 				<Button
-					color='gray'
+					variant='default'
 					onClick={() => {
 						if (!Object.keys(skillStore).includes(selectedSkill)) return
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,8 +1,12 @@
-import { Button, Navbar } from '@mantine/core'
+import { Box, Button, Navbar } from '@mantine/core'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 
-const AppNavbar: FC = () => {
+interface AppNavbarProps {
+	navbarOpened: boolean;
+}
+
+const AppNavbar: FC<AppNavbarProps> = ({ navbarOpened }) => {
 
 	const skills = [
 		'Agriculture',
@@ -15,29 +19,42 @@ const AppNavbar: FC = () => {
 		'Dungeoneering',
 		'Excavation',
 		'Fishing',
+		'Hunter',
 		'Mining',
+		'Slayer',
 		'Smithing',
-		'Survivalism'
+		'Sorcery',
+		'Strength',
+		'Survival'
 	]
 
 	return (
-		<Navbar
-			width={{ base: 300 }}
-			p='xs'
-			style={{
-				gap: '6px'
-			}}>
-			{
-				skills.map(skill => {
-					return <Link key={skill} to={`/${skill.toLowerCase()}`}>
-						<Button
-							variant='default'
-							fullWidth
-						>{skill}</Button>
-					</Link>
-				})
-			}
-		</Navbar>
+		<>
+			<Navbar
+				fixed
+				position={{ top: 0, left: 0 }}
+				width={{ sm: navbarOpened ? 300 : 0 }}
+				p={navbarOpened ? 'sm' : 0}
+				sx={{
+					gap: '6px',
+					overflow: 'hidden',
+					transition: 'width 200ms ease, min-width 200ms ease'
+				}}>
+				{
+					skills.map(skill => <Button
+						key={skill}
+						component={Link}
+						to={`/${skill.toLowerCase()}`}
+						variant='default'
+					>{skill}</Button>)
+				}
+			</Navbar>
+			<Box style={{
+				width: navbarOpened ? '300px' : 0,
+				height: '100vh',
+				transition: 'width 200ms ease, min-width 200ms ease'
+			}} />
+		</>
 	)
 }
 

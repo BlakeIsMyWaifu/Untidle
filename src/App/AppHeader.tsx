@@ -1,11 +1,16 @@
-import { ActionIcon, Anchor, Box, CSSObject, Group, Header, MantineTheme, Text, Title } from '@mantine/core'
-import { FC } from 'react'
+import { ActionIcon, Anchor, Box, Burger, CSSObject, Group, Header, MantineTheme, Text, Title } from '@mantine/core'
+import { Dispatch, FC, SetStateAction } from 'react'
 import { Link } from 'react-router-dom'
 import { useSettingsStore } from 'state/useSettingsStore'
 import { MoonStars, Sun } from 'tabler-icons-react'
 import { isDev } from 'utils/isDev'
 
-const AppHeader: FC = () => {
+interface AppHeaderProps {
+	navbarOpened: boolean;
+	setNavbarOpened: Dispatch<SetStateAction<boolean>>;
+}
+
+const AppHeader: FC<AppHeaderProps> = ({ navbarOpened, setNavbarOpened }) => {
 
 	const { theme, toggleTheme } = useSettingsStore()
 
@@ -17,14 +22,24 @@ const AppHeader: FC = () => {
 	})
 
 	return (
-		<Header height={60} p='xs' >
+		<Header
+			fixed
+			height={60}
+			p='xs'
+		>
 			<Group position='apart'>
 
-				<Anchor component={Link} to='/' sx={anchorStyle}>
-					<Title>
-						Untidle
-					</Title>
-				</Anchor>
+				<Group>
+					<Burger
+						opened={navbarOpened}
+						onClick={() => setNavbarOpened(state => !state)}
+					/>
+					<Anchor component={Link} to='/' sx={anchorStyle}>
+						<Title>
+							Untidle
+						</Title>
+					</Anchor>
+				</Group>
 
 				<Group>
 					{
