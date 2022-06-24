@@ -1,6 +1,7 @@
 import { Autocomplete, Button, Group, NumberInput, Table } from '@mantine/core'
+import { SkillList } from 'data/skills'
 import { FC, Fragment, useRef, useState } from 'react'
-import { Skill, SkillList, initialSkillState, useSkillStore } from 'state/useSkillStore'
+import { Skill, initialSkillState, useSkillStore } from 'state/useSkillStore'
 
 const DevSkillStore: FC = () => {
 
@@ -9,7 +10,7 @@ const DevSkillStore: FC = () => {
 	const skillTableData = Object.entries(skillStore).map((skill, i) => {
 		if (typeof skill[1] === 'function') return <Fragment key={i} />
 
-		const [skillName, skillData]: [string, Skill<string>] = skill
+		const [skillName, skillData]: [string, Skill<'agriculture'>] = skill
 
 		const subskills = Object.entries(skillData).map(([subskillName, subskillData], i) => {
 			return <Fragment key={i}>
@@ -40,7 +41,6 @@ const DevSkillStore: FC = () => {
 
 	return (
 		<>
-
 			<Group p='md' align='end'>
 				<Autocomplete
 					label='Skill Name'

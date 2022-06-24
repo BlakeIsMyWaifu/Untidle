@@ -1,37 +1,20 @@
+import { SkillList, SubskillList } from 'data/skills'
 import create, { StateCreator } from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { ZustandPersist } from './commonTypes'
 import { storage } from './storage'
 
-export type Skill<T extends string = never> = Record<T | 'main', SkillStats>
+export type Skill<T extends SkillList> = Record<SubskillList<T> | 'main', SkillStats>
 
-interface SkillStats {
+export interface SkillStats {
 	xp: number;
 	level: number;
 	xpNeeded: number;
 }
 
-export type SkillList = keyof SkillStateSlice
-
-interface SkillStateSlice {
-	agriculture: Skill<'farming' | 'horticulture' | 'ranching'>;
-	alchemy: Skill<'buffs' | 'healing' | 'debuffs'>;
-	arcane: Skill<'runecrafting' | 'summoning' | 'enchanting'>;
-	architecture: Skill<'masonry' | 'guilds' | 'carpentry'>;
-	artificer: Skill<'crafting' | 'fletching'>;
-	astronomy: Skill<'stargazing' | 'devotion'>;
-	culinary: Skill;
-	dungeoneering: Skill;
-	excavation: Skill<'digging' | 'archeology'>;
-	fishing: Skill;
-	hunter: Skill<'marksman' | 'assassination'>;
-	mining: Skill<'quarrying' | 'spelunking'>;
-	slayer: Skill;
-	smithing: Skill<'armoury' | 'jewelcrafting' | 'weaponry'>;
-	sorcery: Skill<'elemental' | 'chaos'>;
-	strength: Skill<'berserker' | 'guardian'>;
-	survival: Skill<'woodcutting' | 'firemaking' | 'foraging'>;
+type SkillStateSlice = {
+	[K in SkillList]: Skill<K>;
 }
 
 export const initialSkillState: SkillStateSlice = {
