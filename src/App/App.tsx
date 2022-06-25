@@ -4,6 +4,7 @@ import { HashRouter as Router } from 'react-router-dom'
 import AppRoutes from 'routes/AppRoutes'
 import { useSettingsStore } from 'state/useSettingsStore'
 
+import ActivityLoop from './ActivityLoop'
 import AppHeader from './AppHeader'
 import AppNavbar from './AppNavbar'
 
@@ -37,6 +38,8 @@ const App: FC = () => {
 							paddingTop: '60px'
 						}}>
 							<AppRoutes />
+
+							<ActivityLoop />
 						</Box>
 					</Suspense>
 				</AppShell>

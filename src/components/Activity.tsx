@@ -1,16 +1,27 @@
 import { Badge, Button, Card, Group, Image, Text } from '@mantine/core'
 import { FC } from 'react'
+import { ChangeActivityData, useActivityStore } from 'state/useActivityStore'
 
 interface ActivityProps {
 	name: string;
 	unlocked: boolean;
+	activity: ChangeActivityData;
 }
 
-const Activity: FC<ActivityProps> = ({ name, unlocked }) => {
+const Activity: FC<ActivityProps> = ({ name, unlocked, activity }) => {
+
+	const { activityName, changeActivity, stopActivity } = useActivityStore()
+
+	const currentlyActive = activityName === activity?.activityName
+
 	return (
-		<Card shadow='sm' p='lg' m='lg' sx={{
-			width: 'fit-content'
-		}}>
+		<Card
+			shadow='sm'
+			p='lg'
+			m='lg'
+			sx={{
+				width: '15%'
+			}}>
 
 			<Image
 				src='assets/temp_tree.png'
@@ -26,12 +37,19 @@ const Activity: FC<ActivityProps> = ({ name, unlocked }) => {
 			</Group>
 
 			<Button
-				variant='light'
-				color='green'
-				disabled={!unlocked}
 				fullWidth
+				variant='light'
+				color={currentlyActive ? 'red' : 'green'}
+				disabled={!unlocked}
+				onClick={() => {
+					if (currentlyActive) {
+						stopActivity()
+					} else {
+						changeActivity(activity)
+					}
+				}}
 			>
-				Start Activity
+				{currentlyActive ? 'Stop' : 'Start'} Activity
 			</Button>
 
 		</Card>

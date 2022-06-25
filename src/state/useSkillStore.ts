@@ -1,4 +1,4 @@
-import { SkillList, SubskillList } from 'data/skills'
+import { AllSubskillList, SkillList, SubskillList } from 'data/skills'
 import create, { StateCreator } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -108,7 +108,8 @@ type SkillStore = SkillStateSlice & SkillActionSlice
 const createSkillStateSlice: StateCreator<SkillStore, [ZustandPersist], [], SkillStateSlice> = () => initialSkillState
 
 interface SkillActionSlice {
-	addXp: <T extends SkillList>(amount: number, skill: T, subskill?: keyof SkillStateSlice[T]) => void;
+	// addXp: <T extends SkillList>(amount: number, skill: T, subskill?: keyof SkillStateSlice[T]) => void;
+	addXp: <T extends SkillList>(amount: number, skill: T, subskill?: AllSubskillList) => void;
 	resetSkill: (skill: SkillList) => void;
 }
 
@@ -119,7 +120,8 @@ const createSkillActionSlice: StateCreator<SkillStore, [ZustandPersist], [], Ski
 		}
 
 		const subskillDefined = subskill ?? 'main'
-		const subskillData = (get()[skill][subskillDefined] as unknown as SkillStats)
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
+		const subskillData = ((get()[skill] as any)[subskillDefined] as unknown as SkillStats)
 
 		set(state => ({
 			[skill]: {

@@ -41,3 +41,6 @@ export const skills: Skills = {
 export type SkillList = keyof Skills
 
 export type SubskillList<T extends SkillList> = Skills[T][number]
+
+type AllSubskillListArray = Skills[SkillList]
+export type AllSubskillList = AllSubskillListArray[number] | 'main'
