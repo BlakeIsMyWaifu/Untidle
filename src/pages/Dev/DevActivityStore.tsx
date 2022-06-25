@@ -4,7 +4,7 @@ import { useActivityStore } from 'state/useActivityStore'
 
 const DevActivityStore: FC = () => {
 
-	const { active, activityName, intervalTime, changeActivity, stopActivity } = useActivityStore()
+	const { active, activityName, intervalTime, reward, changeActivity, stopActivity } = useActivityStore()
 
 	return (
 		<Box>
@@ -14,35 +14,60 @@ const DevActivityStore: FC = () => {
 					changeActivity({
 						activityName: 'Dev 1',
 						intervalTime: 1000,
-						method: () => console.log('Dev 1')
+						reward: {
+							method: () => console.log('Dev 1'),
+							addXp: {
+								skill: 'survival',
+								subskill: 'woodcutting',
+								amount: 1
+							}
+						}
 					})
 				}}>Activity 1</Button>
+
 				<Button variant='default' onClick={() => {
 					changeActivity({
 						activityName: 'Dev 2',
 						intervalTime: 2000,
-						method: () => console.log('Dev 2')
+						reward: {
+							method: () => console.log('Dev 2'),
+							addItem: {
+								materials: [
+									{ name: 'oak wood', amount: 1 }
+								]
+							}
+						}
 					})
 				}}>Activity 2</Button>
+
 				<Button variant='default' onClick={() => {
 					stopActivity()
 				}}>Clear</Button>
 			</Group>
 
-			<Stack>
-				<Group>
-					<Text>Active:</Text>
-					<Text>{active ? 'true' : 'false'}</Text>
-				</Group>
-				<Group>
-					<Text>Current Activity:</Text>
-					<Text>{activityName ?? 'none'}</Text>
-				</Group>
-				<Group>
-					<Text>Interval Time:</Text>
-					<Text>{intervalTime}ms</Text>
-				</Group>
-			</Stack>
+			<Group>
+				<Stack mr='xl'>
+					<Group>
+						<Text>Active:</Text>
+						<Text>{active ? 'true' : 'false'}</Text>
+					</Group>
+					<Group>
+						<Text>Current Activity:</Text>
+						<Text>{activityName ?? 'none'}</Text>
+					</Group>
+					<Group>
+						<Text>Interval Time:</Text>
+						<Text>{intervalTime}ms</Text>
+					</Group>
+				</Stack>
+
+				<Stack ml='xl'>
+					<Group>
+						{JSON.stringify(reward)}
+					</Group>
+				</Stack>
+			</Group>
+
 		</Box>
 	)
 }

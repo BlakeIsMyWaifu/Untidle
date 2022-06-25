@@ -1,14 +1,18 @@
 import { Badge, Button, Card, Group, Image, Text } from '@mantine/core'
+import { AllSubskillList, SkillList } from 'data/skills'
 import { FC } from 'react'
 import { ChangeActivityData, useActivityStore } from 'state/useActivityStore'
 
 interface ActivityProps {
 	name: string;
 	unlocked: boolean;
+	skill: SkillList;
+	subskill: AllSubskillList;
+	image: string;
 	activity: ChangeActivityData;
 }
 
-const Activity: FC<ActivityProps> = ({ name, unlocked, activity }) => {
+const Activity: FC<ActivityProps> = ({ name, unlocked, skill, subskill, image, activity }) => {
 
 	const { activityName, changeActivity, stopActivity } = useActivityStore()
 
@@ -24,7 +28,7 @@ const Activity: FC<ActivityProps> = ({ name, unlocked, activity }) => {
 			}}>
 
 			<Image
-				src='assets/temp_tree.png'
+				src={`assets/skills/${skill}/${subskill}/${image}.png`}
 				alt={name}
 				width={170}
 			/>

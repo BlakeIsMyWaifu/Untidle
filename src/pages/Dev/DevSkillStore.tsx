@@ -1,5 +1,5 @@
 import { Autocomplete, Button, Group, NumberInput, Table } from '@mantine/core'
-import { SkillList } from 'data/skills'
+import { AllSubskillList, SkillList } from 'data/skills'
 import { FC, Fragment, useRef, useState } from 'react'
 import { Skill, initialSkillState, useSkillStore } from 'state/useSkillStore'
 
@@ -72,7 +72,7 @@ const DevSkillStore: FC = () => {
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						if (!Object.keys((skillStore as Record<string, any>)[selectedSkill] ?? {}).includes(subskillRef.current?.value ?? '')) return
 						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						skillStore.addXp(+(amountRef.current?.value ?? 0), selectedSkill as any, subskillRef.current?.value)
+						skillStore.addXp(+(amountRef.current?.value ?? 0), selectedSkill as any, subskillRef.current?.value as (AllSubskillList | undefined))
 					}}
 				>Add xp</Button>
 			</Group>
