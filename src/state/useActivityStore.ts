@@ -1,4 +1,5 @@
 import { AllSubskillList, SkillList } from 'data/skills'
+import { randomNum } from 'utils/randomNum'
 import create, { StateCreator } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -7,25 +8,27 @@ import { storage } from './storage'
 import { useItemStore } from './useItemStore'
 import { useSkillStore } from './useSkillStore'
 
+interface Reward {
+	method?: () => void;
+	addXp?: {
+		amount: number;
+		skill: SkillList;
+		subskill: AllSubskillList;
+	};
+	addItem?: {
+		materials?: {
+			name: string;
+			amount: number | [number, number];
+		}[];
+		equipment?: [];
+	};
+}
+
 interface ActivityStateSlice {
 	active: boolean;
 	activityName: string | null;
 	intervalTime: number;
-	reward: {
-		method?: () => void;
-		addXp?: {
-			amount: number;
-			skill: SkillList;
-			subskill: AllSubskillList;
-		};
-		addItem?: {
-			materials?: {
-				name: string;
-				amount: number;
-			}[];
-			equipment?: [];
-		};
-	};
+	reward: Reward;
 }
 
 const initialActivityState: ActivityStateSlice = {
@@ -42,20 +45,7 @@ const createActivityStateSlice: StateCreator<ActivityStore, [ZustandPersist], []
 export interface ChangeActivityData {
 	activityName: string;
 	intervalTime: number;
-	reward: {
-		method?: () => void;
-		addXp?: {
-			amount: number;
-			skill: SkillList;
-			subskill: AllSubskillList;
-		};
-		addItem?: {
-			materials: {
-				name: string;
-				amount: number;
-			}[];
-		};
-	};
+	reward: Reward;
 }
 
 interface ActivityActionSlice {
@@ -66,7 +56,7 @@ interface ActivityActionSlice {
 
 const createActivityActionSlice: StateCreator<ActivityStore, [ZustandPersist], [], ActivityActionSlice> = (set, get) => ({
 	changeActivity: ({ activityName, intervalTime, reward }) => {
-		const { method, addXp, addItem } = reward
+		const { method, addXp, addItem } = (reward ?? {})
 		set({
 			active: true,
 			activityName,
@@ -121,7 +111,10 @@ const createActivityActionSlice: StateCreator<ActivityStore, [ZustandPersist], [
 			const itemStore = useItemStore.getState()
 			const { materials } = addItem
 			materials?.forEach(material => {
-				itemStore.addMaterials(material.name, material.amount)
+				const amount = Array.isArray(material.amount)
+					? randomNum(material.amount[1], material.amount[0])
+					: material.amount
+				itemStore.addMaterials(material.name, amount)
 			})
 		}
 	}
