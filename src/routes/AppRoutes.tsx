@@ -3,6 +3,8 @@ import { Route, Routes } from 'react-router'
 
 const Home = lazy(() => import('pages/Home'))
 
+const Storage = lazy(() => import('pages/Storage/Storage'))
+
 const Agriculture = lazy(() => import('pages/Agriculture'))
 const Alchemy = lazy(() => import('pages/Alchemy'))
 const Arcane = lazy(() => import('pages/Arcane'))
@@ -27,6 +29,7 @@ const AppRoutes: FC = () => {
 	return (
 		<Routes>
 			<Route path='/' element={<Home />} />
+			<Route path='/storage' element={<Storage />} />
 			<Route path='/agriculture' element={<Agriculture />} />
 			<Route path='/alchemy' element={<Alchemy />} />
 			<Route path='/arcane' element={<Arcane />} />
