@@ -2,7 +2,7 @@ import { Group, Text } from '@mantine/core'
 import { FC } from 'react'
 import { useSettingsStore } from 'state/useSettingsStore'
 
-const DevSettingsStore: FC = () => {
+const SettingsSection: FC = () => {
 
 	const { theme } = useSettingsStore()
 
@@ -13,4 +13,4 @@ const DevSettingsStore: FC = () => {
 	)
 }
 
-export default DevSettingsStore
+export default SettingsSection

@@ -3,7 +3,7 @@ import { SkillList, SubskillList } from 'data/skills'
 import { FC, SVGAttributes } from 'react'
 import { SkillStats, useSkillStore } from 'state/useSkillStore'
 import { capitalise } from 'utils/capitalise'
-import { round } from 'utils/round'
+import { round } from 'utils/maths'
 
 const iconSize = 60
 
