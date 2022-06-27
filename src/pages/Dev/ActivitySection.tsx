@@ -2,7 +2,7 @@ import { Box, Button, Group, Stack, Text } from '@mantine/core'
 import { FC } from 'react'
 import { useActivityStore } from 'state/useActivityStore'
 
-const DevActivityStore: FC = () => {
+const ActivitySection: FC = () => {
 
 	const { active, activityName, intervalTime, reward, changeActivity, stopActivity } = useActivityStore()
 
@@ -72,4 +72,4 @@ const DevActivityStore: FC = () => {
 	)
 }
 
-export default DevActivityStore
+export default ActivitySection

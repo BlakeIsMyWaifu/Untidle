@@ -3,7 +3,7 @@ import { AllSubskillList, SkillList } from 'data/skills'
 import { FC, Fragment, useRef, useState } from 'react'
 import { Skill, initialSkillState, useSkillStore } from 'state/useSkillStore'
 
-const DevSkillStore: FC = () => {
+const SkillSection: FC = () => {
 
 	const skillStore = useSkillStore()
 
@@ -97,4 +97,4 @@ const DevSkillStore: FC = () => {
 	)
 }
 
-export default DevSkillStore
+export default SkillSection

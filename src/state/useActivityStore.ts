@@ -1,5 +1,5 @@
 import { AllSubskillList, SkillList } from 'data/skills'
-import { randomNum } from 'utils/randomNum'
+import { randomNum } from 'utils/maths'
 import create, { StateCreator } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -114,7 +114,7 @@ const createActivityActionSlice: StateCreator<ActivityStore, [ZustandPersist], [
 				const amount = Array.isArray(material.amount)
 					? randomNum(material.amount[1], material.amount[0])
 					: material.amount
-				itemStore.addMaterials(material.name, amount)
+				itemStore.addMaterial(material.name, amount)
 			})
 		}
 	}

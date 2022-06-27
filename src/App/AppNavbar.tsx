@@ -9,6 +9,7 @@ interface AppNavbarProps {
 const AppNavbar: FC<AppNavbarProps> = ({ navbarOpened }) => {
 
 	const skills = [
+		'Storage', // TODO Add sections on the navbar
 		'Agriculture',
 		'Alchemy',
 		'Arcane',
