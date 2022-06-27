@@ -5,6 +5,7 @@ import { Egg, Flower, Growth, Plant2 } from 'tabler-icons-react'
 
 import Farming from './Farming'
 import Horticulture from './Horticulture'
+import Ranching from './Ranching'
 
 const Agriculture: FC = () => {
 	return (
@@ -36,6 +37,7 @@ const Agriculture: FC = () => {
 
 			<Farming />
 			<Horticulture />
+			<Ranching />
 		</Box>
 	)
 }
