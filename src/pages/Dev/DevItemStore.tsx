@@ -1,5 +1,5 @@
 import { Autocomplete, Box, Button, Group, NumberInput, Text } from '@mantine/core'
-import { materials } from 'data/items/materials'
+import { materialList } from 'data/items/materials'
 import { FC, useRef } from 'react'
 import { useItemStore } from 'state/useItemStore'
 
@@ -18,7 +18,7 @@ const DevItemStore: FC = () => {
 				<Autocomplete
 					label='Item'
 					placeholder='Item'
-					data={Object.keys(materials)}
+					data={materialList}
 					ref={itemRef}
 				/>
 
@@ -35,7 +35,7 @@ const DevItemStore: FC = () => {
 
 				<Button variant='default' onClick={() => {
 					itemStore.removeMaterial(itemRef.current?.value ?? '', +(amountRef.current?.value ?? 1))
-				}}>Reset Item</Button>
+				}}>Remove Item</Button>
 
 				<Button variant='default' onClick={() => {
 					itemStore.reset()
