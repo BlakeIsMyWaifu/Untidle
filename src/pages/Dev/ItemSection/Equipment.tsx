@@ -1,7 +1,9 @@
 import { Box, Button, Group, NumberInput, Text, Title } from '@mantine/core'
 import { Equipment as EquipmentType } from 'data/items/equipment'
+import { Rarity } from 'data/items/items'
 import { FC, useRef } from 'react'
 import { useItemStore } from 'state/useItemStore'
+import { randomArrayElement } from 'utils/randomElement'
 
 const Equipment: FC = () => {
 
@@ -18,8 +20,8 @@ const Equipment: FC = () => {
 				<Button variant='default' onClick={() => {
 					const equipment: EquipmentType = {
 						name: 'test',
-						image: '',
-						rarity: 'common',
+						image: 'temp_sword',
+						rarity: randomArrayElement<Rarity>(['common', 'rare', 'epic', 'legendary', 'mythic', 'rainbow']),
 						category: 'sword',
 						stats: {}
 					}
