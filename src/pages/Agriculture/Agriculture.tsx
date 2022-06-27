@@ -3,11 +3,10 @@ import SkillCard from 'components/SkillCard'
 import { FC } from 'react'
 import { Egg, Flower, Growth, Plant2 } from 'tabler-icons-react'
 
+import Farming from './Farming'
+
 const Agriculture: FC = () => {
 	return (
-		// <h1>
-		// 	Agriculture
-		// </h1>
 		<Box>
 			<Title order={1} m='x1'>Agriculture</Title>
 
@@ -34,7 +33,7 @@ const Agriculture: FC = () => {
 				/>
 			</Group>
 
-			<Agriculture />
+			<Farming />
 		</Box>
 	)
 }
