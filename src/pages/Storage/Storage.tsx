@@ -8,6 +8,7 @@ import Item from './Item'
 const Storage: FC = () => {
 
 	const materials = useItemStore(state => state.materials)
+	const equipments = useItemStore(state => state.equipments)
 
 	return (
 		<Box>
@@ -27,6 +28,16 @@ const Storage: FC = () => {
 							itemType='material'
 							itemData={material}
 							amount={amount}
+						/>
+					})
+				}
+				{
+					Object.values(equipments).map((equipment, i) => {
+						return <Item
+							key={i}
+							itemType='equipment'
+							itemData={equipment}
+							amount={1}
 						/>
 					})
 				}
