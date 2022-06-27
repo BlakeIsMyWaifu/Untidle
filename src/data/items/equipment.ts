@@ -6,4 +6,4 @@ export interface Equipment extends Item {
 }
 
 type EquipmentCategory =
-	| 'Sword'
+	| 'sword'

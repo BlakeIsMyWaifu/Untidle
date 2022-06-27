@@ -2,18 +2,18 @@ import { Accordion, AccordionItem, Box, Title } from '@mantine/core'
 import { FC } from 'react'
 import { capitalise } from 'utils/capitalise'
 
-import DevActivityStore from './DevActivityStore'
-import DevItemStore from './DevItemStore'
-import DevSettingsStore from './DevSettingsStore'
-import DevSkillStore from './DevSkillStore'
+import ActivitySection from './ActivitySection'
+import ItemSection from './ItemSection/ItemSection'
+import SettingsSection from './SettingsSection'
+import SkillSection from './SkillSection'
 
 const Dev: FC = () => {
 
 	const stores: Record<string, FC> = {
-		skill: DevSkillStore,
-		settings: DevSettingsStore,
-		item: DevItemStore,
-		activity: DevActivityStore
+		skill: SkillSection,
+		settings: SettingsSection,
+		item: ItemSection,
+		activity: ActivitySection
 	}
 
 	return (

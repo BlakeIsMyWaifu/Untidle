@@ -1,11 +1,11 @@
-import { Autocomplete, Box, Button, Group, NumberInput, Text } from '@mantine/core'
+import { Autocomplete, Box, Button, Group, NumberInput, Text, Title } from '@mantine/core'
 import { materialList } from 'data/items/materials'
 import { FC, useRef } from 'react'
 import { useItemStore } from 'state/useItemStore'
 
-const DevItemStore: FC = () => {
+const Materials: FC = () => {
 
-	const itemStore = useItemStore()
+	const { addMaterial, removeMaterial, resetMaterials, materials } = useItemStore()
 
 	const itemRef = useRef<HTMLInputElement>(null)
 	const amountRef = useRef<HTMLInputElement>(null)
@@ -13,8 +13,9 @@ const DevItemStore: FC = () => {
 	return (
 		<Box>
 
-			<Group p='md' align='end'>
+			<Title order={3}>Materials</Title>
 
+			<Group p='md' align='end'>
 				<Autocomplete
 					label='Item'
 					placeholder='Item'
@@ -30,25 +31,24 @@ const DevItemStore: FC = () => {
 				/>
 
 				<Button variant='default' onClick={() => {
-					itemStore.addMaterials(itemRef.current?.value ?? '', +(amountRef.current?.value ?? 1))
+					addMaterial(itemRef.current?.value ?? '', +(amountRef.current?.value ?? 1))
 				}}>Add Item</Button>
 
 				<Button variant='default' onClick={() => {
-					itemStore.removeMaterial(itemRef.current?.value ?? '', +(amountRef.current?.value ?? 1))
+					removeMaterial(itemRef.current?.value ?? '', +(amountRef.current?.value ?? 1))
 				}}>Remove Item</Button>
 
-				<Button variant='default' onClick={() => {
-					itemStore.reset()
-				}}>Reset</Button>
-
+				<Button variant='default' onClick={resetMaterials}>Reset Materials</Button>
 			</Group>
 
 			<Group>
-				<Text>{JSON.stringify(itemStore.materials)}</Text>
+				<Text style={{
+					whiteSpace: 'pre-wrap'
+				}}>{JSON.stringify(materials, null, 4)}</Text>
 			</Group>
 
 		</Box>
 	)
 }
 
-export default DevItemStore
+export default Materials

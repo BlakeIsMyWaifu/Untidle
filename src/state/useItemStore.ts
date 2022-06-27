@@ -1,5 +1,6 @@
 import { Equipment } from 'data/items/equipment'
 import { MaterialList } from 'data/items/materials'
+import { findNextNum } from 'utils/maths'
 import create, { StateCreator } from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -8,12 +9,12 @@ import { storage } from './storage'
 
 interface ItemStateSlice {
 	materials: Record<string, number>;
-	equipments: Equipment[];
+	equipments: Record<string, Equipment>;
 }
 
 const initialItemState: ItemStateSlice = {
 	materials: {},
-	equipments: []
+	equipments: {}
 }
 
 type ItemStore = ItemStateSlice & ItemActionSlice
@@ -21,14 +22,17 @@ type ItemStore = ItemStateSlice & ItemActionSlice
 const createItemStateSlice: StateCreator<ItemStore, [ZustandPersist], [], ItemStateSlice> = () => initialItemState
 
 interface ItemActionSlice {
-	addMaterials: (material: MaterialList, amount: number) => void;
+	addMaterial: (material: MaterialList, amount: number) => void;
 	removeMaterial: (material: MaterialList, amount: number) => void;
+	resetMaterials: () => void;
+
 	addEquipment: (equipment: Equipment) => void;
-	reset: () => void;
+	removeEquipment: (equipmentId: number) => void;
+	resetEquipment: () => void;
 }
 
-const createItemActionSlice: StateCreator<ItemStore, [ZustandPersist], [], ItemActionSlice> = set => ({
-	addMaterials: (material: MaterialList, amount: number) => {
+const createItemActionSlice: StateCreator<ItemStore, [ZustandPersist], [], ItemActionSlice> = (set, get) => ({
+	addMaterial: (material: MaterialList, amount: number) => {
 		set(state => ({
 			materials: {
 				...state.materials,
@@ -44,15 +48,29 @@ const createItemActionSlice: StateCreator<ItemStore, [ZustandPersist], [], ItemA
 			}
 		}))
 	},
+	resetMaterials: () => {
+		set({
+			materials: {}
+		})
+	},
+
 	addEquipment: equipment => {
+		const nextNum = findNextNum(Object.keys(get().equipments))
 		set(state => ({
-			equipments: [...state.equipments, equipment]
+			equipments: {
+				...state.equipments,
+				[nextNum]: equipment
+			}
 		}))
 	},
-	reset: () => {
+	removeEquipment: equipmentId => {
+		const equipment = { ...get().equipments }
+		delete equipment[equipmentId]
+		set(() => ({ equipments: equipment }))
+	},
+	resetEquipment: () => {
 		set({
-			materials: {},
-			equipments: []
+			equipments: {}
 		})
 	}
 })
