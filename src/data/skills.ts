@@ -3,7 +3,7 @@ export interface Skills {
 	alchemy: ['buffs', 'healing', 'debuffs'];
 	arcane: ['runecrafting', 'summoning', 'enchanting'];
 	architecture: ['masonry', 'guilds', 'carpentry'];
-	artificer: ['crafting', 'fletching'];
+	artificer: ['crafting', 'jewelcrafting', 'fletching'];
 	astronomy: ['stargazing', 'devotion'];
 	culinary: [];
 	dungeoneering: [];
@@ -12,7 +12,7 @@ export interface Skills {
 	hunter: ['marksman', 'assassination'];
 	mining: ['quarrying', 'spelunking'];
 	slayer: [];
-	smithing: ['armoury', 'jewelcrafting', 'weaponry'];
+	smithing: ['metallurgy', 'armoury', 'weaponry'];
 	sorcery: ['elemental', 'chaos'];
 	strength: ['berserker', 'guardian'];
 	survival: ['woodcutting', 'firemaking', 'foraging'];
@@ -23,7 +23,7 @@ export const skills: Skills = {
 	alchemy: ['buffs', 'healing', 'debuffs'],
 	arcane: ['runecrafting', 'summoning', 'enchanting'],
 	architecture: ['masonry', 'guilds', 'carpentry'],
-	artificer: ['crafting', 'fletching'],
+	artificer: ['crafting', 'jewelcrafting', 'fletching'],
 	astronomy: ['stargazing', 'devotion'],
 	culinary: [],
 	dungeoneering: [],
@@ -32,7 +32,7 @@ export const skills: Skills = {
 	hunter: ['marksman', 'assassination'],
 	mining: ['quarrying', 'spelunking'],
 	slayer: [],
-	smithing: ['armoury', 'jewelcrafting', 'weaponry'],
+	smithing: ['metallurgy', 'armoury', 'weaponry'],
 	sorcery: ['elemental', 'chaos'],
 	strength: ['berserker', 'guardian'],
 	survival: ['woodcutting', 'firemaking', 'foraging']

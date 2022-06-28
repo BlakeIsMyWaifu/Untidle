@@ -1,8 +1,10 @@
-import { Box, Group, Title } from '@mantine/core'
-import SkillCard from 'components/SkillCard'
+import { Box, Title } from '@mantine/core'
+import SkillCards from 'components/SkillCards'
 import { FC } from 'react'
 import { ChristmasTree, Flame, Seeding, Trees } from 'tabler-icons-react'
 
+import Firemaking from './Firemaking'
+import Foraging from './Foraging'
 import Woodcutting from './Woodcutting'
 
 const Survival: FC = () => {
@@ -10,30 +12,18 @@ const Survival: FC = () => {
 		<Box>
 			<Title order={1} m='xl'>Survival</Title>
 
-			<Group position='center'>
-				<SkillCard
-					skillName='survival'
-					subskillName='main'
-					Icon={ChristmasTree}
-				/>
-				<SkillCard
-					skillName='survival'
-					subskillName='woodcutting'
-					Icon={Trees}
-				/>
-				<SkillCard
-					skillName='survival'
-					subskillName='firemaking'
-					Icon={Flame}
-				/>
-				<SkillCard
-					skillName='survival'
-					subskillName='foraging'
-					Icon={Seeding}
-				/>
-			</Group>
+			<SkillCards skill='survival' subskills={{
+				main: ChristmasTree,
+				woodcutting: Trees,
+				firemaking: Flame,
+				foraging: Seeding
+			}} />
 
 			<Woodcutting />
+
+			<Firemaking />
+
+			<Foraging />
 		</Box>
 	)
 }

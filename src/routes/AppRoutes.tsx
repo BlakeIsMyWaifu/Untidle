@@ -3,9 +3,9 @@ import { Route, Routes } from 'react-router'
 
 const Home = lazy(() => import('pages/Home'))
 
-const Storage = lazy(() => import('pages/Storage/Storage'))
+const Storage = lazy(() => import('pages/Storage'))
 
-const Agriculture = lazy(() => import('pages/Agriculture/Agriculture'))
+const Agriculture = lazy(() => import('pages/Agriculture'))
 const Alchemy = lazy(() => import('pages/Alchemy'))
 const Arcane = lazy(() => import('pages/Arcane'))
 const Architecture = lazy(() => import('pages/Architecture'))
@@ -21,9 +21,9 @@ const Slayer = lazy(() => import('pages/Slayer'))
 const Smithing = lazy(() => import('pages/Smithing'))
 const Sorcery = lazy(() => import('pages/Sorcery'))
 const Strength = lazy(() => import('pages/Strength'))
-const Survival = lazy(() => import('pages/Survival/Survival'))
+const Survival = lazy(() => import('pages/Survival'))
 
-const Dev = lazy(() => import('pages/Dev/Dev'))
+const Dev = lazy(() => import('pages/Dev'))
 
 const AppRoutes: FC = () => {
 	return (

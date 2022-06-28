@@ -45,6 +45,7 @@ export const initialSkillState: SkillStateSlice = {
 	artificer: {
 		main: { xp: 0, level: 1, xpNeeded: 82 },
 		crafting: { xp: 0, level: 1, xpNeeded: 82 },
+		jewelcrafting: { xp: 0, level: 1, xpNeeded: 82 },
 		fletching: { xp: 0, level: 1, xpNeeded: 82 }
 	},
 	astronomy: {
@@ -81,8 +82,8 @@ export const initialSkillState: SkillStateSlice = {
 	},
 	smithing: {
 		main: { xp: 0, level: 1, xpNeeded: 82 },
+		metallurgy: { xp: 0, level: 1, xpNeeded: 82 },
 		armoury: { xp: 0, level: 1, xpNeeded: 82 },
-		jewelcrafting: { xp: 0, level: 1, xpNeeded: 82 },
 		weaponry: { xp: 0, level: 1, xpNeeded: 82 }
 	},
 	sorcery: {

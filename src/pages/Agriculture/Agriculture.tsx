@@ -1,5 +1,5 @@
-import { Box, Group, Title }from '@mantine/core'
-import SkillCard from 'components/SkillCard'
+import { Box, Title } from '@mantine/core'
+import SkillCards from 'components/SkillCards'
 import { FC } from 'react'
 import { Egg, Flower, Growth, Plant2 } from 'tabler-icons-react'
 
@@ -12,31 +12,17 @@ const Agriculture: FC = () => {
 		<Box>
 			<Title order={1} m='x1'>Agriculture</Title>
 
-			<Group position='center'>
-				<SkillCard
-					skillName='agriculture'
-					subskillName='main'
-					Icon={Growth}
-				/>
-				<SkillCard
-					skillName='agriculture'
-					subskillName='farming'
-					Icon={Plant2}
-				/>
-				<SkillCard
-					skillName='agriculture'
-					subskillName='horticulture'
-					Icon={Flower}
-				/>
-				<SkillCard
-					skillName='agriculture'
-					subskillName='ranching'
-					Icon={Egg}
-				/>
-			</Group>
+			<SkillCards skill='agriculture' subskills={{
+				main: Growth,
+				farming: Plant2,
+				horticulture: Flower,
+				ranching: Egg
+			}} />
 
 			<Farming />
+
 			<Horticulture />
+
 			<Ranching />
 		</Box>
 	)
