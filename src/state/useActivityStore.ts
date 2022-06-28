@@ -1,12 +1,14 @@
 import { AllSubskillList, SkillList } from 'data/skills'
+import { Slice } from 'types/zustand'
 import { randomNum } from 'utils/maths'
-import create, { StateCreator } from 'zustand'
+import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { ZustandPersist } from './commonTypes'
 import { storage } from './storage'
 import { useItemStore } from './useItemStore'
 import { useSkillStore } from './useSkillStore'
+
+type ActivityStore = ActivityStateSlice & ActivityActionSlice
 
 interface Reward {
 	method?: () => void;
@@ -38,9 +40,7 @@ const initialActivityState: ActivityStateSlice = {
 	reward: {}
 }
 
-type ActivityStore = ActivityStateSlice & ActivityActionSlice
-
-const createActivityStateSlice: StateCreator<ActivityStore, [ZustandPersist], [], ActivityStateSlice> = () => initialActivityState
+const createActivityStateSlice: Slice<ActivityStore, ActivityStateSlice> = () => initialActivityState
 
 export interface ChangeActivityData {
 	activityName: string;
@@ -54,7 +54,7 @@ interface ActivityActionSlice {
 	runActivity: () => void;
 }
 
-const createActivityActionSlice: StateCreator<ActivityStore, [ZustandPersist], [], ActivityActionSlice> = (set, get) => ({
+const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (set, get) => ({
 	changeActivity: ({ activityName, intervalTime, reward }) => {
 		const { method, addXp, addItem } = (reward ?? {})
 		set({

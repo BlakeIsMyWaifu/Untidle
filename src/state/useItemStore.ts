@@ -1,11 +1,13 @@
 import { Equipment } from 'data/items/equipment'
 import { MaterialList } from 'data/items/materials'
 import { findNextNum } from 'utils/maths'
-import create, { StateCreator } from 'zustand'
+import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { ZustandPersist } from './commonTypes'
+import { Slice } from '../types/zustand'
 import { storage } from './storage'
+
+type ItemStore = ItemStateSlice & ItemActionSlice
 
 interface ItemStateSlice {
 	materials: Record<string, number>;
@@ -17,9 +19,7 @@ const initialItemState: ItemStateSlice = {
 	equipments: {}
 }
 
-type ItemStore = ItemStateSlice & ItemActionSlice
-
-const createItemStateSlice: StateCreator<ItemStore, [ZustandPersist], [], ItemStateSlice> = () => initialItemState
+const createItemStateSlice: Slice<ItemStore, ItemStateSlice> = () => initialItemState
 
 interface ItemActionSlice {
 	addMaterial: (material: MaterialList, amount: number) => void;
@@ -31,7 +31,7 @@ interface ItemActionSlice {
 	resetEquipment: () => void;
 }
 
-const createItemActionSlice: StateCreator<ItemStore, [ZustandPersist], [], ItemActionSlice> = (set, get) => ({
+const createItemActionSlice: Slice<ItemStore, ItemActionSlice> = (set, get) => ({
 	addMaterial: (material: MaterialList, amount: number) => {
 		set(state => ({
 			materials: {
