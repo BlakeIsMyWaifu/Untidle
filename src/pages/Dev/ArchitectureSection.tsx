@@ -1,14 +1,23 @@
-import { Box, Button, Group, SimpleGrid, Stack, Table, Text, Title } from '@mantine/core'
+import { Badge, Box, Button, Group, SimpleGrid, Stack, Table, Text, Title } from '@mantine/core'
+import { BuildingTypes } from 'data/buildings/building'
 import { GuildList } from 'data/buildings/guilds'
 import { UniqueList } from 'data/buildings/unique'
-import { FC } from 'react'
-import { useArchitectureStore } from 'state/useArchitecture'
+import { FC, useCallback } from 'react'
+import { useArchitectureStore } from 'state/useArchitectureStore'
+import { useItemStore } from 'state/useItemStore'
+import { hasUpgradeCost } from 'utils/hasCost'
 
 const ArchitectureSection: FC = () => {
 
-	const { population, unique, upgradeUnique, resetUnique, resetAllUniques, guild, upgradeGuild, resetGuild, resetAllGuilds } = useArchitectureStore()
+	const {
+		population,
+		unique, upgradeUnique, resetUnique, resetAllUniques,
+		guild, upgradeGuild, resetGuild, resetAllGuilds
+	} = useArchitectureStore()
 
-	const buildingTable = (type: 'unique' | 'guild', buildingList: Record<string, number>): JSX.Element => {
+	const materials = useItemStore(state => state.materials)
+
+	const buildingsTable = useCallback((type: BuildingTypes, buildingList: Record<string, number>): JSX.Element => {
 		return <Table highlightOnHover>
 			<thead>
 				<tr>
@@ -16,6 +25,7 @@ const ArchitectureSection: FC = () => {
 					<th>Level</th>
 					<th>Upgrade</th>
 					<th>Reset</th>
+					<th>Has Cost</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -46,12 +56,14 @@ const ArchitectureSection: FC = () => {
 										resetGuild(buildingName as GuildList)
 									}
 								}}>Reset</Button></td>
+							<td><Badge color={hasUpgradeCost(type, buildingName as UniqueList) ? 'green' : 'red'}>Cost</Badge></td>
 						</tr>
 					})
 				}
 			</tbody>
 		</Table>
-	}
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [resetGuild, resetUnique, upgradeGuild, upgradeUnique, materials])
 
 	return (
 		<Box>
@@ -70,7 +82,7 @@ const ArchitectureSection: FC = () => {
 							onClick={resetAllUniques}
 						>Reset All</Button>
 					</Group>
-					{buildingTable('unique', unique)}
+					{buildingsTable('unique', unique)}
 				</Box>
 
 				<Box>
@@ -82,7 +94,7 @@ const ArchitectureSection: FC = () => {
 							onClick={resetAllGuilds}
 						>Reset All</Button>
 					</Group>
-					{buildingTable('guild', guild)}
+					{buildingsTable('guild', guild)}
 				</Box>
 			</SimpleGrid>
 		</Box>

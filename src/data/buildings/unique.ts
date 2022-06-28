@@ -9,16 +9,16 @@ export type UniqueList =
 	| 'museum'
 	| 'slayer master'
 
-export const unique: ImmutableObject<Record<UniqueList, Unique>> = {
+export const uniqueData: ImmutableObject<Record<UniqueList, Unique>> = {
 	storage: {
 		name: 'storage',
 		startingLevel: 1,
 		maxLevel: 5,
 		upgradeCost: {
-			2: { gold: 0, materials: {} },
-			3: { gold: 0, materials: {} },
-			4: { gold: 0, materials: {} },
-			5: { gold: 0, materials: {} }
+			2: { gold: 0, materials: { stone: 20 } },
+			3: { gold: 0, materials: { stone: 30 } },
+			4: { gold: 0, materials: { stone: 40 } },
+			5: { gold: 0, materials: { stone: 50 } }
 		}
 	},
 	museum: {
@@ -26,11 +26,11 @@ export const unique: ImmutableObject<Record<UniqueList, Unique>> = {
 		startingLevel: 0,
 		maxLevel: 5,
 		upgradeCost: {
-			1: { gold: 0, materials: {} },
-			2: { gold: 0, materials: {} },
-			3: { gold: 0, materials: {} },
-			4: { gold: 0, materials: {} },
-			5: { gold: 0, materials: {} }
+			1: { gold: 0, materials: { stone: 10 } },
+			2: { gold: 0, materials: { stone: 20 } },
+			3: { gold: 0, materials: { stone: 30 } },
+			4: { gold: 0, materials: { stone: 40 } },
+			5: { gold: 0, materials: { stone: 50 } }
 		}
 	},
 	'slayer master': {
@@ -38,11 +38,11 @@ export const unique: ImmutableObject<Record<UniqueList, Unique>> = {
 		startingLevel: 0,
 		maxLevel: 5,
 		upgradeCost: {
-			1: { gold: 0, materials: {} },
-			2: { gold: 0, materials: {} },
-			3: { gold: 0, materials: {} },
-			4: { gold: 0, materials: {} },
-			5: { gold: 0, materials: {} }
+			1: { gold: 0, materials: { stone: 10 } },
+			2: { gold: 0, materials: { stone: 20 } },
+			3: { gold: 0, materials: { stone: 30 } },
+			4: { gold: 0, materials: { stone: 40 } },
+			5: { gold: 0, materials: { stone: 50 } }
 		}
 	}
 }

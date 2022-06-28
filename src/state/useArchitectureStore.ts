@@ -1,10 +1,13 @@
-import { GuildList, guilds } from 'data/buildings/guilds'
-import { UniqueList, unique } from 'data/buildings/unique'
+import { getBuildingUpgradeCost } from 'data/buildings/building'
+import { GuildList, guildData } from 'data/buildings/guilds'
+import { UniqueList, uniqueData } from 'data/buildings/unique'
+import { hasUpgradeCost } from 'utils/hasCost'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { Slice } from '../types/zustand'
 import { storage } from './storage'
+import { useItemStore } from './useItemStore'
 
 type ArchitectureStore = ArchitectureStateSlice & ArchitectureActionSlice
 
@@ -23,9 +26,9 @@ const initialArchitectureState: ArchitectureStateSlice = {
 		max: 0
 	},
 	unique: {
-		storage: unique.storage.startingLevel,
-		museum: unique.museum.startingLevel,
-		'slayer master': unique['slayer master'].startingLevel
+		storage: uniqueData.storage.startingLevel,
+		museum: uniqueData.museum.startingLevel,
+		'slayer master': uniqueData['slayer master'].startingLevel
 	},
 	guild: {
 		temp: 0
@@ -46,6 +49,19 @@ interface ArchitectureActionSlice {
 
 const createArchitectureActionSlice: Slice<ArchitectureStore, ArchitectureActionSlice> = set => ({
 	upgradeUnique: building => {
+		const hasCost = hasUpgradeCost('unique', building)
+		if (!hasCost) return
+
+		const { materials } = getBuildingUpgradeCost('unique', building)
+
+		const { removeMaterial } = useItemStore.getState()
+
+		Object.entries(materials ?? {}).map(([material, amount]) => {
+			removeMaterial(material, amount)
+		})
+
+		// TODO remove gold
+
 		set(state => ({
 			unique: {
 				...state.unique,
@@ -57,7 +73,7 @@ const createArchitectureActionSlice: Slice<ArchitectureStore, ArchitectureAction
 		set(state => ({
 			unique: {
 				...state.unique,
-				[building]: unique[building].startingLevel
+				[building]: uniqueData[building].startingLevel
 			}
 		}))
 	},
@@ -66,6 +82,17 @@ const createArchitectureActionSlice: Slice<ArchitectureStore, ArchitectureAction
 	},
 
 	upgradeGuild: building => {
+		const hasCost = hasUpgradeCost('guild', building)
+		if (!hasCost) return
+
+		const { materials } = getBuildingUpgradeCost('guild', building)
+
+		const { removeMaterial } = useItemStore.getState()
+
+		Object.entries(materials ?? {}).map(([material, amount]) => {
+			removeMaterial(material, amount)
+		})
+
 		set(state => ({
 			guild: {
 				...state.guild,
@@ -77,7 +104,7 @@ const createArchitectureActionSlice: Slice<ArchitectureStore, ArchitectureAction
 		set(state => ({
 			guild: {
 				...state.guild,
-				[building]: guilds[building].startingLevel
+				[building]: guildData[building].startingLevel
 			}
 		}))
 	},
