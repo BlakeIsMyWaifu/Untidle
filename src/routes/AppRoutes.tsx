@@ -5,7 +5,7 @@ const Home = lazy(() => import('pages/Home'))
 
 const Storage = lazy(() => import('pages/Storage/Storage'))
 
-const Agriculture = lazy(() => import('pages/Agriculture'))
+const Agriculture = lazy(() => import('pages/Agriculture/Agriculture'))
 const Alchemy = lazy(() => import('pages/Alchemy'))
 const Arcane = lazy(() => import('pages/Arcane'))
 const Architecture = lazy(() => import('pages/Architecture'))
