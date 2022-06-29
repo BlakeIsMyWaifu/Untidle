@@ -4,7 +4,7 @@ import { useActivityStore } from 'state/useActivityStore'
 
 const ActivitySection: FC = () => {
 
-	const { active, activityName, intervalTime, reward, changeActivity, stopActivity } = useActivityStore()
+	const { active, activityName, intervalTime, reward, cost, changeActivity, stopActivity } = useActivityStore()
 
 	return (
 		<Box>
@@ -62,8 +62,13 @@ const ActivitySection: FC = () => {
 				</Stack>
 
 				<Stack ml='xl'>
-					<Group>
-						{JSON.stringify(reward)}
+					<Group position='apart'>
+						<Text style={{
+							whiteSpace: 'pre-wrap'
+						}}>{JSON.stringify(reward, null, 4)}</Text>
+						<Text style={{
+							whiteSpace: 'pre-wrap'
+						}}>{JSON.stringify(cost, null, 4)}</Text>
 					</Group>
 				</Stack>
 			</Group>

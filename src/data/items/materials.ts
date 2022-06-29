@@ -7,7 +7,7 @@ export interface Material extends Item {
 
 export type MaterialList = keyof typeof materialData
 
-type MaterialCategory =
+export type MaterialCategory =
 	| 'system'
 	| 'wood'
 
@@ -27,3 +27,7 @@ export const getMaterial = (materialName: string): Material => {
 }
 
 export const materialList = Object.keys(materialData)
+
+export const getAllMaterialCategory = (category: MaterialCategory): Material[] => {
+	return Object.values(materialData).filter(material => material.category === category)
+}

@@ -26,18 +26,27 @@ interface Reward {
 	};
 }
 
+interface Cost {
+	materials?: {
+		name: string;
+		amount: number;
+	}[];
+	equipment?: [];
+}
 interface ActivityStateSlice {
 	active: boolean;
 	activityName: string | null;
 	intervalTime: number;
 	reward: Reward;
+	cost: Cost;
 }
 
 const initialActivityState: ActivityStateSlice = {
 	active: false,
 	activityName: null,
 	intervalTime: 0,
-	reward: {}
+	reward: {},
+	cost: {}
 }
 
 const createActivityStateSlice: Slice<ActivityStore, ActivityStateSlice> = () => initialActivityState
@@ -46,6 +55,7 @@ export interface ChangeActivityData {
 	activityName: string;
 	intervalTime: number;
 	reward: Reward;
+	cost?: Cost;
 }
 
 interface ActivityActionSlice {
@@ -55,13 +65,14 @@ interface ActivityActionSlice {
 }
 
 const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (set, get) => ({
-	changeActivity: ({ activityName, intervalTime, reward }) => {
+	changeActivity: ({ activityName, intervalTime, reward, cost }) => {
 		const { method, addXp, addItem } = (reward ?? {})
 		set({
 			active: true,
 			activityName,
 			intervalTime,
-			reward: {}
+			reward: {},
+			cost: {}
 		})
 		if (method) {
 			set(state => ({
@@ -87,16 +98,39 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 				}
 			}))
 		}
+		if (cost) {
+			set(() => ({ cost }))
+		}
 	},
 	stopActivity: () => {
 		set({
 			active: false,
 			activityName: null,
 			intervalTime: 0,
-			reward: {}
+			reward: {},
+			cost: {}
 		})
 	},
 	runActivity: () => {
+		const { cost } = get()
+
+		const itemStore = useItemStore.getState()
+
+		if (cost) {
+			const { materials } = cost
+
+			// ? might not be need with activity button checks
+			// const hasMaterials = materials?.every(({ name, amount }) => hasCost({ materials: { [name]: amount } })) ?? true
+
+			// if (!hasMaterials) {
+			// 	return get().stopActivity()
+			// }
+
+			materials?.forEach(({ name, amount }) => {
+				itemStore.removeMaterial(name, amount)
+			})
+		}
+
 		const { method, addXp, addItem } = get().reward
 
 		method?.()
@@ -107,8 +141,7 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 			skillStore.addXp(amount, skill, subskill)
 		}
 
-		if (addItem) {
-			const itemStore = useItemStore.getState()
+		if (addItem) { // TODO add equipment to reward and cost
 			const { materials } = addItem
 			materials?.forEach(material => {
 				const amount = Array.isArray(material.amount)
