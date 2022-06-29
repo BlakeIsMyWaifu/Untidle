@@ -9,7 +9,8 @@
 	"plugins": [
 		"@typescript-eslint",
 		"react",
-		"react-hooks"
+		"react-hooks",
+		"eslint-plugin-tsdoc"
 	],
 	"extends": [
 		"eslint:recommended",
@@ -97,6 +98,7 @@
 			}
 		],
 		"react-hooks/rules-of-hooks": "error",
-		"react-hooks/exhaustive-deps": "warn"
+		"react-hooks/exhaustive-deps": "warn",
+		"tsdoc/syntax": "warn"
 	}
 }

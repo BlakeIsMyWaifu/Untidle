@@ -22,12 +22,52 @@ const initialItemState: ItemStateSlice = {
 const createItemStateSlice: Slice<ItemStore, ItemStateSlice> = () => initialItemState
 
 interface ItemActionSlice {
+	/**
+	 * Adds a material to the players storage
+	 *
+	 * @param material - Name of a material to be added
+	 * @param amount - Number of the given material to be added
+	 * @returns void
+	 */
 	addMaterial: (material: MaterialList, amount: number) => void;
+
+	/**
+	 * Removes a material to the players storage
+	 *
+	 * @param material - Name of a material to be removed
+	 * @param amount - Number of the given material to be removed
+	 * @returns void
+	 */
 	removeMaterial: (material: MaterialList, amount: number) => void;
+
+	/**
+	 * Deletes **ALL** materials
+	 *
+	 * @returns void
+	 */
 	resetMaterials: () => void;
 
-	addEquipment: (equipment: Equipment) => void;
+	/**
+	 * Adds an equipment to the players storage
+	 *
+	 * @param equipment - Full equipment data not just a name
+	 * @returns void
+	 */
+	addEquipment: (equipment: Equipment) => void; // TODO return the new equipments id
+
+	/**
+	 * Removes an equipment
+	 *
+	 * @param equipmentId - Id of the equipment to be removed
+	 * @returns void
+	 */
 	removeEquipment: (equipmentId: number) => void;
+
+	/**
+	 * Deletes **ALL** equipment
+	 *
+	 * @returns void
+	 */
 	resetEquipment: () => void;
 }
 

@@ -38,6 +38,7 @@ const initialArchitectureState: ArchitectureStateSlice = {
 const createArchitectureStateSlice: Slice<ArchitectureStore, ArchitectureStateSlice> = () => initialArchitectureState
 
 interface ArchitectureActionSlice {
+	// TODO rewrite these to be generic and write docs for them
 	upgradeUnique: (building: UniqueList) => void;
 	resetUnique: (building: UniqueList) => void;
 	resetAllUniques: () => void;

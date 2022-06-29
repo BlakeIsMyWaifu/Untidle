@@ -111,9 +111,31 @@ export const initialSkillState: SkillStateSlice = {
 const createSkillStateSlice: Slice<SkillStore, SkillStateSlice> = () => initialSkillState
 
 interface SkillActionSlice {
+	/**
+	 * Adds xp to a given subskill
+	 *
+	 * 100% of the xp will be given to the subskill and in addition 50% will be given to the main skill
+	 *
+	 * @param amount - The amount of xp given
+	 * @param skill - Must be a main skill name
+	 * @param subskill - Must be a subskill name of the skill previously provided. If no subskill is given it will default to main.
+	 * @throws If the subskill given does not match the skill it will throw an error
+	 * @returns void
+	 */
 	addXp: <T extends SkillList>(amount: number, skill: T, subskill?: Subskills<T>) => void;
+
+	/**
+	 * Resets an entire skills xp including main and all subskills
+	 *
+	 * Only to be used in dev mode.
+	 * There is no reason this should be used otherwise.
+	 *
+	 * @returns void
+	 */
 	resetSkill: (skill: SkillList) => void;
 }
+
+const noSubskillDataError = new Error('No subskill data found. Make sure that the subskill given is for the correct skill!')
 
 const createSkillActionSlice: Slice<SkillStore, SkillActionSlice> = (set, get) => ({
 	addXp: (amount, skill, subskill) => {
@@ -124,7 +146,7 @@ const createSkillActionSlice: Slice<SkillStore, SkillActionSlice> = (set, get) =
 		const subskillDefined = subskill ?? 'main'
 		const subskillData = get().skills[skill][subskillDefined]
 
-		if (!subskillData) return
+		if (!subskillData) throw noSubskillDataError
 
 		set(state => ({
 			skills: {
@@ -142,7 +164,7 @@ const createSkillActionSlice: Slice<SkillStore, SkillActionSlice> = (set, get) =
 		const levelUp = <T extends SkillList>(skill: T, subskill: Subskills<T>): void => {
 
 			const updatedSubskillData = (get().skills[skill][subskill])
-			if (!updatedSubskillData) return
+			if (!updatedSubskillData) throw noSubskillDataError
 			const { xp, xpNeeded } = updatedSubskillData
 
 			if (xp >= xpNeeded) {

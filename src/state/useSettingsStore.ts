@@ -17,6 +17,11 @@ const initialSettingsState: SettingsStateSlice = {
 const createSettingsStateSlice: Slice<SettingsStore, SettingsStateSlice> = () => initialSettingsState
 
 interface SettingsActionSlice {
+	/**
+	 * Toggles the theme from light to dark mode
+	 *
+	 * @returns void
+	 */
 	toggleTheme: () => void;
 }
 
