@@ -1,4 +1,5 @@
 import { Box, Title } from '@mantine/core'
+import SkillCards from 'components/SkillCards'
 import { FC } from 'react'
 
 const Archeology: FC = () => {
