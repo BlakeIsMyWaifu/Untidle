@@ -1,10 +1,10 @@
 interface FarmingData {
     [key: string]: {
-        name: string;
+		name: string;
 		image: string;
-        xp: number;
-        intervalTime: number;
-        unlockLevel: number;
+		xp: number;
+		intervalTime: number;
+		unlockLevel: number;
     };
 }
 
