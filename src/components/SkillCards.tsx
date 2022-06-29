@@ -1,15 +1,15 @@
 import { Group } from '@mantine/core'
-import { AllSubskillList, SkillList } from 'data/skills'
+import { SkillList, SubskillList, Subskills } from 'data/skills/skills'
 import { FC } from 'react'
 
 import SubskillCard from './SubskillCard'
 
-interface SkillCardsProps {
-	skill: SkillList;
-	subskills: Partial<Record<AllSubskillList, FC>>;
+interface SkillCardsProps<T extends SkillList> {
+	skill: T;
+	subskills: Record<Subskills<T> | 'main', FC>;
 }
 
-const SkillCards: FC<SkillCardsProps> = ({ skill, subskills }) => {
+const SkillCards = <T extends SkillList,>({ skill, subskills }: SkillCardsProps<T>): JSX.Element => {
 	return (
 		<Group position='center'>
 			{
@@ -17,7 +17,7 @@ const SkillCards: FC<SkillCardsProps> = ({ skill, subskills }) => {
 					return <SubskillCard
 						key={subskillName}
 						skillName={skill}
-						subskillName={subskillName as AllSubskillList}
+						subskillName={subskillName as SubskillList}
 						Icon={Icon}
 					/>
 				})

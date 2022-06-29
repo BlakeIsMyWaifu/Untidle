@@ -1,5 +1,5 @@
 import { Autocomplete, Button, Group, NumberInput, Table } from '@mantine/core'
-import { AllSubskillList, SkillList } from 'data/skills'
+import { SkillList, SubskillList } from 'data/skills/skills'
 import { FC, Fragment, useRef, useState } from 'react'
 import { Skill, initialSkillState, useSkillStore } from 'state/useSkillStore'
 
@@ -10,7 +10,7 @@ const SkillSection: FC = () => {
 	const skillTableData = Object.entries(skillStore).map((skill, i) => {
 		if (typeof skill[1] === 'function') return <Fragment key={i} />
 
-		const [skillName, skillData]: [string, Skill<'agriculture'>] = skill
+		const [skillName, skillData]: [string, Skill] = skill
 
 		const subskills = Object.entries(skillData).map(([subskillName, subskillData], i) => {
 			return <Fragment key={i}>
@@ -54,8 +54,7 @@ const SkillSection: FC = () => {
 					ref={subskillRef}
 					label='Subskill Name'
 					placeholder='Subskill Name'
-					// eslint-disable-next-line @typescript-eslint/no-explicit-any
-					data={Object.keys((skillStore as Record<string, any>)[selectedSkill] ?? {})}
+					data={Object.keys(skillStore.skills[selectedSkill as SkillList] ?? {})}
 					limit={4}
 				/>
 				<NumberInput
@@ -69,10 +68,9 @@ const SkillSection: FC = () => {
 					variant='default'
 					onClick={() => {
 						if (!Object.keys(skillStore).includes(selectedSkill)) return
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						if (!Object.keys((skillStore as Record<string, any>)[selectedSkill] ?? {}).includes(subskillRef.current?.value ?? '')) return
-						// eslint-disable-next-line @typescript-eslint/no-explicit-any
-						skillStore.addXp(+(amountRef.current?.value ?? 0), selectedSkill as any, subskillRef.current?.value as (AllSubskillList | undefined))
+						const skill = selectedSkill as SkillList
+						if (!Object.keys(skillStore.skills[skill]).includes(subskillRef.current?.value ?? '')) return
+						skillStore.addXp(+(amountRef.current?.value ?? 0), skill, subskillRef.current?.value as (SubskillList | undefined))
 					}}
 				>Add xp</Button>
 			</Group>

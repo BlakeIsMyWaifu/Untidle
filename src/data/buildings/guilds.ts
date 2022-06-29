@@ -1,4 +1,4 @@
-import { SkillList } from 'data/skills'
+import { SkillList } from 'data/skills/skills'
 import { ImmutableObject } from 'types/immutable'
 
 import { Buildings } from './building'

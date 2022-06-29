@@ -1,4 +1,4 @@
-import { AllSubskillList, SkillList } from 'data/skills'
+import { SkillList, SubskillList } from 'data/skills/skills'
 import { Slice } from 'types/zustand'
 import { randomNum } from 'utils/maths'
 import create from 'zustand'
@@ -15,7 +15,7 @@ interface Reward {
 	addXp?: {
 		amount: number;
 		skill: SkillList;
-		subskill: AllSubskillList;
+		subskill: SubskillList;
 	};
 	addItem?: {
 		materials?: {
