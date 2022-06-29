@@ -7,7 +7,7 @@ import { storage } from './storage'
 
 type SkillStore = SkillStateSlice & SkillActionSlice
 
-export type Skill = Partial<Record<SubskillList, SkillStats>> & Record<'main', SkillStats>
+export type Skill<T extends SkillList = 'slayer'> = Partial<Record<SubskillList, SkillStats>> & Record<Subskills<T> | 'main', SkillStats>
 
 export interface SkillStats {
 	xp: number;
@@ -16,7 +16,9 @@ export interface SkillStats {
 }
 
 interface SkillStateSlice {
-	skills: Record<SkillList, Skill>;
+	skills: {
+		[K in SkillList]: Skill<K>;
+	};
 }
 
 export const initialSkillState: SkillStateSlice = {
