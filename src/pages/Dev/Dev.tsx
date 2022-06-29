@@ -3,6 +3,7 @@ import { FC } from 'react'
 import { capitalise } from 'utils/capitalise'
 
 import ActivitySection from './ActivitySection'
+import ArchitectureSection from './ArchitectureSection'
 import ItemSection from './ItemSection/ItemSection'
 import SettingsSection from './SettingsSection'
 import SkillSection from './SkillSection'
@@ -13,7 +14,8 @@ const Dev: FC = () => {
 		skill: SkillSection,
 		settings: SettingsSection,
 		item: ItemSection,
-		activity: ActivitySection
+		activity: ActivitySection,
+		architecture: ArchitectureSection
 	}
 
 	return (

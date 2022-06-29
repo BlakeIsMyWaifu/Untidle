@@ -1,7 +1,9 @@
-import { Badge, Button, Card, Group, Image, Text } from '@mantine/core'
+import { Badge, Card, Group, Image, Text } from '@mantine/core'
 import { AllSubskillList, SkillList } from 'data/skills'
 import { FC } from 'react'
-import { ChangeActivityData, useActivityStore } from 'state/useActivityStore'
+import { ChangeActivityData } from 'state/useActivityStore'
+
+import ActivityButton from './ActivityButton'
 
 interface ActivityProps {
 	name: string;
@@ -13,11 +15,6 @@ interface ActivityProps {
 }
 
 const Activity: FC<ActivityProps> = ({ name, unlocked, skill, subskill, image, activity }) => {
-
-	const { activityName, changeActivity, stopActivity } = useActivityStore()
-
-	const currentlyActive = activityName === activity?.activityName
-
 	return (
 		<Card
 			shadow='sm'
@@ -40,21 +37,7 @@ const Activity: FC<ActivityProps> = ({ name, unlocked, skill, subskill, image, a
 				</Badge>
 			</Group>
 
-			<Button
-				fullWidth
-				variant='light'
-				color={currentlyActive ? 'red' : 'green'}
-				disabled={!unlocked}
-				onClick={() => {
-					if (currentlyActive) {
-						stopActivity()
-					} else {
-						changeActivity(activity)
-					}
-				}}
-			>
-				{currentlyActive ? 'Stop' : 'Start'} Activity
-			</Button>
+			<ActivityButton activity={activity} unlocked={unlocked} />
 
 		</Card>
 	)

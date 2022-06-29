@@ -1,9 +1,11 @@
 import { AllSubskillList, SkillList, SubskillList } from 'data/skills'
-import create, { StateCreator } from 'zustand'
+import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { ZustandPersist } from './commonTypes'
+import { Slice } from '../types/zustand'
 import { storage } from './storage'
+
+type SkillStore = SkillStateSlice & SkillActionSlice
 
 export type Skill<T extends SkillList> = Record<SubskillList<T> | 'main', SkillStats>
 
@@ -104,9 +106,7 @@ export const initialSkillState: SkillStateSlice = {
 	}
 }
 
-type SkillStore = SkillStateSlice & SkillActionSlice
-
-const createSkillStateSlice: StateCreator<SkillStore, [ZustandPersist], [], SkillStateSlice> = () => initialSkillState
+const createSkillStateSlice: Slice<SkillStore, SkillStateSlice> = () => initialSkillState
 
 interface SkillActionSlice {
 	// addXp: <T extends SkillList>(amount: number, skill: T, subskill?: keyof SkillStateSlice[T]) => void;
@@ -114,7 +114,7 @@ interface SkillActionSlice {
 	resetSkill: (skill: SkillList) => void;
 }
 
-const createSkillActionSlice: StateCreator<SkillStore, [ZustandPersist], [], SkillActionSlice> = (set, get) => ({
+const createSkillActionSlice: Slice<SkillStore, SkillActionSlice> = (set, get) => ({
 	addXp: (amount, skill, subskill) => {
 		if (subskill !== 'main') {
 			get().addXp(~~(amount / 2), skill, 'main')

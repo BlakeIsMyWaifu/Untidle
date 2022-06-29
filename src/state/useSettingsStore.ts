@@ -1,8 +1,10 @@
-import create, { StateCreator } from 'zustand'
+import { Slice } from 'types/zustand'
+import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { ZustandPersist } from './commonTypes'
 import { storage } from './storage'
+
+type SettingsStore = SettingsStateSlice & SettingsActionSlice
 
 interface SettingsStateSlice {
 	theme: 'dark' | 'light';
@@ -12,15 +14,13 @@ const initialSettingsState: SettingsStateSlice = {
 	theme: 'dark'
 }
 
-type SettingsStore = SettingsStateSlice & SettingsActionSlice
-
-const createSettingsStateSlice: StateCreator<SettingsStore, [ZustandPersist], [], SettingsStateSlice> = () => initialSettingsState
+const createSettingsStateSlice: Slice<SettingsStore, SettingsStateSlice> = () => initialSettingsState
 
 interface SettingsActionSlice {
 	toggleTheme: () => void;
 }
 
-const createSettingsActionSlice: StateCreator<SettingsStore, [ZustandPersist], [], SettingsActionSlice> = set => ({
+const createSettingsActionSlice: Slice<SettingsStore, SettingsActionSlice> = set => ({
 	toggleTheme: () => {
 		set(state => ({
 			theme: state.theme === 'dark' ? 'light' : 'dark'
