@@ -1,7 +1,7 @@
 import { Badge, Group, Paper, Progress, Text, ThemeIcon, createStyles } from '@mantine/core'
-import { SkillList, SubskillList } from 'data/skills'
+import { SkillList, Subskills } from 'data/skills/skills'
 import { FC, SVGAttributes } from 'react'
-import { SkillStats, useSkillStore } from 'state/useSkillStore'
+import { useSkillStore } from 'state/useSkillStore'
 import { capitalise } from 'utils/capitalise'
 import { round } from 'utils/maths'
 
@@ -34,16 +34,16 @@ interface IconProps extends SVGAttributes<SVGElement> {
 
 interface SkillCardProps<T extends SkillList> {
 	skillName: T;
-	subskillName: SubskillList<T> | 'main';
+	subskillName: Subskills<T> | 'main';
 	Icon: FC<IconProps>;
 }
 
-const SubskillCard = <T extends SkillList,>({ skillName, subskillName, Icon }: SkillCardProps<T>): JSX.Element => {
+const SubskillCard = <T extends SkillList,>({ skillName, subskillName, Icon }: SkillCardProps<T>): JSX.Element | null => {
 
 	const { classes } = useStyles()
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	const skillData: SkillStats = useSkillStore(state => (state[skillName] as any)[subskillName])
+	const skillData = useSkillStore(state => state.skills[skillName])[subskillName]
+	if (!skillData) return null
 	const { xp, level, xpNeeded } = skillData
 
 	return (

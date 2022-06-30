@@ -6,7 +6,7 @@ import { useSkillStore } from 'state/useSkillStore'
 
 const Woodcutting: FC = () => {
 
-	const woodcuttingLevel = useSkillStore(state => state.survival.woodcutting.level)
+	const woodcuttingLevel = useSkillStore(state => state.skills.survival.woodcutting.level)
 
 	return (
 		<Box>

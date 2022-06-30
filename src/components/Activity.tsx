@@ -1,5 +1,5 @@
 import { Badge, Card, Group, Image, Text } from '@mantine/core'
-import { AllSubskillList, SkillList } from 'data/skills'
+import { SkillList, SubskillList } from 'data/skills/skills'
 import { FC } from 'react'
 import { ChangeActivityData } from 'state/useActivityStore'
 
@@ -9,7 +9,7 @@ interface ActivityProps {
 	name: string;
 	unlocked: boolean;
 	skill: SkillList;
-	subskill: AllSubskillList;
+	subskill: SubskillList;
 	image: string;
 	activity: ChangeActivityData;
 }

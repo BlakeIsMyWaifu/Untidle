@@ -17,7 +17,8 @@ const ArchitectureSection: FC = () => {
 
 	const materials = useItemStore(state => state.materials)
 
-	const buildingsTable = useCallback((type: BuildingTypes, buildingList: Record<string, number>): JSX.Element => {
+	const buildingsTable = useCallback(<T extends BuildingTypes,>(type: T, buildingList: T extends 'unique' ? Record<UniqueList, number> : Record<GuildList, number>): JSX.Element => {
+		materials // Needed so eslint shuts up about exhaustive-deps
 		return <Table highlightOnHover>
 			<thead>
 				<tr>
@@ -62,7 +63,6 @@ const ArchitectureSection: FC = () => {
 				}
 			</tbody>
 		</Table>
-		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [resetGuild, resetUnique, upgradeGuild, upgradeUnique, materials])
 
 	return (

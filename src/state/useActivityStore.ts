@@ -1,4 +1,4 @@
-import { AllSubskillList, SkillList } from 'data/skills'
+import { SkillList, SubskillList } from 'data/skills/skills'
 import { Slice } from 'types/zustand'
 import { randomNum } from 'utils/maths'
 import create from 'zustand'
@@ -12,10 +12,10 @@ type ActivityStore = ActivityStateSlice & ActivityActionSlice
 
 interface Reward {
 	method?: () => void;
-	addXp?: {
+	addXp?: { // TODO change to array so an activity could add xp to multiple skills
 		amount: number;
 		skill: SkillList;
-		subskill: AllSubskillList;
+		subskill: SubskillList;
 	};
 	addItem?: {
 		materials?: {
@@ -33,6 +33,7 @@ interface Cost {
 	}[];
 	equipment?: [];
 }
+
 interface ActivityStateSlice {
 	active: boolean;
 	activityName: string | null;
@@ -59,8 +60,28 @@ export interface ChangeActivityData {
 }
 
 interface ActivityActionSlice {
+	/**
+	 * Changes the currently active activity
+	 *
+	 * @param activityData - The new activity to be worked
+	 * @returns void
+	 */
 	changeActivity: (activityData: ChangeActivityData) => void;
+
+	/**
+	 * Stops the currently active activity
+	 *
+	 * @returns void
+	 */
 	stopActivity: () => void;
+
+	/**
+	 * Do not use!
+	 *
+	 * Only to be used in the activity loop component
+	 *
+	 * @returns void
+	 */
 	runActivity: () => void;
 }
 

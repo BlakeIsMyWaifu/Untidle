@@ -6,7 +6,7 @@ import { useSkillStore } from 'state/useSkillStore'
 
 const Horticulture: FC = () => {
 
-	const horticultureLevel = useSkillStore(state => state.agriculture.horticulture.level)
+	const horticultureLevel = useSkillStore(state => state.skills.agriculture.horticulture.level)
 
 	return (
 		<Box>
