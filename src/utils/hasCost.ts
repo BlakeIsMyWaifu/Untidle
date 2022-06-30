@@ -2,6 +2,7 @@ import { BuildingTypes, UpgradeCost, getBuildingUpgradeCost } from 'data/buildin
 import { GuildList } from 'data/buildings/guilds'
 import { UniqueList } from 'data/buildings/unique'
 import { MaterialList } from 'data/items/materials'
+import { useGoldStore } from 'state/useGoldStore'
 import { useItemStore } from 'state/useItemStore'
 
 const hasMaterialCost = (materials: Record<MaterialList, number>): boolean => {
@@ -13,9 +14,9 @@ const hasMaterialCost = (materials: Record<MaterialList, number>): boolean => {
 }
 
 const hasGoldCost = (gold: number): boolean => {
-	const CURRENT_GOLD = 0 // TODO add gold store
+	const { gold: currentGold } = useGoldStore.getState()
 
-	return gold >= CURRENT_GOLD
+	return gold >= currentGold
 }
 
 export const hasCost = ({ gold, materials }: Partial<UpgradeCost>): boolean => {
