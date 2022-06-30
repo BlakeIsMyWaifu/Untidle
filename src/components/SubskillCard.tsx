@@ -1,7 +1,7 @@
 import { Badge, Group, Paper, Progress, Text, ThemeIcon, createStyles } from '@mantine/core'
 import { SkillList, Subskills } from 'data/skills/skills'
-import { FC, SVGAttributes } from 'react'
 import { useSkillStore } from 'state/useSkillStore'
+import { Icon } from 'tabler-icons-react'
 import { capitalise } from 'utils/capitalise'
 import { round } from 'utils/maths'
 
@@ -27,18 +27,13 @@ const useStyles = createStyles(theme => ({
 	}
 }))
 
-interface IconProps extends SVGAttributes<SVGElement> {
-	color?: string;
-	size?: string | number;
-}
-
 interface SkillCardProps<T extends SkillList> {
 	skillName: T;
 	subskillName: Subskills<T> | 'main';
-	Icon: FC<IconProps>;
+	icon: Icon;
 }
 
-const SubskillCard = <T extends SkillList,>({ skillName, subskillName, Icon }: SkillCardProps<T>): JSX.Element | null => {
+const SubskillCard = <T extends SkillList,>({ skillName, subskillName, icon: Icon }: SkillCardProps<T>): JSX.Element | null => {
 
 	const { classes } = useStyles()
 
