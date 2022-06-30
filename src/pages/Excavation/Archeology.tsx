@@ -37,6 +37,12 @@ const Archeology: FC = () => {
 											{ name: `${name.toLowerCase()}`, amount: [1, 3] }
 										]
 									}
+								},
+								cost: {
+									materials: [{
+										name: 'Shard',
+										amount: 1
+									}]
 								}
 							}}
 						/>
