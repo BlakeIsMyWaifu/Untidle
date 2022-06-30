@@ -1,8 +1,13 @@
 import { Box, Grid, Title } from '@mantine/core'
 import Activity from 'components/Activity'
+import { archeologyData } from 'data/skills/excavation/archeologyData'
 import { FC } from 'react'
+import { useSkillStore } from 'state/useSkillStore'
 
 const Archeology: FC = () => {
+
+	const archeologyLevel = useSkillStore(state => state.skills.excavation.archeology.level)
+
 	return (
 		<Box>
 
@@ -14,12 +19,12 @@ const Archeology: FC = () => {
 						return <Activity
 							key={name}
 							name={name}
-							unlocked={farmingLevel >= unlockLevel}
-							skill='agriculture'
-							subskill='farming'
+							unlocked={archeologyLevel >= unlockLevel}
+							skill='excavation'
+							subskill='archeology'
 							image={image}
 							activity={{
-								activityName: `farming-${name}`,
+								activityName: `archeology-${name}`,
 								intervalTime,
 								reward: {
 									addXp: {
