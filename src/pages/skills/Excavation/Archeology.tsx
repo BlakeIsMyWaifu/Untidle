@@ -25,12 +25,13 @@ const Archeology: FC = () => {
 						return <Activity
 							key={name}
 							name={name}
-							unlocked={archeologyLevel >= unlockLevel && !!shards }
+							unlocked={archeologyLevel >= unlockLevel && !!shards}
 							skill='excavation'
 							subskill='archeology'
 							image={image}
 							activity={{
 								activityName: `archeology-${name}`,
+								activitySkill: 'archeology',
 								intervalTime,
 								reward: {
 									addXp: {

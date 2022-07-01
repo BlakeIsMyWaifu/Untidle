@@ -24,6 +24,7 @@ const Digging: FC = () => {
 							image={image}
 							activity={{
 								activityName: `digging-${name}`,
+								activitySkill: 'digging',
 								intervalTime,
 								reward: {
 									addXp: {
