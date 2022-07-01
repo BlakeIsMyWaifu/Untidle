@@ -10,6 +10,18 @@ import { useSkillStore } from './useSkillStore'
 
 type ActivityStore = ActivityStateSlice & ActivityActionSlice
 
+/**
+ * - method - is an additional function to be ran on every activity completion
+ *
+ * - addXp - Xp given every completion
+ *
+ * - addItem - Items to be given every completion.
+ *   - material
+ *     - name - The name of the material in lowercase
+ *     - amount - May be either a flat number or a number tuple of min and max
+ *     - chance - A number out from 0 to 100 of the percentage of giving the item
+ *   - equipment - An array of complete equipment data (currently does nothing)
+ */
 interface Reward {
 	method?: () => void;
 	addXp?: { // TODO change to array so an activity could add xp to multiple skills
@@ -21,6 +33,7 @@ interface Reward {
 		materials?: {
 			name: string;
 			amount: number | [number, number];
+			chance?: number;
 		}[];
 		equipment?: [];
 	};
@@ -79,7 +92,7 @@ interface ActivityActionSlice {
 	stopActivity: () => void;
 
 	/**
-	 * Do not use!
+	 * **Do not use!**
 	 *
 	 * Only to be used in the activity loop component
 	 *
@@ -167,12 +180,17 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 			skillStore.addXp(amount, skill, subskill)
 		}
 
-		if (addItem) { // TODO add equipment to reward and cost
+		// TODO add equipment to reward and cost
+		if (addItem) {
 			const { materials } = addItem
+
 			materials?.forEach(material => {
+				if (material.chance && material.chance < randomNum(99)) return
+
 				const amount = Array.isArray(material.amount)
 					? randomNum(material.amount[1], material.amount[0])
 					: material.amount
+
 				itemStore.addMaterial(material.name, amount)
 			})
 		}
