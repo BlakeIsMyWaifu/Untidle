@@ -24,6 +24,7 @@ const Ranching: FC = () => {
 							image={image}
 							activity={{
 								activityName: `ranching-${name}`,
+								activitySkill: 'ranching',
 								intervalTime,
 								reward: {
 									addXp: {

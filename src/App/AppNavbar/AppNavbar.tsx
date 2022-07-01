@@ -1,7 +1,11 @@
-import { ActionIcon, Box, Group, Navbar, ScrollArea, Title, createStyles } from '@mantine/core'
+import { ActionIcon, Box, Group, Navbar, ScrollArea, Stack, Text, Title, createStyles } from '@mantine/core'
 import { FC } from 'react'
+import { useActivityStore } from 'state/useActivityStore'
+import { useGoldStore } from 'state/useGoldStore'
 import { useSettingsStore } from 'state/useSettingsStore'
-import { MoonStars, Sun } from 'tabler-icons-react'
+import { useSkillStore } from 'state/useSkillStore'
+import { ChartBar, Coin, MoonStars, Report, Sun } from 'tabler-icons-react'
+import { capitalise } from 'utils/capitalise'
 
 import { navbarData } from './NavbarData'
 import NavbarLink from './NavbarLink'
@@ -33,6 +37,12 @@ const useStyles = createStyles(theme => ({
 	linksInner: {
 		paddingTop: theme.spacing.xl,
 		paddingBottom: theme.spacing.xl
+	},
+
+	footer: {
+		margin: -theme.spacing.md,
+		marginTop: 0,
+		borderTop: `1px solid ${theme.colorScheme === 'dark' ? theme.colors.dark[4] : theme.colors.gray[3]}`
 	}
 }))
 
@@ -41,6 +51,10 @@ const AppNavbar: FC = () => {
 	const { classes } = useStyles()
 
 	const { theme, toggleTheme } = useSettingsStore()
+
+	const activitySkill = useActivityStore(state => state.activitySkill)
+	const totalLevel = useSkillStore(state => state.totalLevel)
+	const gold = useGoldStore(state => state.gold)
 
 	return (
 		<Navbar p='md' className={classes.navbar}>
@@ -72,6 +86,32 @@ const AppNavbar: FC = () => {
 						})
 					}
 				</Box>
+			</Navbar.Section>
+
+			<Navbar.Section className={classes.footer}>
+				<Stack p='md' spacing={2}>
+					<Group position='apart'>
+						<Group>
+							<Report />
+							<Text>Activity</Text>
+						</Group>
+						<Text>{capitalise(activitySkill ?? 'none')}</Text>
+					</Group>
+					<Group position='apart'>
+						<Group>
+							<ChartBar />
+							<Text>Total Level</Text>
+						</Group>
+						<Text>{totalLevel}</Text>
+					</Group>
+					<Group position='apart'>
+						<Group>
+							<Coin />
+							<Text> Gold</Text>
+						</Group>
+						<Text>{gold}</Text>
+					</Group>
+				</Stack>
 			</Navbar.Section>
 		</Navbar>
 	)
