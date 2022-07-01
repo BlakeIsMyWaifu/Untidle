@@ -3,7 +3,7 @@ import { ImmutableObject } from 'types/immutable'
 
 import { Buildings } from './building'
 
-export interface Guild extends Buildings<GuildList> {
+export interface Guild extends Buildings<GuildList, 'guild'> {
 	skill: SkillList;
 }
 
@@ -13,6 +13,7 @@ export type GuildList =
 export const guildData: ImmutableObject<Record<GuildList, Guild>> = {
 	temp: {
 		name: 'temp',
+		buildingType: 'guild',
 		skill: 'agriculture',
 		startingLevel: 0,
 		maxLevel: 5,

@@ -2,7 +2,7 @@ import { ImmutableObject } from 'types/immutable'
 
 import { Buildings } from './building'
 
-export type Unique = Buildings<UniqueList>
+export type Unique = Buildings<UniqueList, 'unique'>
 
 export type UniqueList =
 	| 'storage'
@@ -12,6 +12,7 @@ export type UniqueList =
 export const uniqueData: ImmutableObject<Record<UniqueList, Unique>> = {
 	storage: {
 		name: 'storage',
+		buildingType: 'unique',
 		startingLevel: 1,
 		maxLevel: 5,
 		upgradeCost: {
@@ -23,6 +24,7 @@ export const uniqueData: ImmutableObject<Record<UniqueList, Unique>> = {
 	},
 	museum: {
 		name: 'museum',
+		buildingType: 'unique',
 		startingLevel: 0,
 		maxLevel: 5,
 		upgradeCost: {
@@ -35,6 +37,7 @@ export const uniqueData: ImmutableObject<Record<UniqueList, Unique>> = {
 	},
 	'slayer master': {
 		name: 'slayer master',
+		buildingType: 'unique',
 		startingLevel: 0,
 		maxLevel: 5,
 		upgradeCost: {
