@@ -6,11 +6,10 @@ import { useSkillStore } from 'state/useSkillStore'
 
 const Digging: FC = () => {
 
-	const diggingLevel = useSkillStore(state => state.excavation.digging.level)
+	const diggingLevel = useSkillStore(state => state.skills.excavation.digging.level)
 
 	return (
 		<Box>
-
 			<Title order={2}>Digging</Title>
 
 			<Grid>
@@ -34,7 +33,8 @@ const Digging: FC = () => {
 									},
 									addItem: {
 										materials: [
-											{ name: `${name.toLowerCase()}`, amount: [1, 3] }
+											{ name: `${name.toLowerCase()}`, amount: [1, 3] },
+											{ name: 'shard', amount: 1, chance: 25 }
 										]
 									}
 								}
