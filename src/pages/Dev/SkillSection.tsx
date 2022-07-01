@@ -1,13 +1,13 @@
-import { Autocomplete, Button, Group, NumberInput, Table } from '@mantine/core'
+import { Autocomplete, Button, Group, NumberInput, Table, Text } from '@mantine/core'
 import { SkillList, SubskillList } from 'data/skills/skills'
 import { FC, Fragment, useRef, useState } from 'react'
-import { Skill, initialSkillState, useSkillStore } from 'state/useSkillStore'
+import { Skill, useSkillStore } from 'state/useSkillStore'
 
 const SkillSection: FC = () => {
 
-	const skillStore = useSkillStore()
+	const { skills, addXp, resetSkill, totalLevel } = useSkillStore()
 
-	const skillTableData = Object.entries(skillStore).map((skill, i) => {
+	const skillTableData = Object.entries(skills).map((skill, i) => {
 		if (typeof skill[1] === 'function') return <Fragment key={i} />
 
 		const [skillName, skillData]: [string, Skill] = skill
@@ -29,7 +29,7 @@ const SkillSection: FC = () => {
 				compact
 				size='xs'
 				variant='default'
-				onClick={() => skillStore.resetSkill(skillName as SkillList)}
+				onClick={() => resetSkill(skillName as SkillList)}
 			>Reset</Button></td>
 		</tr>
 	})
@@ -45,7 +45,7 @@ const SkillSection: FC = () => {
 				<Autocomplete
 					label='Skill Name'
 					placeholder='Skill Name'
-					data={Object.keys(initialSkillState)}
+					data={Object.keys(skills)}
 					limit={10}
 					value={selectedSkill}
 					onChange={setSelectedSkill}
@@ -54,7 +54,7 @@ const SkillSection: FC = () => {
 					ref={subskillRef}
 					label='Subskill Name'
 					placeholder='Subskill Name'
-					data={Object.keys(skillStore.skills[selectedSkill as SkillList] ?? {})}
+					data={Object.keys(skills[selectedSkill as SkillList] ?? {})}
 					limit={4}
 				/>
 				<NumberInput
@@ -67,12 +67,16 @@ const SkillSection: FC = () => {
 				<Button
 					variant='default'
 					onClick={() => {
-						if (!Object.keys(skillStore).includes(selectedSkill)) return
+						if (!Object.keys(skills).includes(selectedSkill)) return
 						const skill = selectedSkill as SkillList
-						if (!Object.keys(skillStore.skills[skill]).includes(subskillRef.current?.value ?? '')) return
-						skillStore.addXp(+(amountRef.current?.value ?? 0), skill, subskillRef.current?.value as (SubskillList | undefined))
+						if (!Object.keys(skills[skill]).includes(subskillRef.current?.value ?? '')) return
+						addXp(+(amountRef.current?.value ?? 0), skill, subskillRef.current?.value as (SubskillList | undefined))
 					}}
 				>Add xp</Button>
+			</Group>
+
+			<Group m='sm'>
+				<Text>Total Level: {totalLevel}</Text>
 			</Group>
 
 			<Table highlightOnHover>

@@ -1,17 +1,15 @@
-import { AppShell, Box, MantineProvider } from '@mantine/core'
-import { FC, Suspense, useState } from 'react'
+import { AppShell, MantineProvider } from '@mantine/core'
+import { FC, Suspense } from 'react'
 import { HashRouter as Router } from 'react-router-dom'
 import AppRoutes from 'routes/AppRoutes'
 import { useSettingsStore } from 'state/useSettingsStore'
 
 import ActivityLoop from './ActivityLoop'
-import AppHeader from './AppHeader'
 import AppNavbar from './AppNavbar'
 
 const App: FC = () => {
 
 	const theme = useSettingsStore(state => state.theme)
-	const [navbarOpened, setNavbarOpened] = useState(true)
 
 	return (
 		<Router>
@@ -24,8 +22,7 @@ const App: FC = () => {
 			>
 				<AppShell
 					padding='md'
-					header={<AppHeader navbarOpened={navbarOpened} setNavbarOpened={setNavbarOpened} />}
-					navbar={<AppNavbar navbarOpened={navbarOpened} />}
+					navbar={<AppNavbar />}
 					styles={theme => ({
 						root: {
 							backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[8] : theme.colors.gray[0],
@@ -34,13 +31,9 @@ const App: FC = () => {
 					})}
 				>
 					<Suspense>
-						<Box style={{
-							paddingTop: '60px'
-						}}>
-							<AppRoutes />
+						<AppRoutes />
 
-							<ActivityLoop />
-						</Box>
+						<ActivityLoop />
 					</Suspense>
 				</AppShell>
 			</MantineProvider>

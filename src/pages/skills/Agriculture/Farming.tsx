@@ -1,35 +1,36 @@
 import { Box, Grid, Title } from '@mantine/core'
 import Activity from 'components/Activity'
-import { ranchingData } from 'data/skills/agriculture/ranchingData'
+import { farmingData } from 'data/skills/agriculture/farmingData'
 import { FC } from 'react'
 import { useSkillStore } from 'state/useSkillStore'
 
-const Ranching: FC = () => {
+const Farming: FC = () => {
 
-	const ranchingLevel = useSkillStore(state => state.skills.agriculture.ranching.level)
+	const farmingLevel = useSkillStore(state => state.skills.agriculture.farming.level)
 
 	return (
 		<Box>
-			<Title order={2} m='md'>Ranching</Title>
+			<Title order={2} m='md'>Farming</Title>
 
 			<Grid>
 				{
-					Object.values(ranchingData).map(({ name, image, xp, intervalTime, unlockLevel }) => {
+					Object.values(farmingData).map(({ name, image, xp, intervalTime, unlockLevel }) => {
 						return <Activity
 							key={name}
 							name={name}
-							unlocked={ranchingLevel >= unlockLevel}
+							unlocked={farmingLevel >= unlockLevel}
 							skill='agriculture'
-							subskill='ranching'
+							subskill='farming'
 							image={image}
 							activity={{
-								activityName: `ranching-${name}`,
+								activityName: `farming-${name}`,
+								activitySkill: 'farming',
 								intervalTime,
 								reward: {
 									addXp: {
 										amount: xp,
 										skill: 'agriculture',
-										subskill: 'ranching'
+										subskill: 'farming'
 									},
 									addItem: {
 										materials: [
@@ -47,4 +48,4 @@ const Ranching: FC = () => {
 
 }
 
-export default Ranching
+export default Farming

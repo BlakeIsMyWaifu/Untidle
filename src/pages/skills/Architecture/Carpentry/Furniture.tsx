@@ -66,6 +66,7 @@ const Furniture: FC<FurnitureProps> = ({ data }) => {
 			<Box p='sm'>
 				<ActivityButton activity={{
 					activityName: `carpentry ${name}`,
+					activitySkill: 'carpentry',
 					intervalTime,
 					reward: {
 						addXp: {
