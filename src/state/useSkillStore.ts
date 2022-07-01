@@ -19,6 +19,7 @@ interface SkillStateSlice {
 	skills: {
 		[K in SkillList]: Skill<K>;
 	};
+	totalLevel: number;
 }
 
 export const initialSkillState: SkillStateSlice = {
@@ -62,7 +63,7 @@ export const initialSkillState: SkillStateSlice = {
 			main: { xp: 0, level: 1, xpNeeded: 82 }
 		},
 		dungeoneering: {
-			main: { xp: 0, level: 1, xpNeeded: 82 }
+			main: { xp: 0, level: 0, xpNeeded: 1 }
 		},
 		excavation: {
 			main: { xp: 0, level: 1, xpNeeded: 82 },
@@ -83,7 +84,7 @@ export const initialSkillState: SkillStateSlice = {
 			spelunking: { xp: 0, level: 1, xpNeeded: 82 }
 		},
 		slayer: {
-			main: { xp: 0, level: 1, xpNeeded: 82 }
+			main: { xp: 0, level: 0, xpNeeded: 1 }
 		},
 		smithing: {
 			main: { xp: 0, level: 1, xpNeeded: 82 },
@@ -107,7 +108,8 @@ export const initialSkillState: SkillStateSlice = {
 			firemaking: { xp: 0, level: 1, xpNeeded: 82 },
 			foraging: { xp: 0, level: 1, xpNeeded: 82 }
 		}
-	}
+	},
+	totalLevel: 15
 }
 
 const createSkillStateSlice: Slice<SkillStore, SkillStateSlice> = () => initialSkillState
@@ -188,15 +190,17 @@ const createSkillActionSlice: Slice<SkillStore, SkillActionSlice> = (set, get) =
 					}
 				}))
 
+				if (subskill === 'main') {
+					set(state => ({ totalLevel: state.totalLevel + 1 }))
+				}
+
 				levelUp(skill, subskill)
 			}
 		}
 
 		levelUp(skill, subskillDefined)
 	},
-	resetSkill: skill => set(() => ({
-		[skill]: initialSkillState.skills[skill]
-	}))
+	resetSkill: skill => set(({ [skill]: initialSkillState.skills[skill] }))
 })
 
 export const useSkillStore = create<SkillStore>()(persist((...a) => ({

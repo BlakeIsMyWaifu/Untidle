@@ -24,6 +24,7 @@ const Woodcutting: FC = () => {
 							image={image}
 							activity={{
 								activityName: `woodcutting-${name}`,
+								activitySkill: 'woodcutting',
 								intervalTime,
 								reward: {
 									addXp: {

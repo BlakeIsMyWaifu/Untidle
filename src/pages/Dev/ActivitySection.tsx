@@ -4,7 +4,7 @@ import { useActivityStore } from 'state/useActivityStore'
 
 const ActivitySection: FC = () => {
 
-	const { active, activityName, intervalTime, reward, cost, changeActivity, stopActivity } = useActivityStore()
+	const { active, activityName, activitySkill, intervalTime, reward, cost, changeActivity, stopActivity } = useActivityStore()
 
 	return (
 		<Box>
@@ -13,6 +13,7 @@ const ActivitySection: FC = () => {
 				<Button variant='default' onClick={() => {
 					changeActivity({
 						activityName: 'Dev 1',
+						activitySkill: 'chaos',
 						intervalTime: 1000,
 						reward: {
 							method: () => console.log('Dev 1'),
@@ -28,6 +29,7 @@ const ActivitySection: FC = () => {
 				<Button variant='default' onClick={() => {
 					changeActivity({
 						activityName: 'Dev 2',
+						activitySkill: 'berserker',
 						intervalTime: 2000,
 						reward: {
 							method: () => console.log('Dev 2'),
@@ -54,6 +56,10 @@ const ActivitySection: FC = () => {
 					<Group>
 						<Text>Current Activity:</Text>
 						<Text>{activityName ?? 'none'}</Text>
+					</Group>
+					<Group>
+						<Text>Current Activity Skill:</Text>
+						<Text>{activitySkill ?? 'none'}</Text>
 					</Group>
 					<Group>
 						<Text>Interval Time:</Text>

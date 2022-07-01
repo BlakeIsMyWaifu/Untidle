@@ -50,6 +50,7 @@ interface Cost {
 interface ActivityStateSlice {
 	active: boolean;
 	activityName: string | null;
+	activitySkill: SubskillList | null;
 	intervalTime: number;
 	reward: Reward;
 	cost: Cost;
@@ -58,6 +59,7 @@ interface ActivityStateSlice {
 const initialActivityState: ActivityStateSlice = {
 	active: false,
 	activityName: null,
+	activitySkill: null,
 	intervalTime: 0,
 	reward: {},
 	cost: {}
@@ -67,6 +69,7 @@ const createActivityStateSlice: Slice<ActivityStore, ActivityStateSlice> = () =>
 
 export interface ChangeActivityData {
 	activityName: string;
+	activitySkill: SubskillList;
 	intervalTime: number;
 	reward: Reward;
 	cost?: Cost;
@@ -99,11 +102,12 @@ interface ActivityActionSlice {
 }
 
 const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (set, get) => ({
-	changeActivity: ({ activityName, intervalTime, reward, cost }) => {
+	changeActivity: ({ activityName, activitySkill, intervalTime, reward, cost }) => {
 		const { method, addXp, addItem } = (reward ?? {})
 		set({
 			active: true,
 			activityName,
+			activitySkill,
 			intervalTime,
 			reward: {},
 			cost: {}
@@ -140,6 +144,7 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 		set({
 			active: false,
 			activityName: null,
+			activitySkill: null,
 			intervalTime: 0,
 			reward: {},
 			cost: {}

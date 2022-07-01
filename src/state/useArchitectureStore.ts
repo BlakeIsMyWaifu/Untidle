@@ -7,6 +7,7 @@ import { persist } from 'zustand/middleware'
 
 import { Slice } from '../types/zustand'
 import { storage } from './storage'
+import { useGoldStore } from './useGoldStore'
 import { useItemStore } from './useItemStore'
 
 type ArchitectureStore = ArchitectureStateSlice & ArchitectureActionSlice
@@ -53,7 +54,7 @@ const createArchitectureActionSlice: Slice<ArchitectureStore, ArchitectureAction
 		const hasCost = hasUpgradeCost('unique', building)
 		if (!hasCost) return
 
-		const { materials } = getBuildingUpgradeCost('unique', building)
+		const { materials, gold } = getBuildingUpgradeCost('unique', building)
 
 		const { removeMaterial } = useItemStore.getState()
 
@@ -61,7 +62,8 @@ const createArchitectureActionSlice: Slice<ArchitectureStore, ArchitectureAction
 			removeMaterial(material, amount)
 		})
 
-		// TODO remove gold
+		const { removeGold } = useGoldStore.getState()
+		removeGold(gold ?? 0)
 
 		set(state => ({
 			unique: {
@@ -79,7 +81,7 @@ const createArchitectureActionSlice: Slice<ArchitectureStore, ArchitectureAction
 		}))
 	},
 	resetAllUniques: () => {
-		set(() => ({ unique: initialArchitectureState.unique }))
+		set({ unique: initialArchitectureState.unique })
 	},
 
 	upgradeGuild: building => {
