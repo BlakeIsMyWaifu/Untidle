@@ -10,7 +10,10 @@ const useStyles = createStyles(theme => ({
 	navbar: {
 		backgroundColor: theme.colorScheme === 'dark' ? theme.colors.dark[6] : theme.white,
 		paddingBottom: 0,
-		width: '250px'
+		width: '250px',
+		position: 'sticky',
+		top: 0,
+		left: 0
 	},
 
 	header: {
