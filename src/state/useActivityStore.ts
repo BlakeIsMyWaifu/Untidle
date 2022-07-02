@@ -5,6 +5,7 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { storage } from './storage'
+import { useGoldStore } from './useGoldStore'
 import { useItemStore } from './useItemStore'
 import { useSkillStore } from './useSkillStore'
 
@@ -21,6 +22,8 @@ type ActivityStore = ActivityStateSlice & ActivityActionSlice
  *     - amount - May be either a flat number or a number tuple of min and max
  *     - chance - A number out from 0 to 100 of the percentage of giving the item
  *   - equipment - An array of complete equipment data (currently does nothing)
+ *
+ * - gold - Gold given every completion
  */
 interface Reward {
 	method?: () => void;
@@ -37,6 +40,7 @@ interface Reward {
 		}[];
 		equipment?: [];
 	};
+	gold?: number;
 }
 
 interface Cost {
@@ -193,6 +197,16 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 
 				itemStore.addMaterial(material.name, amount)
 			})
+		}
+
+		const { gold } = get().reward
+
+		console.log(get().reward)
+		console.log(gold)
+
+		if (gold) {
+			const goldStore = useGoldStore.getState()
+			goldStore.addGold(gold)
 		}
 	}
 })

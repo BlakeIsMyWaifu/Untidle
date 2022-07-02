@@ -97,10 +97,11 @@ const House: FC<HouseProps> = ({ data }) => {
 					intervalTime: 8000,
 					reward: {
 						addXp: {
-							amount: 200, // TODO scale xp from house size and quality
+							amount: 200, // TODO scale xp/gold from house size and quality
 							skill: 'architecture',
 							subskill: 'masonry'
-						}
+						},
+						gold: 100
 					},
 					cost: {
 						materials: typedObject.entries(furnitureSlots).map(([slot, amount]) => ({
