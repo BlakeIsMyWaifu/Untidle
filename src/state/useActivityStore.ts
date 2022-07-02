@@ -107,7 +107,6 @@ interface ActivityActionSlice {
 
 const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (set, get) => ({
 	changeActivity: ({ activityName, activitySkill, intervalTime, reward, cost }) => {
-		const { method, addXp, addItem } = (reward ?? {})
 		set({
 			active: true,
 			activityName,
@@ -116,29 +115,8 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 			reward: {},
 			cost: {}
 		})
-		if (method) {
-			set(state => ({
-				reward: {
-					...state.reward,
-					method
-				}
-			}))
-		}
-		if (addXp) {
-			set(state => ({
-				reward: {
-					...state.reward,
-					addXp
-				}
-			}))
-		}
-		if (addItem) {
-			set(state => ({
-				reward: {
-					...state.reward,
-					addItem
-				}
-			}))
+		if (reward) {
+			set(({ reward }))
 		}
 		if (cost) {
 			set(() => ({ cost }))
@@ -174,7 +152,7 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 			})
 		}
 
-		const { method, addXp, addItem } = get().reward
+		const { method, addXp, addItem, gold } = get().reward
 
 		method?.()
 
@@ -198,11 +176,6 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 				itemStore.addMaterial(material.name, amount)
 			})
 		}
-
-		const { gold } = get().reward
-
-		console.log(get().reward)
-		console.log(gold)
 
 		if (gold) {
 			const goldStore = useGoldStore.getState()

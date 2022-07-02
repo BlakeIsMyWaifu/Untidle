@@ -42,7 +42,10 @@ const House: FC<HouseProps> = ({ data }) => {
 			const stockAmount = materials[selectedFurniture?.toLowerCase() ?? ''] ?? 0
 			setStock({ [slot]: stockAmount })
 		})
-	}, [furnitureSlots, materials, selectedDropdown, setStock])
+		// This is needed because normally it wants to include setStock
+		// but for whatever reason that causes an infinite rerender loop
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [furnitureSlots, materials, selectedDropdown])
 
 	return (
 		<Paper p='md'>
@@ -65,7 +68,7 @@ const House: FC<HouseProps> = ({ data }) => {
 						{
 							typedObject.entries(furnitureSlots).map(([slot, needed]) => {
 								const selectedFurniture = selectedDropdown[slot]?.label
-								if (!selectedFurniture) return <></>
+								if (!selectedFurniture) return null
 
 								const quality = furnitureData[slot].find(furniture => furniture.name === selectedFurniture.toLowerCase())?.quality
 
