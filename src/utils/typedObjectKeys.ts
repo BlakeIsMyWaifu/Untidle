@@ -4,17 +4,32 @@ type ObjectKeys<T> =
 	T extends Array<unknown> | string ? string[] :
 	never;
 
-type PickByValue<T, V> = Pick<T, { [K in keyof T]: T[K] extends V ? K : never }[keyof T]>
+type TupleEntry<T extends readonly unknown[], I extends unknown[] = [], R = never> =
+	T extends readonly [infer Head, ...infer Tail] ?
+	TupleEntry<Tail, [...I, unknown], R | [`${I['length']}`, Head]> :
+	R
 
-type Entries<T> = {
-	[K in keyof T]: [keyof PickByValue<T, T[K]>, T[K]]
-}[keyof T][];
+// eslint-disable-next-line @typescript-eslint/ban-types
+type ObjectEntry<T extends {}> =
+	T extends object ?
+	{ [K in keyof T]: [K, Required<T>[K]] }[keyof T] extends infer E ?
+	E extends [infer K, infer V] ?
+	K extends string | number ?
+	[`${K}`, V] :
+	never :
+	never :
+	never :
+	never
+
+// eslint-disable-next-line @typescript-eslint/ban-types
+type Entry<T extends {}> =
+	T extends readonly [unknown, ...unknown[]] ?
+	TupleEntry<T> :
+	T extends ReadonlyArray<infer U> ?
+	[`${number}`, U] :
+	ObjectEntry<T>
 
 export const typedObject = {
-	keys: <T extends object>(object: T): ObjectKeys<T> => {
-		return Object.keys(object) as ObjectKeys<T>
-	},
-	entries: <T extends object>(object: T) => {
-		return Object.entries(object) as Entries<T>
-	}
+	keys: <T extends object>(object: T): ObjectKeys<T> => Object.keys(object) as ObjectKeys<T>,
+	entries: <T extends object>(object: T) => Object.entries(object) as unknown as ReadonlyArray<Entry<T>>
 } as const
