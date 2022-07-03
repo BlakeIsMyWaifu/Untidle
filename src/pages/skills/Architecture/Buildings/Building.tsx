@@ -1,7 +1,7 @@
 import { Button, Group, Image, Paper, Stack, Text, Title } from '@mantine/core'
 import { Guild } from 'data/buildings/guilds'
 import { Unique } from 'data/buildings/unique'
-import { useHasUpgradeCost } from 'hooks/useHasUpgradeCost'
+import { useHasCost } from 'hooks/useHasCost'
 import { FC } from 'react'
 import { Link } from 'react-router-dom'
 import { useArchitectureStore } from 'state/useArchitectureStore'
@@ -20,7 +20,7 @@ const Building: FC<BuildingsProps> = ({ data }) => {
 	const upgradeBuilding = useArchitectureStore(state => state.upgradeBuilding)
 
 	const isMaxLevel = buildingLevel === maxLevel
-	const hasUpgradeCost = useHasUpgradeCost(name)
+	const hasUpgradeCost = useHasCost(name)
 	const upgradeCost = upgradeCosts[buildingLevel + 1] ?? { gold: 0, materials: {} }
 
 	const upgradeType = buildingLevel === 0 ? 'Unlock' : 'Upgrade'
