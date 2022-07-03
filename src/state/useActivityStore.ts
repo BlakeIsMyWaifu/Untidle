@@ -5,6 +5,7 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { storage } from './storage'
+import { useGoldStore } from './useGoldStore'
 import { useItemStore } from './useItemStore'
 import { useSkillStore } from './useSkillStore'
 
@@ -21,6 +22,8 @@ type ActivityStore = ActivityStateSlice & ActivityActionSlice
  *     - amount - May be either a flat number or a number tuple of min and max
  *     - chance - A number out from 0 to 100 of the percentage of giving the item
  *   - equipment - An array of complete equipment data (currently does nothing)
+ *
+ * - gold - Gold given every completion
  */
 interface Reward {
 	method?: () => void;
@@ -37,6 +40,7 @@ interface Reward {
 		}[];
 		equipment?: [];
 	};
+	gold?: number;
 }
 
 interface Cost {
@@ -103,7 +107,6 @@ interface ActivityActionSlice {
 
 const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (set, get) => ({
 	changeActivity: ({ activityName, activitySkill, intervalTime, reward, cost }) => {
-		const { method, addXp, addItem } = (reward ?? {})
 		set({
 			active: true,
 			activityName,
@@ -112,29 +115,8 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 			reward: {},
 			cost: {}
 		})
-		if (method) {
-			set(state => ({
-				reward: {
-					...state.reward,
-					method
-				}
-			}))
-		}
-		if (addXp) {
-			set(state => ({
-				reward: {
-					...state.reward,
-					addXp
-				}
-			}))
-		}
-		if (addItem) {
-			set(state => ({
-				reward: {
-					...state.reward,
-					addItem
-				}
-			}))
+		if (reward) {
+			set(({ reward }))
 		}
 		if (cost) {
 			set(() => ({ cost }))
@@ -170,7 +152,7 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 			})
 		}
 
-		const { method, addXp, addItem } = get().reward
+		const { method, addXp, addItem, gold } = get().reward
 
 		method?.()
 
@@ -193,6 +175,11 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 
 				itemStore.addMaterial(material.name, amount)
 			})
+		}
+
+		if (gold) {
+			const goldStore = useGoldStore.getState()
+			goldStore.addGold(gold)
 		}
 	}
 })

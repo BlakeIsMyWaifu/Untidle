@@ -11,7 +11,7 @@ const Carpentry: FC = () => {
 
 			<SimpleGrid cols={2} p='md'>
 				{
-					Object.values(carpentryData).map(furniture => {
+					carpentryData.map(furniture => {
 						return <Furniture key={furniture.name} data={furniture} />
 					})
 				}

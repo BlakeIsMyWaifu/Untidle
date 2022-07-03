@@ -1,16 +1,21 @@
 import { MaterialList } from 'data/items/materials'
 import { useArchitectureStore } from 'state/useArchitectureStore'
+import { ImmutableObject } from 'types/immutable'
 
-import { GuildList, guildData } from './guilds'
-import { UniqueList, uniqueData } from './unique'
+import { Guild, GuildList, guildData } from './guilds'
+import { Unique, UniqueList, uniqueData } from './unique'
 
 export type BuildingTypes = 'unique' | 'guild'
 
-export interface Buildings<Name extends string = string> {
+export type BuildingsList = UniqueList | GuildList
+
+export interface Buildings<Name extends string, Type extends BuildingTypes> {
 	name: Name;
+	image: string;
+	buildingType: Type;
 	startingLevel: number;
 	maxLevel: number;
-	upgradeCost: Record<number, UpgradeCost>;
+	upgradeCosts: Record<number, UpgradeCost>;
 }
 
 export interface UpgradeCost {
@@ -18,11 +23,18 @@ export interface UpgradeCost {
 	materials: Record<MaterialList, number>;
 }
 
-export const getBuildingUpgradeCost = (type: BuildingTypes, buildingName: UniqueList | GuildList): Partial<UpgradeCost> => {
-	const { unique, guild } = useArchitectureStore.getState()
+type Test = ImmutableObject<Record<UniqueList, Unique>> & ImmutableObject<Record<GuildList, Guild>>
 
-	const buildingCurrentLevel = type === 'unique' ? unique[buildingName as UniqueList] : guild[buildingName as GuildList]
-	const { upgradeCost } = (type === 'unique' ? uniqueData[buildingName as UniqueList] : guildData[buildingName as GuildList])
+export const buildingsData: Test = {
+	...uniqueData,
+	...guildData
+}
 
-	return upgradeCost[buildingCurrentLevel + 1] ?? {}
+export const getBuildingUpgradeCost = (buildingName: BuildingsList): Partial<UpgradeCost> => {
+	const { buildings } = useArchitectureStore.getState()
+
+	const buildingLevel = buildings[buildingName]
+	const { upgradeCosts } = buildingsData[buildingName]
+
+	return upgradeCosts[buildingLevel + 1] ?? {}
 }

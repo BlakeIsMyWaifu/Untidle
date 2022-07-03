@@ -1,10 +1,10 @@
 import { Group, Image, Menu, UnstyledButton, createStyles } from '@mantine/core'
-import { Dispatch, FC, SetStateAction, useState } from 'react'
+import { FC, useState } from 'react'
 import { ChevronDown } from 'tabler-icons-react'
 
 const useStyles = createStyles((theme, { opened }: { opened: boolean }) => ({
 	control: {
-		width: 200,
+		width: 250,
 		display: 'flex',
 		justifyContent: 'space-between',
 		alignItems: 'center',
@@ -42,10 +42,10 @@ export interface DropdownData {
 interface ImageDropdownProps {
 	data: DropdownData[];
 	selected: DropdownData | undefined;
-	setSelected: Dispatch<SetStateAction<DropdownData | undefined>>;
+	setFunction: (item: DropdownData) => void;
 }
 
-const ImageDropdown: FC<ImageDropdownProps> = ({ data, selected, setSelected }) => {
+const ImageDropdown: FC<ImageDropdownProps> = ({ data, selected, setFunction }) => {
 
 	const [opened, setOpened] = useState(false)
 
@@ -54,7 +54,9 @@ const ImageDropdown: FC<ImageDropdownProps> = ({ data, selected, setSelected }) 
 	const items = data.map(item => (
 		<Menu.Item
 			icon={<Image src={item.image} width={18} height={18} />}
-			onClick={() => setSelected(item)}
+			onClick={() => {
+				setFunction(item)
+			}}
 			key={item.label}
 		>
 			{item.label}

@@ -1,6 +1,6 @@
-import { getBuildingUpgradeCost } from 'data/buildings/building'
-import { GuildList, guildData } from 'data/buildings/guilds'
-import { UniqueList, uniqueData } from 'data/buildings/unique'
+import { BuildingsList, getBuildingUpgradeCost } from 'data/buildings/building'
+import { guildData } from 'data/buildings/guilds'
+import { uniqueData } from 'data/buildings/unique'
 import { hasUpgradeCost } from 'utils/hasCost'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
@@ -17,8 +17,7 @@ interface ArchitectureStateSlice {
 		unemployed: number;
 		max: number;
 	};
-	unique: Record<UniqueList, number>;
-	guild: Record<GuildList, number>;
+	buildings: Record<BuildingsList, number>;
 }
 
 const initialArchitectureState: ArchitectureStateSlice = {
@@ -26,35 +25,53 @@ const initialArchitectureState: ArchitectureStateSlice = {
 		unemployed: 0,
 		max: 0
 	},
-	unique: {
+	buildings: {
+		// Using buildingData instead of uniqueData or guildData crashes the app
+		// For whatever reason it causes "Uncaught ReferenceError: Cannot access 'buildingsData' before initialization"
 		storage: uniqueData.storage.startingLevel,
 		museum: uniqueData.museum.startingLevel,
-		'slayer master': uniqueData['slayer master'].startingLevel
-	},
-	guild: {
-		temp: 0
+		'slayer master': uniqueData['slayer master'].startingLevel,
+		temp: guildData.temp.startingLevel
 	}
 }
 
 const createArchitectureStateSlice: Slice<ArchitectureStore, ArchitectureStateSlice> = () => initialArchitectureState
 
 interface ArchitectureActionSlice {
-	// TODO rewrite these to be generic and write docs for them
-	upgradeUnique: (building: UniqueList) => void;
-	resetUnique: (building: UniqueList) => void;
-	resetAllUniques: () => void;
+	/**
+	 * Upgrades any building by one level.
+	 * The building could be either a unique or guild.
+	 * The cost is checked within the function so it doesn't need to checked elsewhere before calling.
+	 *
+	 * @param building - Must be the name of the building
+	 * @returns void
+	 */
+	upgradeBuilding: (building: BuildingsList) => void;
 
-	upgradeGuild: (building: GuildList) => void;
-	resetGuild: (building: GuildList) => void;
-	resetAllGuilds: () => void;
+	/**
+	 * Resets the building back to the starting level.
+	 * Should only be used in dev mode.
+	 *
+	 * @param building - Must be the name of the building
+	 * @returns void
+	 */
+	resetBuilding: (building: BuildingsList) => void;
+
+	/**
+	 * Resets **ALL** buildings back to the starting levels.
+	 * Should only be used in dev mode.
+	 *
+	 * @returns void
+	 */
+	resetAllBuildings: () => void;
 }
 
 const createArchitectureActionSlice: Slice<ArchitectureStore, ArchitectureActionSlice> = set => ({
-	upgradeUnique: building => {
-		const hasCost = hasUpgradeCost('unique', building)
+	upgradeBuilding: building => {
+		const hasCost = hasUpgradeCost(building)
 		if (!hasCost) return
 
-		const { materials, gold } = getBuildingUpgradeCost('unique', building)
+		const { materials, gold } = getBuildingUpgradeCost(building)
 
 		const { removeMaterial } = useItemStore.getState()
 
@@ -66,53 +83,22 @@ const createArchitectureActionSlice: Slice<ArchitectureStore, ArchitectureAction
 		removeGold(gold ?? 0)
 
 		set(state => ({
-			unique: {
-				...state.unique,
-				[building]: state.unique[building] + 1
+			buildings: {
+				...state.buildings,
+				[building]: state.buildings[building] + 1
 			}
 		}))
 	},
-	resetUnique: building => {
+	resetBuilding: building => {
 		set(state => ({
-			unique: {
-				...state.unique,
-				[building]: uniqueData[building].startingLevel
+			buildings: {
+				...state.buildings,
+				[building]: initialArchitectureState.buildings[building]
 			}
 		}))
 	},
-	resetAllUniques: () => {
-		set({ unique: initialArchitectureState.unique })
-	},
-
-	upgradeGuild: building => {
-		const hasCost = hasUpgradeCost('guild', building)
-		if (!hasCost) return
-
-		const { materials } = getBuildingUpgradeCost('guild', building)
-
-		const { removeMaterial } = useItemStore.getState()
-
-		Object.entries(materials ?? {}).map(([material, amount]) => {
-			removeMaterial(material, amount)
-		})
-
-		set(state => ({
-			guild: {
-				...state.guild,
-				[building]: state.guild[building] + 1
-			}
-		}))
-	},
-	resetGuild: building => {
-		set(state => ({
-			guild: {
-				...state.guild,
-				[building]: guildData[building].startingLevel
-			}
-		}))
-	},
-	resetAllGuilds: () => {
-		set(() => ({ guild: initialArchitectureState.guild }))
+	resetAllBuildings: () => {
+		set({ buildings: initialArchitectureState.buildings })
 	}
 })
 

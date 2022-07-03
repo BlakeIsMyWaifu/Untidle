@@ -46,7 +46,7 @@ const Furniture: FC<FurnitureProps> = ({ data }) => {
 					<ImageDropdown
 						data={materialData}
 						selected={dropdown}
-						setSelected={setDropdown}
+						setFunction={item => setDropdown(item)}
 					/>
 					<Text>Quality: {quality}</Text>
 				</Stack>

@@ -1,11 +1,11 @@
 import { Box, Title } from '@mantine/core'
 import SkillCards from 'components/SkillCards'
 import { FC } from 'react'
-import { Hammer } from 'tabler-icons-react'
+import { Armchair, BuildingCommunity, BuildingWarehouse, Hammer } from 'tabler-icons-react'
 
+import Buildings from './Buildings/Buildings'
 import Carpentry from './Carpentry'
-import Guilds from './Guilds'
-import Masonry from './Masonry'
+import HomelyHomes from './HomelyHomes'
 
 const Architecture: FC = () => {
 	return (
@@ -14,14 +14,14 @@ const Architecture: FC = () => {
 
 			<SkillCards skill='architecture' subskills={{
 				main: Hammer,
-				masonry: Hammer,
-				guilds: Hammer,
-				carpentry: Hammer
+				masonry: BuildingCommunity,
+				guilds: BuildingWarehouse,
+				carpentry: Armchair
 			}} />
 
-			<Masonry />
+			<Buildings />
 
-			<Guilds />
+			<HomelyHomes />
 
 			<Carpentry />
 		</Box>
