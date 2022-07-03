@@ -7,7 +7,6 @@ import { Link } from 'react-router-dom'
 import { useArchitectureStore } from 'state/useArchitectureStore'
 import { useGoldStore } from 'state/useGoldStore'
 import { useItemStore } from 'state/useItemStore'
-import { capitalise } from 'utils/capitalise'
 
 interface BuildingsProps {
 	data: Unique | Guild;
@@ -38,7 +37,9 @@ const Building: FC<BuildingsProps> = ({ data }) => {
 		<Paper p='md'>
 			<Group noWrap>
 				<Stack spacing={0} align='center'>
-					<Title order={4}>{capitalise(name)}</Title>
+					<Title order={4} style={{
+						textTransform: 'capitalize'
+					}}>{name}</Title>
 					<Text>Level {buildingLevel} / {maxLevel}</Text>
 					<Image src={`assets/skills/architecture/buildings/${image}.png`} />
 				</Stack>

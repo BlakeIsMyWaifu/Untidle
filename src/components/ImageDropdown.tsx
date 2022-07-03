@@ -25,7 +25,8 @@ const useStyles = createStyles((theme, { opened }: { opened: boolean }) => ({
 
 	label: {
 		fontWeight: 500,
-		fontSize: theme.fontSizes.sm
+		fontSize: theme.fontSizes.sm,
+		textTransform: 'capitalize'
 	},
 
 	icon: {
@@ -58,6 +59,9 @@ const ImageDropdown: FC<ImageDropdownProps> = ({ data, selected, setFunction }) 
 				setFunction(item)
 			}}
 			key={item.label}
+			style={{
+				textTransform: 'capitalize'
+			}}
 		>
 			{item.label}
 		</Menu.Item>

@@ -2,7 +2,6 @@ import { Badge, Group, Paper, Progress, Text, ThemeIcon, createStyles } from '@m
 import { SkillList, Subskills } from 'data/skills/skills'
 import { useSkillStore } from 'state/useSkillStore'
 import { Icon } from 'tabler-icons-react'
-import { capitalise } from 'utils/capitalise'
 import { round } from 'utils/maths'
 
 const iconSize = 60
@@ -41,6 +40,9 @@ const SubskillCard = <T extends SkillList,>({ skillName, subskillName, icon: Ico
 	if (!skillData) return null
 	const { xp, level, xpNeeded } = skillData
 
+	// If this isn't cast as string it causes problems with being in text
+	const name: string = subskillName === 'main' ? skillName : subskillName
+
 	return (
 		<Paper
 			withBorder
@@ -60,8 +62,9 @@ const SubskillCard = <T extends SkillList,>({ skillName, subskillName, icon: Ico
 				align='center'
 				weight={700}
 				className={classes.title}
+				transform={'capitalize'}
 			>
-				{capitalise(subskillName === 'main' ? skillName : subskillName)}
+				{name}
 			</Text>
 
 			<Text

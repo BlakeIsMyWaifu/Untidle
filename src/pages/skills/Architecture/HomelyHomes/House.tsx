@@ -8,7 +8,6 @@ import { HomelyHome } from 'data/skills/architecture/homelyHomesData'
 import { useMountEffect } from 'hooks/useMountEffect'
 import { FC, useEffect } from 'react'
 import { useItemStore } from 'state/useItemStore'
-import { capitalise } from 'utils/capitalise'
 import { typedObject } from 'utils/typedObjectKeys'
 
 interface HouseProps {
@@ -28,7 +27,7 @@ const House: FC<HouseProps> = ({ data }) => {
 	useMountEffect(() => {
 		typedObject.keys(furnitureSlots).forEach(slot => {
 			const data: DropdownData[] = furnitureData[slot].map(furniture => ({
-				label: capitalise(furniture.name),
+				label: furniture.name,
 				image: `assets/skills/architecture/carpentry/${furniture.image}.png`
 			}))
 			setFurnitureDropdown({ [slot]: data })
@@ -39,7 +38,7 @@ const House: FC<HouseProps> = ({ data }) => {
 	useEffect(() => {
 		typedObject.keys(furnitureSlots).forEach(slot => {
 			const selectedFurniture = selectedDropdown[slot]?.label
-			const stockAmount = materials[selectedFurniture?.toLowerCase() ?? ''] ?? 0
+			const stockAmount = materials[selectedFurniture ?? ''] ?? 0
 			setStock({ [slot]: stockAmount })
 		})
 		// This is needed because normally it wants to include setStock
@@ -51,7 +50,9 @@ const House: FC<HouseProps> = ({ data }) => {
 		<Paper p='md'>
 			<Group noWrap>
 				<Stack spacing={0} align='center'>
-					<Title order={4}>{capitalise(name)}</Title>
+					<Title order={4} style={{
+						textTransform: 'capitalize'
+					}}>{name}</Title>
 					<Image src={`assets/skills/architecture/homelyHomes/${image}.png`} />
 				</Stack>
 
@@ -70,7 +71,7 @@ const House: FC<HouseProps> = ({ data }) => {
 								const selectedFurniture = selectedDropdown[slot]?.label
 								if (!selectedFurniture) return null
 
-								const quality = furnitureData[slot].find(furniture => furniture.name === selectedFurniture.toLowerCase())?.quality
+								const quality = furnitureData[slot].find(furniture => furniture.name === selectedFurniture)?.quality
 
 								return <tr key={slot}>
 									<td>
@@ -108,7 +109,7 @@ const House: FC<HouseProps> = ({ data }) => {
 					},
 					cost: {
 						materials: typedObject.entries(furnitureSlots).map(([slot, amount]) => ({
-							name: selectedDropdown[slot]?.label.toLowerCase() ?? '',
+							name: selectedDropdown[slot]?.label ?? '',
 							amount
 						}))
 					}

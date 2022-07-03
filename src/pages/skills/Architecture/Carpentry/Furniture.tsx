@@ -6,7 +6,6 @@ import { getAllMaterialCategory } from 'data/items/materials'
 import { FurnitureData } from 'data/skills/architecture/carpentryData'
 import { FC, useMemo, useState } from 'react'
 import { useItemStore } from 'state/useItemStore'
-import { capitalise } from 'utils/capitalise'
 
 interface FurnitureProps {
 	data: FurnitureData;
@@ -19,13 +18,13 @@ const Furniture: FC<FurnitureProps> = ({ data }) => {
 	const materials = useItemStore(state => state.materials)
 
 	const materialData: DropdownData[] = useMemo(() => getAllMaterialCategory(material).map(material => ({
-		label: capitalise(material.name),
+		label: material.name,
 		image: `assets/items/material/wood/${material.image}.png`
 	})), [material])
 
 	const [dropdown, setDropdown] = useState<DropdownData | undefined>(materialData[0]) // TODO remember selected dropdown on page change
 
-	const stock = materials[dropdown?.label.toLowerCase() ?? ''] ?? 0
+	const stock = materials[dropdown?.label ?? ''] ?? 0
 
 	const [quantity, setQuantity] = useState(1) // TODO actually do something
 
@@ -37,7 +36,9 @@ const Furniture: FC<FurnitureProps> = ({ data }) => {
 				alignItems: 'center'
 			}}>
 				<Stack spacing={0} align='center'>
-					<Title order={4}>{capitalise(updatedName)}</Title>
+					<Title order={4} style={{
+						textTransform: 'capitalize'
+					}}>{updatedName}</Title>
 					<Image src={`assets/skills/architecture/carpentry/${image}.png`} />
 				</Stack>
 
@@ -76,13 +77,13 @@ const Furniture: FC<FurnitureProps> = ({ data }) => {
 						},
 						addItem: {
 							materials: [
-								{ name: updatedName.toLowerCase(), amount: 1 }
+								{ name: updatedName, amount: 1 }
 							]
 						}
 					},
 					cost: {
 						materials: [
-							{ name: dropdown?.label.toLowerCase() ?? '', amount: 1 }
+							{ name: dropdown?.label ?? '', amount: 1 }
 						]
 					}
 				}} unlocked={!!stock} />

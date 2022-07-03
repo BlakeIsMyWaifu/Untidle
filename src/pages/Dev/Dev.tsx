@@ -1,4 +1,4 @@
-import { Accordion, AccordionItem, Box, Title } from '@mantine/core'
+import { Accordion, Box, Title } from '@mantine/core'
 import { FC } from 'react'
 import { capitalise } from 'utils/capitalise'
 
@@ -28,9 +28,9 @@ const Dev: FC = () => {
 
 				{
 					Object.entries(stores).map(([storeName, StoreElement]) => {
-						return <AccordionItem key={storeName} label={capitalise(storeName)}>
+						return <Accordion.Item key={storeName} label={capitalise(storeName)}>
 							<StoreElement />
-						</AccordionItem>
+						</Accordion.Item>
 					})
 				}
 

@@ -5,7 +5,6 @@ import { useGoldStore } from 'state/useGoldStore'
 import { useSettingsStore } from 'state/useSettingsStore'
 import { useSkillStore } from 'state/useSkillStore'
 import { ChartBar, Coin, MoonStars, Report, Sun } from 'tabler-icons-react'
-import { capitalise } from 'utils/capitalise'
 
 import { navbarData } from './NavbarData'
 import NavbarLink from './NavbarLink'
@@ -95,7 +94,7 @@ const AppNavbar: FC = () => {
 							<Report />
 							<Text>Activity</Text>
 						</Group>
-						<Text>{capitalise(activitySkill ?? 'none')}</Text>
+						<Text transform='capitalize'>{activitySkill ?? 'none'}</Text>
 					</Group>
 					<Group position='apart'>
 						<Group>
