@@ -27,12 +27,12 @@ const Digging: FC = () => {
 								activitySkill: 'digging',
 								intervalTime,
 								reward: {
-									addXp: {
+									xp: {
 										amount: xp,
 										skill: 'excavation',
 										subskill: 'digging'
 									},
-									addItem: {
+									item: {
 										materials: [
 											{ name: `${name.toLowerCase()}`, amount: [1, 3] },
 											{ name: 'shard', amount: 1, chance: 25 }

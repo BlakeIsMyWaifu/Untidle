@@ -70,12 +70,12 @@ const Furniture: FC<FurnitureProps> = ({ data }) => {
 					activitySkill: 'carpentry',
 					intervalTime,
 					reward: {
-						addXp: {
+						xp: {
 							amount: 100,
 							skill: 'architecture',
 							subskill: 'carpentry'
 						},
-						addItem: {
+						item: {
 							materials: [
 								{ name: updatedName, amount: 1 }
 							]

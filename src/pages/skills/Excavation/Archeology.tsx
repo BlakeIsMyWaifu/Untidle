@@ -34,12 +34,12 @@ const Archeology: FC = () => {
 								activitySkill: 'archeology',
 								intervalTime,
 								reward: {
-									addXp: {
+									xp: {
 										amount: xp,
 										skill: 'excavation',
 										subskill: 'archeology'
 									},
-									addItem: {
+									item: {
 										materials: [
 											{ name: `${name.toLowerCase()}`, amount: [1, 3] }
 										]

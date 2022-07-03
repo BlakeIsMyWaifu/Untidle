@@ -17,7 +17,7 @@ const ActivitySection: FC = () => {
 						intervalTime: 1000,
 						reward: {
 							method: () => console.log('Dev 1'),
-							addXp: {
+							xp: {
 								skill: 'survival',
 								subskill: 'woodcutting',
 								amount: 1
@@ -33,7 +33,7 @@ const ActivitySection: FC = () => {
 						intervalTime: 2000,
 						reward: {
 							method: () => console.log('Dev 2'),
-							addItem: {
+							item: {
 								materials: [
 									{ name: 'oak wood', amount: 1 }
 								]

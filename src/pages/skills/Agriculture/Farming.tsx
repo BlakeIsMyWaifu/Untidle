@@ -27,12 +27,12 @@ const Farming: FC = () => {
 								activitySkill: 'farming',
 								intervalTime,
 								reward: {
-									addXp: {
+									xp: {
 										amount: xp,
 										skill: 'agriculture',
 										subskill: 'farming'
 									},
-									addItem: {
+									item: {
 										materials: [
 											{ name: `${name.toLowerCase()}`, amount: [1, 3] }
 										]

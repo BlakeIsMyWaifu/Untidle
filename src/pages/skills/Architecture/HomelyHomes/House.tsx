@@ -100,7 +100,7 @@ const House: FC<HouseProps> = ({ data }) => {
 					activitySkill: 'masonry',
 					intervalTime: 8000,
 					reward: {
-						addXp: {
+						xp: {
 							amount: 200, // TODO scale xp/gold from house size and quality
 							skill: 'architecture',
 							subskill: 'masonry'

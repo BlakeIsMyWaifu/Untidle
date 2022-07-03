@@ -14,9 +14,9 @@ type ActivityStore = ActivityStateSlice & ActivityActionSlice
 /**
  * - method - is an additional function to be ran on every activity completion
  *
- * - addXp - Xp given every completion
+ * - xp - Xp given every completion
  *
- * - addItem - Items to be given every completion.
+ * - item - Items to be given every completion.
  *   - material
  *     - name - The name of the material in lowercase
  *     - amount - May be either a flat number or a number tuple of min and max
@@ -27,12 +27,12 @@ type ActivityStore = ActivityStateSlice & ActivityActionSlice
  */
 interface Reward {
 	method?: () => void;
-	addXp?: { // TODO change to array so an activity could add xp to multiple skills
+	xp?: { // TODO change to array so an activity could add xp to multiple skills
 		amount: number;
 		skill: SkillList;
 		subskill: SubskillList;
 	};
-	addItem?: {
+	item?: {
 		materials?: {
 			name: string;
 			amount: number | [number, number];
@@ -152,7 +152,7 @@ const createActivityActionSlice: Slice<ActivityStore, ActivityActionSlice> = (se
 			})
 		}
 
-		const { method, addXp, addItem, gold } = get().reward
+		const { method, xp: addXp, item: addItem, gold } = get().reward
 
 		method?.()
 

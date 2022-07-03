@@ -27,12 +27,12 @@ const Woodcutting: FC = () => {
 								activitySkill: 'woodcutting',
 								intervalTime,
 								reward: {
-									addXp: {
+									xp: {
 										amount: xp,
 										skill: 'survival',
 										subskill: 'woodcutting'
 									},
-									addItem: {
+									item: {
 										materials: [
 											{ name: `${name.toLowerCase()} wood`, amount: [1, 3] }
 										]
