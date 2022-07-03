@@ -11,10 +11,11 @@ export type BuildingsList = UniqueList | GuildList
 
 export interface Buildings<Name extends string, Type extends BuildingTypes> {
 	name: Name;
+	image: string;
 	buildingType: Type;
 	startingLevel: number;
 	maxLevel: number;
-	upgradeCost: Record<number, UpgradeCost>;
+	upgradeCosts: Record<number, UpgradeCost>;
 }
 
 export interface UpgradeCost {
@@ -33,7 +34,7 @@ export const getBuildingUpgradeCost = (buildingName: BuildingsList): Partial<Upg
 	const { buildings } = useArchitectureStore.getState()
 
 	const buildingLevel = buildings[buildingName]
-	const { upgradeCost } = buildingsData[buildingName]
+	const { upgradeCosts } = buildingsData[buildingName]
 
-	return upgradeCost[buildingLevel + 1] ?? {}
+	return upgradeCosts[buildingLevel + 1] ?? {}
 }

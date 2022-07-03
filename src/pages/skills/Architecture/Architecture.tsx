@@ -3,9 +3,9 @@ import SkillCards from 'components/SkillCards'
 import { FC } from 'react'
 import { Armchair, BuildingCommunity, BuildingWarehouse, Hammer } from 'tabler-icons-react'
 
+import Buildings from './Buildings/Buildings'
 import Carpentry from './Carpentry'
-import Guilds from './Guilds'
-import Masonry from './Masonry'
+import HomelyHomes from './HomelyHomes'
 
 const Architecture: FC = () => {
 	return (
@@ -19,9 +19,9 @@ const Architecture: FC = () => {
 				carpentry: Armchair
 			}} />
 
-			<Masonry />
+			<Buildings />
 
-			<Guilds />
+			<HomelyHomes />
 
 			<Carpentry />
 		</Box>

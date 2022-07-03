@@ -12,10 +12,11 @@ export type UniqueList =
 export const uniqueData: ImmutableObject<Record<UniqueList, Unique>> = {
 	storage: {
 		name: 'storage',
+		image: 'temp_building',
 		buildingType: 'unique',
 		startingLevel: 1,
 		maxLevel: 5,
-		upgradeCost: {
+		upgradeCosts: {
 			2: { gold: 0, materials: { stone: 20 } },
 			3: { gold: 0, materials: { stone: 30 } },
 			4: { gold: 0, materials: { stone: 40 } },
@@ -24,10 +25,11 @@ export const uniqueData: ImmutableObject<Record<UniqueList, Unique>> = {
 	},
 	museum: {
 		name: 'museum',
+		image: 'temp_building',
 		buildingType: 'unique',
 		startingLevel: 0,
 		maxLevel: 5,
-		upgradeCost: {
+		upgradeCosts: {
 			1: { gold: 0, materials: { stone: 10 } },
 			2: { gold: 0, materials: { stone: 20 } },
 			3: { gold: 0, materials: { stone: 30 } },
@@ -37,10 +39,11 @@ export const uniqueData: ImmutableObject<Record<UniqueList, Unique>> = {
 	},
 	'slayer master': {
 		name: 'slayer master',
+		image: 'temp_building',
 		buildingType: 'unique',
 		startingLevel: 0,
 		maxLevel: 5,
-		upgradeCost: {
+		upgradeCosts: {
 			1: { gold: 0, materials: { stone: 10 } },
 			2: { gold: 0, materials: { stone: 20 } },
 			3: { gold: 0, materials: { stone: 30 } },
