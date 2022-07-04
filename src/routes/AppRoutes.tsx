@@ -4,6 +4,7 @@ import { Route, Routes } from 'react-router'
 const Home = lazy(() => import('pages/Home'))
 
 const Combat = lazy(() => import('pages/Combat'))
+const WildernessCombat = lazy(() => import('pages/Combat/Wilderness/WildernessCombat'))
 
 const Agriculture = lazy(() => import('pages/skills/Agriculture'))
 const Alchemy = lazy(() => import('pages/skills/Alchemy'))
@@ -33,6 +34,7 @@ const AppRoutes: FC = () => {
 			<Route path='/' element={<Home />} />
 
 			<Route path='/combat' element={<Combat />} />
+			<Route path='/combat/wilderness/:area' element={<WildernessCombat />} />
 
 			<Route path='/agriculture' element={<Agriculture />} />
 			<Route path='/alchemy' element={<Alchemy />} />

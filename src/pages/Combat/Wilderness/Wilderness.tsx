@@ -2,7 +2,7 @@ import { Box, Group, Title } from '@mantine/core'
 import { wildernessData } from 'data/combat/wildernessData'
 import { FC } from 'react'
 
-import Area from './Area'
+import AreaButton from './AreaButton'
 
 const Wilderness: FC = () => {
 	return (
@@ -11,8 +11,8 @@ const Wilderness: FC = () => {
 
 			<Group>
 				{
-					wildernessData.map(wilderness => {
-						return <Area
+					Object.values(wildernessData).map(wilderness => {
+						return <AreaButton
 							key={wilderness.name}
 							data={wilderness}
 						/>

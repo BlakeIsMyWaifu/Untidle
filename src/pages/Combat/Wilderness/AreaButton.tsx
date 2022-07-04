@@ -1,12 +1,13 @@
 import { Button, Image, Paper, Stack, Title } from '@mantine/core'
 import { WildernessData } from 'data/combat/wildernessData'
 import { FC } from 'react'
+import { Link } from 'react-router-dom'
 
 interface AreaProps {
 	data: WildernessData;
 }
 
-const Area: FC<AreaProps> = ({ data }) => {
+const AreaButton: FC<AreaProps> = ({ data }) => {
 
 	const { name, image } = data
 
@@ -24,6 +25,8 @@ const Area: FC<AreaProps> = ({ data }) => {
 					fullWidth
 					variant='light'
 					color='green'
+					component={Link}
+					to={`/combat/wilderness/${name}`}
 				>
 					Goto
 				</Button>
@@ -33,4 +36,4 @@ const Area: FC<AreaProps> = ({ data }) => {
 	)
 }
 
-export default Area
+export default AreaButton
