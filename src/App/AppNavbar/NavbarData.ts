@@ -29,7 +29,7 @@ export const navbarData: (NavbarSingle | NavbarGroup)[] = [
 	{
 		label: 'Combat',
 		icon: Sword,
-		link: '/'
+		link: '/combat'
 	},
 	{
 		label: 'Skills',

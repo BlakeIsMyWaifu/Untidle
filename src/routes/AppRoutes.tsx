@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router'
 
 const Home = lazy(() => import('pages/Home'))
 
-const Storage = lazy(() => import('pages/buildings/Storage'))
+const Combat = lazy(() => import('pages/Combat'))
 
 const Agriculture = lazy(() => import('pages/skills/Agriculture'))
 const Alchemy = lazy(() => import('pages/skills/Alchemy'))
@@ -23,13 +23,17 @@ const Sorcery = lazy(() => import('pages/skills/Sorcery'))
 const Strength = lazy(() => import('pages/skills/Strength'))
 const Survival = lazy(() => import('pages/skills/Survival'))
 
+const Storage = lazy(() => import('pages/buildings/Storage'))
+
 const Dev = lazy(() => import('pages/Dev'))
 
 const AppRoutes: FC = () => {
 	return (
 		<Routes>
 			<Route path='/' element={<Home />} />
-			<Route path='/storage' element={<Storage />} />
+
+			<Route path='/combat' element={<Combat />} />
+
 			<Route path='/agriculture' element={<Agriculture />} />
 			<Route path='/alchemy' element={<Alchemy />} />
 			<Route path='/arcane' element={<Arcane />} />
@@ -47,6 +51,9 @@ const AppRoutes: FC = () => {
 			<Route path='/sorcery' element={<Sorcery />} />
 			<Route path='/strength' element={<Strength />} />
 			<Route path='/survival' element={<Survival />} />
+
+			<Route path='/storage' element={<Storage />} />
+
 			<Route path='/dev' element={<Dev />} />
 		</Routes>
 	)
