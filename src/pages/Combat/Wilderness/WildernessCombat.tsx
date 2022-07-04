@@ -1,4 +1,5 @@
 import { Box, Button, Group, Title } from '@mantine/core'
+import Fight from 'components/Fight'
 import { wildernessData } from 'data/combat/wildernessData'
 import { FC } from 'react'
 import { useParams } from 'react-router'
@@ -13,7 +14,7 @@ const WildernessCombat: FC = () => {
 
 	return (
 		<Box>
-			<Group position='apart'>
+			<Group position='apart' p='md'>
 				<Title style={{
 					textTransform: 'capitalize'
 				}}>{name}</Title>
@@ -26,6 +27,8 @@ const WildernessCombat: FC = () => {
 					Go Back
 				</Button>
 			</Group>
+
+			<Fight />
 		</Box>
 	)
 }
