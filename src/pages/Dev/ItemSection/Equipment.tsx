@@ -22,8 +22,9 @@ const Equipment: FC = () => {
 						name: 'test',
 						image: 'temp_sword',
 						rarity: randomArrayElement<Rarity>(['common', 'rare', 'epic', 'legendary', 'mythic', 'rainbow']),
+						slot: 'mainHand',
 						category: 'sword',
-						stats: {}
+						fixedStats: {}
 					}
 					addEquipment(equipment)
 				}}>
