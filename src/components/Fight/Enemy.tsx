@@ -12,7 +12,7 @@ const Enemy: FC<EnemyProps> = ({ data }) => {
 
 	return (
 		<Paper p='md' style={{
-			width: 'fit-content'
+			width: '100%'
 		}}>
 			<Stack align='center'>
 				<Title style={{
@@ -21,7 +21,9 @@ const Enemy: FC<EnemyProps> = ({ data }) => {
 
 				<Image
 					src={`assets/combat/enemy/${image}.png`}
-					height={256}
+					style={{
+						width: '80%'
+					}}
 				/>
 			</Stack>
 		</Paper>

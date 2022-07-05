@@ -6,11 +6,11 @@ import EquipmentSlot from './EquipmentSlot'
 const useStyle = createStyles(theme => ({
 	grid: {
 		display: 'grid',
-		gridTemplateColumns: 'repeat(5, 64px)',
-		gridTemplateRows: 'repeat(5, 64px)',
+		gridTemplateColumns: 'repeat(5, 1fr)',
+		gridTemplateRows: 'repeat(5, 1fr)',
 		gap: theme.spacing.xs,
 		padding: theme.spacing.xs,
-		width: 'fit-content'
+		width: '100%'
 	}
 }))
 

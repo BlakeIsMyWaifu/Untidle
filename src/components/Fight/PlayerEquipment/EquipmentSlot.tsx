@@ -10,9 +10,7 @@ const EquipmentSlot: FC<EquipmentSlotProps> = ({ name, gridArea }) => {
 	return (
 		<Box style={{
 			gridArea,
-			border: '2px red solid',
-			width: '100%',
-			height: '100%'
+			border: '2px red solid'
 		}}>
 			{name}
 		</Box>
