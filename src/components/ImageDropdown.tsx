@@ -74,7 +74,9 @@ const ImageDropdown: FC<ImageDropdownProps> = ({ data, selected, setFunction }) 
 			onOpen={() => setOpened(true)}
 			onClose={() => setOpened(false)}
 			radius='md'
-			control={
+			width='target'
+		>
+			<Menu.Target>
 				<UnstyledButton className={classes.control}>
 					<Group spacing='xs'>
 						<Image src={selected?.image ?? ''} width={22} height={22} />
@@ -82,9 +84,10 @@ const ImageDropdown: FC<ImageDropdownProps> = ({ data, selected, setFunction }) 
 					</Group>
 					<ChevronDown size={16} className={classes.icon} />
 				</UnstyledButton>
-			}
-		>
-			{items}
+			</Menu.Target>
+			<Menu.Dropdown>
+				{items}
+			</Menu.Dropdown>
 		</Menu>
 	)
 }
