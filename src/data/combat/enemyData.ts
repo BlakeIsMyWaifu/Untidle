@@ -1,12 +1,18 @@
-import { ImmutableObject } from 'types/immutable'
-
-export type EnemyData = ImmutableObject<{
-	name: string;
+export interface EnemyData {
+	name: EnemyList;
 	image: string;
 	level: number;
 	stats: Record<string, unknown>;
-}>
+}
 
-export const enemyData: ImmutableObject<Record<string, EnemyData>> = {
+type EnemyList =
+	| 'zombie'
 
+export const enemyData: Record<EnemyList, EnemyData> = {
+	zombie: {
+		name: 'zombie',
+		image: 'temp_enemy',
+		level: 1,
+		stats: {}
+	}
 }

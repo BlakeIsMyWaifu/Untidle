@@ -1,20 +1,18 @@
-import { ImmutableObject } from 'types/immutable'
+import { EnemyData, enemyData } from './enemyData'
 
-import { EnemyData } from './enemyData'
-
-export type WildernessData = ImmutableObject<{
+export interface WildernessData {
 	name: string;
 	image: string;
 	levelRequired: number;
 	enemies: EnemyData[];
-}>
+}
 
-export const wildernessData: ImmutableObject<Record<string, WildernessData>> = {
+export const wildernessData: Record<string, WildernessData> = {
 	one: {
 		name: 'one',
 		image: 'temp_wilderness',
 		levelRequired: 0,
-		enemies: []
+		enemies: [enemyData.zombie]
 	},
 	two: {
 		name: 'two',

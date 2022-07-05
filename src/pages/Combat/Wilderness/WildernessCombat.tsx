@@ -4,13 +4,17 @@ import { wildernessData } from 'data/combat/wildernessData'
 import { FC } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
+import { randomArrayElementUndefined } from 'utils/randomElement'
 
 const WildernessCombat: FC = () => {
 
 	const { area } = useParams()
 	const data = wildernessData[area ?? '']
 	if (!data) return null
-	const { name } = data
+	const { name, enemies } = data
+
+	const randomEnemy = randomArrayElementUndefined(enemies)
+	if (!randomEnemy) return null
 
 	return (
 		<Box>
@@ -28,7 +32,7 @@ const WildernessCombat: FC = () => {
 				</Button>
 			</Group>
 
-			<Fight />
+			<Fight enemy={randomEnemy} />
 		</Box>
 	)
 }

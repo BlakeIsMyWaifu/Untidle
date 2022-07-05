@@ -1,15 +1,21 @@
-import { Center, Group } from '@mantine/core'
+import { Group } from '@mantine/core'
+import { EnemyData } from 'data/combat/enemyData'
 import { FC } from 'react'
 
+import Enemy from './Enemy'
 import PlayerEquipment from './PlayerEquipment'
 
-const Fight: FC = () => {
+interface FightProps {
+	enemy: EnemyData;
+}
+
+const Fight: FC<FightProps> = ({ enemy }) => {
 	return (
-		<Center p='md'>
-			<Group>
-				<PlayerEquipment />
-			</Group>
-		</Center>
+		<Group align='stretch' position='center'>
+			<PlayerEquipment />
+
+			<Enemy data={enemy} />
+		</Group>
 	)
 }
 

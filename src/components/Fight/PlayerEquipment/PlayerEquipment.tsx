@@ -9,7 +9,8 @@ const useStyle = createStyles(theme => ({
 		gridTemplateColumns: 'repeat(5, 64px)',
 		gridTemplateRows: 'repeat(5, 64px)',
 		gap: theme.spacing.xs,
-		padding: theme.spacing.xs
+		padding: theme.spacing.xs,
+		width: 'fit-content'
 	}
 }))
 
@@ -18,7 +19,7 @@ const PlayerEquipment: FC = () => {
 	const { classes } = useStyle()
 
 	return (
-		<Paper className={classes.grid} >
+		<Paper className={classes.grid}>
 
 			<EquipmentSlot name='head' gridArea='1 / 3 / 2 /4' />
 			<EquipmentSlot name='pauldron' gridArea='2 / 4 / 3 /4' />
