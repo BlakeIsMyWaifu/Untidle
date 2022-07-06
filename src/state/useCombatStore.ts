@@ -14,11 +14,30 @@ interface CombatStateSlice {
 	equipment: Record<EquipmentSlot, string | null>;
 }
 
+/**
+ * 50% (5) =
+ * (21 - AS) * 5 = 10
+ *
+ *
+ * [50%, 50%, 25%] = ~80%
+ * [.5 * .5 * .25] = 93.75%
+ *
+ * multiplicative would be .5 + (.5 * .5) for .75.
+ * If you somehow had 3 stacking abilities for 50% 50% and 25% .5 + (.5 * .5) + (.5 * .5 * .25) = 93.75%
+ *
+ * 1 * (1+.2) * (1+.2) * (1+.2) = 1.728
+ * 1 * (1 + .2 + .2 + .2) = 1.6
+ *
+ * Attack once every 5 seconds or 0.2 times a second
+ * 150% = .5
+ * 0.2 * (1 + 1.50)
+ */
+
 const initialCombatState: CombatStateSlice = {
 	currentHealth: 10,
 	inCombat: false,
 	stats: {
-		'Attack Speed': 1,
+		'Attack Speed': 0,
 		'Critical Chance': 0,
 		'Critical Damage': 0,
 		'Critical Resistance': 0,

@@ -1,8 +1,11 @@
 import { Box, createStyles } from '@mantine/core'
 import { EnemyData } from 'data/combat/enemyData'
-import { FC } from 'react'
+import { FC, useReducer } from 'react'
 
+import CombatLoop from './CombatLoop'
 import Enemy from './Enemy'
+import EnemyHealth from './EnemyHealth'
+import { FightContext, fightInitialState, fightReducer } from './FightState'
 import PlayerEquipment from './PlayerEquipment'
 
 const useStyle = createStyles(theme => ({
@@ -60,32 +63,39 @@ const Fight: FC<FightProps> = ({ enemy }) => {
 
 	const { classes } = useStyle()
 
+	const [state, dispatch] = useReducer(fightReducer, fightInitialState)
+
 	return (
-		<Box className={classes.grid}>
-			<Box className={classes.playerExtra}>
-				<Placeholder area='PlayerStats' />
-				<Placeholder area='Devotion' />
-				<Placeholder area='Slayer' />
-				<Placeholder area='Summon' />
+		<FightContext.Provider value={{ state, dispatch }}>
+			<CombatLoop
+				enemy={enemy}
+			/>
+
+			<Box className={classes.grid}>
+				<Box className={classes.playerExtra}>
+					<Placeholder area='PlayerStats' />
+					<Placeholder area='Devotion' />
+					<Placeholder area='Slayer' />
+					<Placeholder area='Summon' />
+				</Box>
+
+				<Box className={classes.playerMain}>
+					<Placeholder area='PlayerHealth' />
+					<Placeholder area='PlayerAttack' />
+					<PlayerEquipment />
+					<Placeholder area='Potions' />
+				</Box>
+
+				<Box className={classes.enemy}>
+					<EnemyHealth />
+					<Placeholder area='EnemyAttack' />
+					<Enemy data={enemy} />
+					<Placeholder area='EnemyStats' />
+				</Box>
+
+				<Placeholder area='Loot' />
 			</Box>
-
-			<Box className={classes.playerMain}>
-				<Placeholder area='PlayerHealth' />
-				<Placeholder area='PlayerAttack' />
-				<PlayerEquipment />
-				<Placeholder area='Potions' />
-			</Box>
-
-			<Box className={classes.enemy}>
-				<Placeholder area='EnemyHealth' />
-				<Placeholder area='EnemyAttack' />
-				<Enemy data={enemy} />
-				<Placeholder area='EnemyStats' />
-			</Box>
-
-			<Placeholder area='Loot' />
-
-		</Box>
+		</FightContext.Provider>
 	)
 }
 
