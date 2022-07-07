@@ -1,4 +1,5 @@
 import { Box, createStyles } from '@mantine/core'
+import ProgressBar from 'components/ProgressBar'
 import { EnemyData } from 'data/combat/enemyData'
 import { FC, useReducer } from 'react'
 
@@ -81,7 +82,10 @@ const Fight: FC<FightProps> = ({ enemy }) => {
 
 				<Box className={classes.playerMain}>
 					<Placeholder area='PlayerHealth' />
-					<Placeholder area='PlayerAttack' />
+					<ProgressBar
+						time={state.playerAttackSpeed}
+						label={`Player Attack (${state.playerAttackSpeed / 1000}s)`}
+					/>
 					<PlayerEquipment />
 					<Placeholder area='Potions' />
 				</Box>
