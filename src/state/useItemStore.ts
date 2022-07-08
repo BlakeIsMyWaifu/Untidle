@@ -1,6 +1,7 @@
-import { Equipment } from 'data/items/equipment'
+import { CollectedEquipment, EquipmentList, equipmentData, statsList } from 'data/items/equipment'
 import { MaterialList } from 'data/items/materials'
-import { findNextNum } from 'utils/maths'
+import { findNextNum, randomNum } from 'utils/maths'
+import { randomArrayElement } from 'utils/randomElement'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
@@ -11,7 +12,7 @@ type ItemStore = ItemStateSlice & ItemActionSlice
 
 interface ItemStateSlice {
 	materials: Record<string, number>;
-	equipments: Record<string, Equipment>;
+	equipments: Record<string, CollectedEquipment>;
 }
 
 const initialItemState: ItemStateSlice = {
@@ -25,20 +26,20 @@ interface ItemActionSlice {
 	/**
 	 * Adds a material to the players storage
 	 *
-	 * @param material - Name of a material to be added
+	 * @param materialName - Name of a material to be added
 	 * @param amount - Number of the given material to be added
 	 * @returns void
 	 */
-	addMaterial: (material: MaterialList, amount: number) => void;
+	addMaterial: (materialName: MaterialList, amount: number) => void;
 
 	/**
 	 * Removes a material to the players storage
 	 *
-	 * @param material - Name of a material to be removed
+	 * @param materialName - Name of a material to be removed
 	 * @param amount - Number of the given material to be removed
 	 * @returns void
 	 */
-	removeMaterial: (material: MaterialList, amount: number) => void;
+	removeMaterial: (materialName: MaterialList, amount: number) => void;
 
 	/**
 	 * Deletes **ALL** materials
@@ -48,12 +49,13 @@ interface ItemActionSlice {
 	resetMaterials: () => void;
 
 	/**
-	 * Adds an equipment to the players storage
+	 * Adds an equipment to the players storage.
+	 * The equipment is also given random stats.
 	 *
-	 * @param equipment - Full equipment data not just a name
+	 * @param equipmentName - Name of equipment to be added
 	 * @returns void
 	 */
-	addEquipment: (equipment: Equipment) => void; // TODO return the new equipments id
+	addEquipment: (equipmentName: EquipmentList) => void; // TODO return the new equipments id
 
 	/**
 	 * Removes an equipment
@@ -72,19 +74,19 @@ interface ItemActionSlice {
 }
 
 const createItemActionSlice: Slice<ItemStore, ItemActionSlice> = (set, get) => ({
-	addMaterial: (material: MaterialList, amount: number) => {
+	addMaterial: (materialName: MaterialList, amount: number) => {
 		set(state => ({
 			materials: {
 				...state.materials,
-				[material]: (state.materials[material] ?? 0) + amount
+				[materialName]: (state.materials[materialName] ?? 0) + amount
 			}
 		}))
 	},
-	removeMaterial: (material, amount) => {
+	removeMaterial: (materialName, amount) => {
 		set(state => ({
 			materials: {
 				...state.materials,
-				[material]: (state.materials[material] ?? 0) - amount
+				[materialName]: (state.materials[materialName] ?? 0) - amount
 			}
 		}))
 	},
@@ -94,12 +96,30 @@ const createItemActionSlice: Slice<ItemStore, ItemActionSlice> = (set, get) => (
 		})
 	},
 
-	addEquipment: equipment => {
+	addEquipment: equipmentName => {
+		const equipment = equipmentData[equipmentName]
+		if (!equipment) return
+
 		const nextNum = findNextNum(Object.keys(get().equipments))
+
+		const quality = randomNum(100, 50)
+
+		const statOne = randomArrayElement(statsList) // TODO scale the amount of stats and the amount off the equipment rarity
+		const statTwo = randomArrayElement(statsList)
+		const statThree = randomArrayElement(statsList)
+
 		set(state => ({
 			equipments: {
 				...state.equipments,
-				[nextNum]: equipment
+				[nextNum]: {
+					...equipment,
+					quality,
+					stats: {
+						[statOne]: quality,
+						[statTwo]: quality,
+						[statThree]: quality
+					}
+				}
 			}
 		}))
 	},

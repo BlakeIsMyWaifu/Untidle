@@ -7,11 +7,8 @@ import Materials from './Materials'
 const ItemSection: FC = () => {
 	return (
 		<Box>
-
 			<Materials />
-
 			<Equipment />
-
 		</Box>
 	)
 }

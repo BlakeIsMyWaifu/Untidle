@@ -17,8 +17,8 @@ const Materials: FC = () => {
 
 			<Group p='md' align='end'>
 				<Autocomplete
-					label='Item'
-					placeholder='Item'
+					label='Material'
+					placeholder='Material'
 					data={materialList}
 					ref={itemRef}
 				/>

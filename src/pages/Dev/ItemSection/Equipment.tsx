@@ -1,14 +1,13 @@
-import { Box, Button, Group, NumberInput, Text, Title } from '@mantine/core'
-import { Equipment as EquipmentType } from 'data/items/equipment'
-import { Rarity } from 'data/items/items'
+import { Autocomplete, Box, Button, Group, NumberInput, Text, Title } from '@mantine/core'
+import { equipmentList } from 'data/items/equipment'
 import { FC, useRef } from 'react'
 import { useItemStore } from 'state/useItemStore'
-import { randomArrayElement } from 'utils/randomElement'
 
 const Equipment: FC = () => {
 
 	const { equipments, addEquipment, removeEquipment, resetEquipment } = useItemStore()
 
+	const itemRef = useRef<HTMLInputElement>(null)
 	const removeNumRef = useRef<HTMLInputElement>(null)
 
 	return (
@@ -17,21 +16,17 @@ const Equipment: FC = () => {
 			<Title order={3}>Equipment</Title>
 
 			<Group p='md' align='end'>
+				<Autocomplete
+					label='Equipment'
+					placeholder='Equipment'
+					data={equipmentList}
+					ref={itemRef}
+				/>
 				<Button variant='default' onClick={() => {
-					const equipment: EquipmentType = {
-						name: 'test',
-						image: 'temp_sword',
-						rarity: randomArrayElement<Rarity>(['common', 'rare', 'epic', 'legendary', 'mythic', 'rainbow']),
-						slot: 'mainHand',
-						category: 'sword',
-						fixedStats: {}
-					}
-					addEquipment(equipment)
+					addEquipment(itemRef.current?.value ?? '')
 				}}>
-					Add Test Equipment
+					Add Equipment
 				</Button>
-
-				<Button variant='default' onClick={resetEquipment}>Reset Equipment</Button>
 			</Group>
 
 			<Group p='md'>
@@ -44,6 +39,8 @@ const Equipment: FC = () => {
 				<Button variant='default' onClick={() => {
 					removeEquipment(+(removeNumRef.current?.value ?? 1))
 				}}>Remove id</Button>
+
+				<Button variant='default' onClick={resetEquipment}>Reset Equipment</Button>
 			</Group>
 
 			<Group>
