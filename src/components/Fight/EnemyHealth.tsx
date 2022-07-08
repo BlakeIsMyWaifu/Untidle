@@ -1,14 +1,14 @@
 import { Input, Progress } from '@mantine/core'
-import { FC, useContext } from 'react'
-
-import { FightContext } from './FightState'
+import { FC } from 'react'
+import { useFightStore } from 'state/useFightStore'
 
 const EnemyHealth: FC = () => {
 
-	const { state } = useContext(FightContext)
+	const enemyHealth = useFightStore(state => state.enemyHealth)
+	const enemy = useFightStore(state => state.enemy)
 
-	const currentHealth = state.enemyHealth
-	const maxHealth = state.enemy?.stats.health ?? 1
+	const currentHealth = enemyHealth
+	const maxHealth = enemy?.stats.health ?? 1
 
 	const percentage = (currentHealth / maxHealth) * 100
 

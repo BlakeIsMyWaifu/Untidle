@@ -1,15 +1,14 @@
 import { Image, Paper, Stack, Title } from '@mantine/core'
-import { FC, useContext } from 'react'
-
-import { FightContext } from './FightState'
+import { FC } from 'react'
+import { useFightStore } from 'state/useFightStore'
 
 const Enemy: FC = () => {
 
-	const { state } = useContext(FightContext)
+	const enemy = useFightStore(state => state.enemy)
 
-	if (!state.enemy) return null
+	if (!enemy) return null
 
-	const { name, image } = state.enemy
+	const { name, image } = enemy
 
 	return (
 		<Paper p='md' style={{

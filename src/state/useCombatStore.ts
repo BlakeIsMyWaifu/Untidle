@@ -59,6 +59,7 @@ const createCombatStateSlice: Slice<CombatStore, CombatStateSlice> = () => initi
 
 interface CombatActionSlice {
 	takeDamage: (amount: number) => void;
+	healPlayer: () => void;
 }
 
 const createCombatActionSlice: Slice<CombatStore, CombatActionSlice> = set => ({
@@ -66,6 +67,11 @@ const createCombatActionSlice: Slice<CombatStore, CombatActionSlice> = set => ({
 		set(state => ({
 			currentHealth: state.currentHealth - amount
 		}))
+	},
+	healPlayer: () => {
+		set({
+			currentHealth: 10 // TODO add the actual max health
+		})
 	}
 })
 

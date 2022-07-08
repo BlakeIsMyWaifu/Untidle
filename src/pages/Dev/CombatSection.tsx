@@ -1,4 +1,4 @@
-import { Box, SimpleGrid, Stack, Text, Title } from '@mantine/core'
+import { Box, Button, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core'
 import { FC } from 'react'
 import { useCombatStore } from 'state/useCombatStore'
 
@@ -8,6 +8,15 @@ const CombatSection: FC = () => {
 
 	return (
 		<Box>
+			<Group p='md'>
+				<Button
+					variant='default'
+					onClick={() => {
+						combatStore.healPlayer()
+					}}
+				>Heal Player</Button>
+			</Group>
+
 			<SimpleGrid cols={2}>
 				<Stack spacing={0}>
 					<Title order={3}>Main</Title>

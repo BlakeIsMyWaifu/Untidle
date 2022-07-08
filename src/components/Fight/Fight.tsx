@@ -1,14 +1,13 @@
 import { Box, createStyles } from '@mantine/core'
-import ProgressBar from 'components/ProgressBar'
-import { EnemyData } from 'data/combat/enemyData'
-import { useMountEffect } from 'hooks/useMountEffect'
-import { FC, useEffect, useReducer } from 'react'
+import { FC } from 'react'
 
 import CombatLoop from './CombatLoop'
 import Enemy from './Enemy'
+import EnemyAttackBar from './EnemyAttackBar'
 import EnemyHealth from './EnemyHealth'
-import { FightContext, fightInitialState, fightReducer } from './FightState'
+import PlayerAttackBar from './PlayerAttackBar'
 import PlayerEquipment from './PlayerEquipment'
+import PlayerHealth from './PlayerHealth'
 
 const useStyle = createStyles(theme => ({
 	grid: {
@@ -57,31 +56,12 @@ const Placeholder: FC<PlaceholderProps> = ({ area }) => {
 	}}>{area}</Box>
 }
 
-interface FightProps {
-	enemy: EnemyData;
-}
-
-const Fight: FC<FightProps> = ({ enemy }) => {
+const Fight: FC = () => {
 
 	const { classes } = useStyle()
 
-	const [state, dispatch] = useReducer(fightReducer, fightInitialState)
-
-	useMountEffect(() => {
-		dispatch({ type: 'setEnemy', enemy })
-	})
-
-	// TODO this will only spawn the same enemy over and over
-	// needs to be changed later but fine for now
-	useEffect(() => {
-		if (state.enemyHealth <= 0) {
-			dispatch({ type: 'setEnemy', enemy })
-		}
-	}, [enemy, state.enemyHealth])
-
 	return (
-		<FightContext.Provider value={{ state, dispatch }}>
-
+		<>
 			<CombatLoop />
 
 			<Box className={classes.grid}>
@@ -93,18 +73,15 @@ const Fight: FC<FightProps> = ({ enemy }) => {
 				</Box>
 
 				<Box className={classes.playerMain}>
-					<Placeholder area='PlayerHealth' />
-					<ProgressBar
-						time={state.playerAttackSpeed}
-						label={`Player Attack (${state.playerAttackSpeed / 1000}s)`}
-					/>
+					<PlayerHealth />
+					<PlayerAttackBar />
 					<PlayerEquipment />
 					<Placeholder area='Potions' />
 				</Box>
 
 				<Box className={classes.enemy}>
 					<EnemyHealth />
-					<Placeholder area='EnemyAttack' />
+					<EnemyAttackBar />
 					<Enemy />
 					<Placeholder area='EnemyStats' />
 				</Box>
@@ -112,7 +89,7 @@ const Fight: FC<FightProps> = ({ enemy }) => {
 				<Placeholder area='Loot' />
 			</Box>
 
-		</FightContext.Provider>
+		</>
 	)
 }
 

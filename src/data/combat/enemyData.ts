@@ -2,12 +2,13 @@ export interface EnemyData {
 	name: EnemyList;
 	image: string;
 	level: number;
-	stats: EnemyStats;
+	stats: Record<EnemyStatsList, number>;
 }
 
-interface EnemyStats {
-	health: number;
-}
+type EnemyStatsList =
+	| 'health'
+	| 'attackSpeed'
+	| 'damage'
 
 type EnemyList =
 	| 'zombie'
@@ -18,7 +19,9 @@ export const enemyData: Record<EnemyList, EnemyData> = {
 		image: 'temp_enemy',
 		level: 1,
 		stats: {
-			health: 10
+			health: 10,
+			attackSpeed: 8000,
+			damage: 1
 		}
 	}
 }
