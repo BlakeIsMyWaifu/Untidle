@@ -1,7 +1,8 @@
 import { Box, createStyles } from '@mantine/core'
 import ProgressBar from 'components/ProgressBar'
 import { EnemyData } from 'data/combat/enemyData'
-import { FC, useReducer } from 'react'
+import { useMountEffect } from 'hooks/useMountEffect'
+import { FC, useEffect, useReducer } from 'react'
 
 import CombatLoop from './CombatLoop'
 import Enemy from './Enemy'
@@ -66,11 +67,22 @@ const Fight: FC<FightProps> = ({ enemy }) => {
 
 	const [state, dispatch] = useReducer(fightReducer, fightInitialState)
 
+	useMountEffect(() => {
+		dispatch({ type: 'setEnemy', enemy })
+	})
+
+	// TODO this will only spawn the same enemy over and over
+	// needs to be changed later but fine for now
+	useEffect(() => {
+		if (state.enemyHealth <= 0) {
+			dispatch({ type: 'setEnemy', enemy })
+		}
+	}, [enemy, state.enemyHealth])
+
 	return (
 		<FightContext.Provider value={{ state, dispatch }}>
-			<CombatLoop
-				enemy={enemy}
-			/>
+
+			<CombatLoop />
 
 			<Box className={classes.grid}>
 				<Box className={classes.playerExtra}>
@@ -93,12 +105,13 @@ const Fight: FC<FightProps> = ({ enemy }) => {
 				<Box className={classes.enemy}>
 					<EnemyHealth />
 					<Placeholder area='EnemyAttack' />
-					<Enemy data={enemy} />
+					<Enemy />
 					<Placeholder area='EnemyStats' />
 				</Box>
 
 				<Placeholder area='Loot' />
 			</Box>
+
 		</FightContext.Provider>
 	)
 }

@@ -1,14 +1,15 @@
 import { Image, Paper, Stack, Title } from '@mantine/core'
-import { EnemyData } from 'data/combat/enemyData'
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 
-interface EnemyProps {
-	data: EnemyData;
-}
+import { FightContext } from './FightState'
 
-const Enemy: FC<EnemyProps> = ({ data }) => {
+const Enemy: FC = () => {
 
-	const { name, image } = data
+	const { state } = useContext(FightContext)
+
+	if (!state.enemy) return null
+
+	const { name, image } = state.enemy
 
 	return (
 		<Paper p='md' style={{

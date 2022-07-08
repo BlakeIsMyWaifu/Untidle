@@ -1,16 +1,11 @@
 import { useInterval } from '@mantine/hooks'
-import { EnemyData } from 'data/combat/enemyData'
 import { useMountEffect } from 'hooks/useMountEffect'
 import { FC, useContext, useEffect } from 'react'
 import { useCombatStore } from 'state/useCombatStore'
 
 import { FightContext } from './FightState'
 
-interface CombatLoopProps {
-	enemy: EnemyData;
-}
-
-const CombatLoop: FC<CombatLoopProps> = () => {
+const CombatLoop: FC = () => {
 
 	const { state, dispatch } = useContext(FightContext)
 
