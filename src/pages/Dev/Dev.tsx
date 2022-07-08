@@ -4,6 +4,7 @@ import { capitalise } from 'utils/capitalise'
 
 import ActivitySection from './ActivitySection'
 import ArchitectureSection from './ArchitectureSection'
+import CombatSection from './CombatSection'
 import GoldSection from './GoldSection'
 import ItemSection from './ItemSection/ItemSection'
 import SettingsSection from './SettingsSection'
@@ -15,7 +16,8 @@ const stores: Record<string, FC> = {
 	item: ItemSection,
 	activity: ActivitySection,
 	architecture: ArchitectureSection,
-	gold: GoldSection
+	gold: GoldSection,
+	combat: CombatSection
 }
 
 const Dev: FC = () => {
