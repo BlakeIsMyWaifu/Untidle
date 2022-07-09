@@ -1,7 +1,7 @@
 import { useInterval } from '@mantine/hooks'
 import { useMountEffect } from 'hooks/useMountEffect'
+import { usePlayerStats } from 'hooks/usePlayerStats'
 import { FC, memo, useEffect } from 'react'
-import { useCombatStore } from 'state/useCombatStore'
 import { useFightStore } from 'state/useFightStore'
 
 const PlayerAttack: FC = () => {
@@ -11,7 +11,7 @@ const PlayerAttack: FC = () => {
 
 	const playerAttackSpeed = useFightStore(state => state.playerAttackSpeed)
 
-	const attackSpeedModifier = useCombatStore(state => state.stats['Attack Speed'])
+	const attackSpeedModifier = usePlayerStats()['Attack Speed']
 
 	const playerAttack = (): void => {
 		enemyTakeDamage(1)

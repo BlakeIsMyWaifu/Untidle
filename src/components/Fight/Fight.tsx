@@ -8,6 +8,7 @@ import EnemyHealth from './EnemyHealth'
 import PlayerAttackBar from './PlayerAttackBar'
 import PlayerEquipment from './PlayerEquipment'
 import PlayerHealth from './PlayerHealth'
+import PlayerStats from './PlayerStats'
 
 const useStyle = createStyles(theme => ({
 	grid: {
@@ -23,7 +24,7 @@ const useStyle = createStyles(theme => ({
 		gridArea: 'PlayerExtra',
 		display: 'grid',
 		gridTemplateColumns: '1fr',
-		gridTemplateRows: '5fr 3fr 3fr 1fr',
+		gridTemplateRows: '360px 3fr 3fr 1fr',
 		gridTemplateAreas: '"PlayerStats" "Devotion" "Slayer" "Summon"',
 		gap: theme.spacing.xs
 	},
@@ -66,7 +67,7 @@ const Fight: FC = () => {
 
 			<Box className={classes.grid}>
 				<Box className={classes.playerExtra}>
-					<Placeholder area='PlayerStats' />
+					<PlayerStats />
 					<Placeholder area='Devotion' />
 					<Placeholder area='Slayer' />
 					<Placeholder area='Summon' />
