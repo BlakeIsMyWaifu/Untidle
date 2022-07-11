@@ -2,7 +2,7 @@ import { SkillList, SubskillList, Subskills } from 'data/skills/skills'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { Slice } from '../types/zustand'
+import { Slice } from 'types/zustand'
 import { storage } from './storage'
 
 type SkillStore = SkillStateSlice & SkillActionSlice

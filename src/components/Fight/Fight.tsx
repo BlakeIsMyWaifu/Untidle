@@ -5,6 +5,7 @@ import CombatLoop from './CombatLoop'
 import Enemy from './Enemy'
 import EnemyAttackBar from './EnemyAttackBar'
 import EnemyHealth from './EnemyHealth'
+import Loot from './Loot'
 import PlayerAttackBar from './PlayerAttackBar'
 import PlayerEquipment from './PlayerEquipment'
 import PlayerHealth from './PlayerHealth'
@@ -87,7 +88,7 @@ const Fight: FC = () => {
 					<Placeholder area='EnemyStats' />
 				</Box>
 
-				<Placeholder area='Loot' />
+				<Loot />
 			</Box>
 
 		</>

@@ -1,11 +1,11 @@
 import { BuildingsList, getBuildingUpgradeCost } from 'data/buildings/building'
 import { guildData } from 'data/buildings/guilds'
 import { uniqueData } from 'data/buildings/unique'
+import { Slice } from 'types/zustand'
 import { hasUpgradeCost } from 'utils/hasCost'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { Slice } from '../types/zustand'
 import { storage } from './storage'
 import { useGoldStore } from './useGoldStore'
 import { useItemStore } from './useItemStore'

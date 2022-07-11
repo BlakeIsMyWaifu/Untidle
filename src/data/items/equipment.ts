@@ -26,7 +26,7 @@ export const statsList = [
 export type StatsList = typeof statsList[number]
 
 export interface Equipment extends Item {
-	slot: EquipmentSlot;
+	category: EquipmentSlot;
 	fixedStats: Partial<Record<StatsList, number>>;
 }
 
@@ -60,49 +60,49 @@ export const equipmentData: Record<string, Equipment> = {
 		name: 'sword',
 		image: 'temp_equipment',
 		rarity: 'common',
-		slot: 'mainHand',
+		category: 'mainHand',
 		fixedStats: {}
 	},
 	staff: {
 		name: 'staff',
 		image: 'temp_equipment',
 		rarity: 'common',
-		slot: 'mainHand',
+		category: 'mainHand',
 		fixedStats: {}
 	},
 	helmet: {
 		name: 'helmet',
 		image: 'temp_equipment',
 		rarity: 'rare',
-		slot: 'helmet',
+		category: 'helmet',
 		fixedStats: {}
 	},
 	chest: {
 		name: 'chest',
 		image: 'temp_equipment',
 		rarity: 'epic',
-		slot: 'chest',
+		category: 'chest',
 		fixedStats: {}
 	},
 	ringOne: {
 		name: 'ringOne',
 		image: 'temp_equipment',
 		rarity: 'legendary',
-		slot: 'ring',
+		category: 'ring',
 		fixedStats: {}
 	},
 	ringTwo: {
 		name: 'ringTwo',
 		image: 'temp_equipment',
 		rarity: 'mythic',
-		slot: 'ring',
+		category: 'ring',
 		fixedStats: {}
 	},
 	ringThree: {
 		name: 'ringThree',
 		image: 'temp_equipment',
 		rarity: 'common',
-		slot: 'ring',
+		category: 'ring',
 		fixedStats: {}
 	}
 }

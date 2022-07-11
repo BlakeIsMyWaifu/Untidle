@@ -2,7 +2,11 @@ import { Group, Image, Menu, UnstyledButton, createStyles } from '@mantine/core'
 import { FC, useState } from 'react'
 import { ChevronDown } from 'tabler-icons-react'
 
-const useStyles = createStyles((theme, { opened }: { opened: boolean }) => ({
+interface ImageDropdownStyle {
+	opened: boolean;
+}
+
+const useStyles = createStyles((theme, { opened }: ImageDropdownStyle) => ({
 	control: {
 		width: 250,
 		display: 'flex',

@@ -1,13 +1,19 @@
 import { Box, Image, Text, createStyles } from '@mantine/core'
-import { Item as ItemData } from 'data/items/items'
+import { Equipment } from 'data/items/equipment'
+import { Material } from 'data/items/materials'
 import { FC } from 'react'
 import { colours } from 'utils/colours'
 
-const useStyles = createStyles(theme => ({
+interface ItemStyle {
+	colour: string;
+}
+
+const useStyles = createStyles((theme, { colour }: ItemStyle) => ({
 	container: {
 		borderRadius: theme.radius.md,
-		border: '2px solid',
-		position: 'relative'
+		border: `2px solid ${colour}`,
+		position: 'relative',
+		aspectRatio: '1'
 	},
 	amount: {
 		position: 'absolute',
@@ -18,18 +24,16 @@ const useStyles = createStyles(theme => ({
 
 interface ItemProps {
 	itemType: 'material' | 'equipment';
-	itemData: ItemData;
+	itemData: Material | Equipment;
 	amount: number;
 }
 
 const Item: FC<ItemProps> = ({ itemType, itemData, amount }) => {
 
-	const { classes } = useStyles()
+	const { classes } = useStyles({ colour: colours[itemData.rarity] })
 
 	return (
-		<Box className={classes.container} style={{
-			borderColor: colours[itemData.rarity]
-		}}>
+		<Box className={classes.container}>
 			<Image
 				withPlaceholder
 				src={`assets/items/${itemType}/${itemData.category}/${itemData.image}.png`}

@@ -1,11 +1,11 @@
 import { CollectedEquipment, EquipmentList, equipmentData, statsList } from 'data/items/equipment'
 import { MaterialList } from 'data/items/materials'
+import { Slice } from 'types/zustand'
 import { findNextNum, randomNum } from 'utils/maths'
 import { randomArrayElement } from 'utils/randomElement'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
-import { Slice } from '../types/zustand'
 import { storage } from './storage'
 
 type ItemStore = ItemStateSlice & ItemActionSlice
