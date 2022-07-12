@@ -8,7 +8,7 @@ const EnemyHealth: FC = () => {
 	const enemy = useFightStore(state => state.enemy)
 
 	const currentHealth = enemyHealth
-	const maxHealth = enemy?.stats.health ?? 1
+	const maxHealth = enemy?.stats['Maximum Health'] ?? 1
 
 	const percentage = (currentHealth / maxHealth) * 100
 

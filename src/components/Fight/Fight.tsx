@@ -5,6 +5,7 @@ import CombatLoop from './CombatLoop'
 import Enemy from './Enemy'
 import EnemyAttackBar from './EnemyAttackBar'
 import EnemyHealth from './EnemyHealth'
+import EnemyStats from './EnemyStats'
 import Loot from './Loot'
 import PlayerAttackBar from './PlayerAttackBar'
 import PlayerEquipment from './PlayerEquipment'
@@ -33,7 +34,7 @@ const useStyle = createStyles(theme => ({
 		gridArea: 'PlayerMain',
 		display: 'grid',
 		gridTemplateColumns: '1fr',
-		gridTemplateRows: '2fr 2fr 16fr 3fr',
+		gridTemplateRows: '48px 48px 16fr 3fr',
 		gridTemplateAreas: '"PlayerHealth" "PlayerAttack" "Equipment" "Potions"',
 		gap: theme.spacing.xs
 	},
@@ -41,7 +42,7 @@ const useStyle = createStyles(theme => ({
 		gridArea: 'Enemy',
 		display: 'grid',
 		gridTemplateColumns: '1fr',
-		gridTemplateRows: '2fr 2fr 13fr 6fr',
+		gridTemplateRows: '48px 48px 12fr 300px',
 		gridTemplateAreas: '"EnemyHealth" "EnemyAttack" "Enemy" "EnemyStats"',
 		gap: theme.spacing.xs
 	}
@@ -85,7 +86,7 @@ const Fight: FC = () => {
 					<EnemyHealth />
 					<EnemyAttackBar />
 					<Enemy />
-					<Placeholder area='EnemyStats' />
+					<EnemyStats />
 				</Box>
 
 				<Loot />

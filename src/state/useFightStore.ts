@@ -36,7 +36,7 @@ const createFightActionSlice: Slice<FightStore, FightActionSlice> = set => ({
 	setEnemy: enemy => {
 		set({
 			enemy,
-			enemyHealth: enemy?.stats.health ?? 0
+			enemyHealth: enemy?.stats['Maximum Health'] ?? 0 // TODO calculate health
 		})
 	},
 	setPlayerAttackSpeed: amount => {

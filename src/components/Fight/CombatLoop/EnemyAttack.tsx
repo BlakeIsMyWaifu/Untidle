@@ -5,8 +5,8 @@ import { useFightStore } from 'state/useFightStore'
 
 const EnemyAttack: FC = () => {
 
-	const enemyStatsDamage = useFightStore(state => state.enemy?.stats.damage)
-	const enemyStatsAttackSpeed = useFightStore(state => state.enemy?.stats.attackSpeed)
+	const enemyStatsDamage = useFightStore(state => state.enemy?.stats['Physical Damage'])
+	const enemyStatsAttackSpeed = useFightStore(state => state.enemy?.stats['Attack Speed'])
 
 	const takeDamage = useCombatStore(state => state.takeDamage)
 

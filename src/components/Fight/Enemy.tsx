@@ -22,7 +22,7 @@ const Enemy: FC = () => {
 				<Image
 					src={`assets/combat/enemy/${image}.png`}
 					style={{
-						width: '80%'
+						width: '70%'
 					}}
 				/>
 			</Stack>

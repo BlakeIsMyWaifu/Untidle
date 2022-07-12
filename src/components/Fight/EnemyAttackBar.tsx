@@ -7,8 +7,8 @@ const EnemyAttackBar: FC = () => {
 	const enemy = useFightStore(state => state.enemy)
 
 	return <ProgressBar
-		time={enemy?.stats.attackSpeed ?? 8000} // TODO does not work
-		label={`Enemy Attack (${(enemy?.stats.attackSpeed ?? 0) / 1000}s)`}
+		time={enemy?.stats['Attack Speed'] ?? 8000} // TODO does not work
+		label={`Enemy Attack (${(enemy?.stats['Attack Speed'] ?? 0) / 1000}s)`}
 	/>
 }
 
