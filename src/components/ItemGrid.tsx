@@ -34,7 +34,6 @@ const ItemGrid: FC<ItemGridProps> = ({ breakpoints, materials, equipments }) => 
 						key={i}
 						itemType='equipment'
 						itemData={equipment}
-						amount={1}
 					/>
 				})
 			}

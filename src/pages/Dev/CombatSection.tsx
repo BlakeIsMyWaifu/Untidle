@@ -1,31 +1,70 @@
-import { Box, Button, Group, SimpleGrid, Stack, Text, Title } from '@mantine/core'
-import { FC } from 'react'
+import { Autocomplete, Box, Button, Group, NumberInput, SimpleGrid, Stack, Text, Title } from '@mantine/core'
+import { EquipmentSlot } from 'data/items/equipment'
+import { usePlayerStats } from 'hooks/usePlayerStats'
+import { FC, useRef } from 'react'
 import { useCombatStore } from 'state/useCombatStore'
 
 const CombatSection: FC = () => {
 
 	const combatStore = useCombatStore()
+	const stats = usePlayerStats()
+
+	const slotRef = useRef<HTMLInputElement>(null)
+	const idRef = useRef<HTMLInputElement>(null)
 
 	return (
 		<Box>
 			<Group p='md'>
 				<Button
 					variant='default'
-					onClick={() => {
-						combatStore.healPlayer()
-					}}
+					onClick={combatStore.healPlayer}
 				>Heal Player</Button>
+			</Group>
+
+			<Group p='md' align='end'>
+				<Autocomplete
+					label='Slot'
+					placeholder='Slot'
+					data={Object.keys(combatStore.equipment)}
+					ref={slotRef}
+				/>
+				<NumberInput
+					label='Id'
+					placeholder='Id'
+					defaultValue={1}
+					min={1}
+					ref={idRef}
+				/>
+				<Button
+					variant='default'
+					onClick={() => {
+						if (!slotRef.current?.value) return
+						if (!idRef.current?.value) return
+						combatStore.changeEquipment(slotRef.current?.value as EquipmentSlot, +idRef.current?.value ?? null)
+					}}
+				>
+					Equip
+				</Button>
+				<Button
+					variant='default'
+					onClick={() => {
+						if (!slotRef.current?.value) return
+						combatStore.changeEquipment(slotRef.current?.value as EquipmentSlot, null)
+					}}
+				>
+					Remove
+				</Button>
 			</Group>
 
 			<SimpleGrid cols={2}>
 				<Stack spacing={0}>
 					<Title order={3}>Main</Title>
-					<Text>Current Health: {combatStore.currentHealth}</Text>
-					<Text>In Combat: {combatStore.inCombat ? 'true' : 'false'}</Text>
+					<Text ml='sm'>Current Health: {combatStore.currentHealth}</Text>
+					<Text ml='sm'>In Combat: {combatStore.inCombat ? 'true' : 'false'}</Text>
 
 					<Title order={3}>Stats</Title>
 					{
-						Object.entries(combatStore.stats).map(([stat, value]) => {
+						Object.entries(stats).map(([stat, value]) => {
 							return <Text key={stat} ml='sm'>{stat}: {value}</Text>
 						})
 					}

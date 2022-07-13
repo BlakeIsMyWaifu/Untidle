@@ -25,10 +25,10 @@ const useStyles = createStyles((theme, { colour }: ItemStyle) => ({
 interface ItemProps {
 	itemType: 'material' | 'equipment';
 	itemData: Material | Equipment;
-	amount: number;
+	amount?: number;
 }
 
-const Item: FC<ItemProps> = ({ itemType, itemData, amount }) => {
+const Item: FC<ItemProps> = ({ itemType, itemData, amount = 1 }) => {
 
 	const { classes } = useStyles({ colour: colours[itemData.rarity] })
 
