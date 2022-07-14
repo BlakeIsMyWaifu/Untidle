@@ -23,12 +23,11 @@ const useStyles = createStyles((theme, { colour }: ItemStyle) => ({
 }))
 
 interface ItemProps {
-	itemType: 'material' | 'equipment';
 	itemData: Material | Equipment;
 	amount?: number;
 }
 
-const Item: FC<ItemProps> = ({ itemType, itemData, amount = 1 }) => {
+const Item: FC<ItemProps> = ({ itemData, amount = 1 }) => {
 
 	const { classes } = useStyles({ colour: colours[itemData.rarity] })
 
@@ -36,7 +35,7 @@ const Item: FC<ItemProps> = ({ itemType, itemData, amount = 1 }) => {
 		<Box className={classes.container}>
 			<Image
 				withPlaceholder
-				src={`assets/items/${itemType}/${itemData.category}/${itemData.image}.png`}
+				src={`assets/items/${itemData.type}/${itemData.category}/${itemData.image}.png`}
 				placeholder={<Text style={{ height: '100%' }} align='center'>Unknown Image</Text>}
 			/>
 			{amount !== 1 && <Text className={classes.amount}>{amount}</Text>}

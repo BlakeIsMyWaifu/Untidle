@@ -1,6 +1,7 @@
 import { SimpleGrid, SimpleGridBreakpoint } from '@mantine/core'
-import { CollectedEquipment } from 'data/items/equipment'
-import { getMaterial } from 'data/items/materials'
+import { CollectedEquipment, EquipmentList, getEquipment } from 'data/items/equipment'
+import { ItemType } from 'data/items/items'
+import { MaterialList, getMaterial } from 'data/items/materials'
 import { FC, Fragment } from 'react'
 
 import Item from './Item'
@@ -9,9 +10,10 @@ interface ItemGridProps {
 	breakpoints: SimpleGridBreakpoint[];
 	materials?: Record<string, number>;
 	equipments?: Record<string, CollectedEquipment>;
+	loot?: Partial<Record<MaterialList | EquipmentList, [ItemType, number]>>;
 }
 
-const ItemGrid: FC<ItemGridProps> = ({ breakpoints, materials, equipments }) => {
+const ItemGrid: FC<ItemGridProps> = ({ breakpoints, materials, equipments, loot }) => {
 	return (
 		<SimpleGrid breakpoints={breakpoints} style={{
 			gridAutoRows: 'min-content'
@@ -22,7 +24,6 @@ const ItemGrid: FC<ItemGridProps> = ({ breakpoints, materials, equipments }) => 
 					const material = getMaterial(materialName)
 					return <Item
 						key={materialName}
-						itemType='material'
 						itemData={material}
 						amount={amount}
 					/>
@@ -32,8 +33,20 @@ const ItemGrid: FC<ItemGridProps> = ({ breakpoints, materials, equipments }) => 
 				equipments && Object.values(equipments).map((equipment, i) => {
 					return <Item
 						key={i}
-						itemType='equipment'
 						itemData={equipment}
+					/>
+				})
+			}
+			{
+				loot && Object.entries(loot).map(([itemName, info], i) => {
+					// Not sure why a partial makes the value possibly undefined here
+					if (!info) return null
+					const [type, amount] = info
+					const item = type === 'material' ? getMaterial(itemName) : getEquipment(itemName)
+					return <Item
+						key={i}
+						itemData={item}
+						amount={amount}
 					/>
 				})
 			}

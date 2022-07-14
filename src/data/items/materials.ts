@@ -2,6 +2,7 @@ import { Item } from './items'
 import { wood } from './materials/wood'
 
 export interface Material extends Item {
+	type: 'material';
 	category: MaterialCategory;
 }
 
@@ -20,9 +21,10 @@ export const getMaterial = (materialName: string): Material => {
 	if (!material) console.error(`Cannot find material ${materialName}`)
 	return material ?? {
 		name: 'Error - Unknown Material Name',
-		category: 'system',
 		image: 'temp_placeholder',
-		rarity: 'common'
+		type: 'material',
+		rarity: 'common',
+		category: 'system'
 	}
 }
 

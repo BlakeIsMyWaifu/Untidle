@@ -1,10 +1,15 @@
-import { StatsList } from 'data/items/equipment'
+import { EquipmentList, StatsList } from 'data/items/equipment'
+import { MaterialList } from 'data/items/materials'
 
 export interface EnemyData {
 	name: EnemyList;
 	image: string;
 	level: number;
 	stats: Record<EnemyStatsList, number>;
+	drops: { // TODO add drop chances
+		material: Partial<Record<MaterialList, [number, number]>>;
+		equipment: EquipmentList[];
+	};
 }
 
 type EnemyMissingStats =
@@ -39,6 +44,14 @@ export const enemyData: Record<EnemyList, EnemyData> = {
 			'Physical Penetration': 0,
 			'Physical Pierce': 0,
 			'Physical Resistance': 0
+		},
+		drops: {
+			material: {
+				'oak wood': [1, 3]
+			},
+			equipment: [
+				'sword'
+			]
 		}
 	}
 }

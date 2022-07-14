@@ -1,12 +1,11 @@
 import { Button, Group, Paper, Title } from '@mantine/core'
 import ItemGrid from 'components/ItemGrid'
 import { FC } from 'react'
-import { useItemStore } from 'state/useItemStore'
+import { useCombatStore } from 'state/useCombatStore'
 
 const Loot: FC = () => {
 
-	const materials = useItemStore(state => state.materials)
-	const equipments = useItemStore(state => state.equipments)
+	const loot = useCombatStore(state => state.loot)
 
 	return (
 		<Paper p='xs'>
@@ -27,8 +26,7 @@ const Loot: FC = () => {
 					{ minWidth: 'lg', cols: 2 },
 					{ minWidth: 'xs', cols: 1 }
 				]}
-				materials={materials}
-				equipments={equipments}
+				loot={loot}
 			/>
 		</Paper>
 	)

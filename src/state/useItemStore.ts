@@ -1,4 +1,4 @@
-import { CollectedEquipment, EquipmentList, equipmentData, statsList } from 'data/items/equipment'
+import { CollectedEquipment, EquipmentList, getEquipment, statsList } from 'data/items/equipment'
 import { MaterialList } from 'data/items/materials'
 import { Slice } from 'types/zustand'
 import { findNextNum, randomNum } from 'utils/maths'
@@ -97,8 +97,7 @@ const createItemActionSlice: Slice<ItemStore, ItemActionSlice> = (set, get) => (
 	},
 
 	addEquipment: equipmentName => {
-		const equipment = equipmentData[equipmentName]
-		if (!equipment) return
+		const equipment = getEquipment(equipmentName)
 
 		const nextNum = findNextNum(Object.keys(get().equipments))
 

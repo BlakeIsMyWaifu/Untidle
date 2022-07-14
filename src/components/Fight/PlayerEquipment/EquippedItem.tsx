@@ -23,10 +23,11 @@ const EquippedItem: FC<EquipmentSlotProps> = ({ slot, gridArea }) => {
 			{
 				equipped && equipments[equipped]
 					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-					? <Item itemType='equipment' itemData={equipments[equipped]!} />
-					: <Item itemType='equipment' itemData={{
+					? <Item itemData={equipments[equipped]!} />
+					: <Item itemData={{
 						name: 'None',
 						image: '',
+						type: 'equipment',
 						rarity: 'common',
 						category: slot,
 						fixedStats: {}

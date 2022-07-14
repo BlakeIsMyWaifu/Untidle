@@ -1,4 +1,6 @@
-import { EquipmentSlot } from 'data/items/equipment'
+import { EquipmentList, EquipmentSlot } from 'data/items/equipment'
+import { ItemType } from 'data/items/items'
+import { MaterialList } from 'data/items/materials'
 import { Slice } from 'types/zustand'
 import create from 'zustand'
 import { persist } from 'zustand/middleware'
@@ -11,6 +13,8 @@ interface CombatStateSlice {
 	currentHealth: number;
 	inCombat: boolean;
 	equipment: Record<EquipmentSlot, string | null>;
+	maxLoot: number;
+	loot: Partial<Record<MaterialList | EquipmentList, [ItemType, number]>>;
 }
 
 const initialCombatState: CombatStateSlice = {
@@ -29,7 +33,9 @@ const initialCombatState: CombatStateSlice = {
 		ring: null,
 		amulet: null,
 		belt: null
-	}
+	},
+	maxLoot: 24,
+	loot: {}
 }
 
 const createCombatStateSlice: Slice<CombatStore, CombatStateSlice> = () => initialCombatState
@@ -48,9 +54,10 @@ interface CombatActionSlice {
 	 * @returns void
 	 */
 	changeEquipment: (equipmentSlot: EquipmentSlot, equipmentId: number | null) => void;
+	addLoot: (itemName: MaterialList | EquipmentList, itemType: ItemType, amount?: number) => void;
 }
 
-const createCombatActionSlice: Slice<CombatStore, CombatActionSlice> = set => ({
+const createCombatActionSlice: Slice<CombatStore, CombatActionSlice> = (set, get) => ({
 	takeDamage: amount => {
 		set(state => ({
 			currentHealth: state.currentHealth - amount
@@ -68,6 +75,24 @@ const createCombatActionSlice: Slice<CombatStore, CombatActionSlice> = set => ({
 				[slot]: equipmentId?.toString() ?? null
 			}
 		}))
+	},
+	addLoot: (itemName, itemType, amount = 1) => {
+		const currentLoot = get().loot[itemName]
+		if (currentLoot) {
+			set(state => ({
+				loot: {
+					...state.loot,
+					[itemName]: [currentLoot[0], currentLoot[1] + amount]
+				}
+			}))
+		} else {
+			set(state => ({
+				loot: {
+					...state.loot,
+					[itemName]: [itemType, amount]
+				}
+			}))
+		}
 	}
 })
 

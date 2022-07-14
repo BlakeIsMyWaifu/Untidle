@@ -26,6 +26,7 @@ export const statsList = [
 export type StatsList = typeof statsList[number]
 
 export interface Equipment extends Item {
+	type: 'equipment';
 	category: EquipmentSlot;
 	fixedStats: Partial<Record<StatsList, number>>;
 }
@@ -55,10 +56,11 @@ export type EquipmentSlot =
 
 export type EquipmentList = keyof typeof equipmentData
 
-export const equipmentData: Record<string, Equipment> = {
+const equipmentData: Record<string, Equipment> = {
 	sword: {
 		name: 'sword',
 		image: 'temp_equipment',
+		type: 'equipment',
 		rarity: 'common',
 		category: 'mainHand',
 		fixedStats: {}
@@ -66,6 +68,7 @@ export const equipmentData: Record<string, Equipment> = {
 	staff: {
 		name: 'staff',
 		image: 'temp_equipment',
+		type: 'equipment',
 		rarity: 'common',
 		category: 'mainHand',
 		fixedStats: {}
@@ -73,6 +76,7 @@ export const equipmentData: Record<string, Equipment> = {
 	helmet: {
 		name: 'helmet',
 		image: 'temp_equipment',
+		type: 'equipment',
 		rarity: 'rare',
 		category: 'helmet',
 		fixedStats: {}
@@ -80,6 +84,7 @@ export const equipmentData: Record<string, Equipment> = {
 	chest: {
 		name: 'chest',
 		image: 'temp_equipment',
+		type: 'equipment',
 		rarity: 'epic',
 		category: 'chest',
 		fixedStats: {}
@@ -87,6 +92,7 @@ export const equipmentData: Record<string, Equipment> = {
 	ringOne: {
 		name: 'ringOne',
 		image: 'temp_equipment',
+		type: 'equipment',
 		rarity: 'legendary',
 		category: 'ring',
 		fixedStats: {}
@@ -94,6 +100,7 @@ export const equipmentData: Record<string, Equipment> = {
 	ringTwo: {
 		name: 'ringTwo',
 		image: 'temp_equipment',
+		type: 'equipment',
 		rarity: 'mythic',
 		category: 'ring',
 		fixedStats: {}
@@ -101,8 +108,22 @@ export const equipmentData: Record<string, Equipment> = {
 	ringThree: {
 		name: 'ringThree',
 		image: 'temp_equipment',
+		type: 'equipment',
 		rarity: 'common',
 		category: 'ring',
+		fixedStats: {}
+	}
+}
+
+export const getEquipment = (equipmentName: string): Equipment => {
+	const equipment = equipmentData[equipmentName]
+	if (!equipment) console.error(`Cannot find equipment ${equipmentName}`)
+	return equipment ?? {
+		name: 'Error - Unknown Equipment Name',
+		image: 'temp_placeholder',
+		type: 'equipment',
+		rarity: 'common',
+		category: 'mainHand',
 		fixedStats: {}
 	}
 }

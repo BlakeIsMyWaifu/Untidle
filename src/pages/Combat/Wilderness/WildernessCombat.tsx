@@ -19,8 +19,11 @@ const WildernessCombat: FC = () => {
 	}
 	const { name, enemies } = data
 
+	// TODO move enemy logic into separate component
+
 	const setEnemy = useFightStore(state => state.setEnemy)
 	const enemyHealth = useFightStore(state => state.enemyHealth)
+	const enemyDropLoot = useFightStore(state => state.enemyDropLoot)
 
 	const enemy = randomArrayElementUndefined(enemies)
 
@@ -31,8 +34,10 @@ const WildernessCombat: FC = () => {
 	useEffect(() => {
 		if (enemyHealth <= 0) {
 			setEnemy(enemy ?? null)
+			if (!enemy) return
+			enemyDropLoot()
 		}
-	}, [enemy, enemyHealth, setEnemy])
+	}, [enemy, enemyDropLoot, enemyHealth, setEnemy])
 
 	return (
 		<Box>
