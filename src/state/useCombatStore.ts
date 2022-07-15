@@ -6,6 +6,7 @@ import create from 'zustand'
 import { persist } from 'zustand/middleware'
 
 import { storage } from './storage'
+import { useItemStore } from './useItemStore'
 
 type CombatStore = CombatStateSlice & CombatActionSlice
 
@@ -55,6 +56,7 @@ interface CombatActionSlice {
 	 */
 	changeEquipment: (equipmentSlot: EquipmentSlot, equipmentId: number | null) => void;
 	addLoot: (itemName: MaterialList | EquipmentList, itemType: ItemType, amount?: number) => void;
+	collectLoot: () => void;
 }
 
 const createCombatActionSlice: Slice<CombatStore, CombatActionSlice> = (set, get) => ({
@@ -93,6 +95,25 @@ const createCombatActionSlice: Slice<CombatStore, CombatActionSlice> = (set, get
 				}
 			}))
 		}
+	},
+	collectLoot: () => {
+		const { addMaterial, addEquipment } = useItemStore.getState()
+		const { loot } = get()
+
+		Object.entries(loot).forEach(([itemName, itemInfo]) => {
+			if (!itemInfo) return
+			const [itemType, amount] = itemInfo
+
+			if (itemType === 'material') {
+				addMaterial(itemName, amount)
+			} else {
+				Array.from({ length: amount }).forEach(() => addEquipment(itemName))
+			}
+		})
+
+		set({
+			loot: {}
+		})
 	}
 })
 

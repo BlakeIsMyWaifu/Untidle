@@ -6,6 +6,7 @@ import { useCombatStore } from 'state/useCombatStore'
 const Loot: FC = () => {
 
 	const loot = useCombatStore(state => state.loot)
+	const collectLoot = useCombatStore(state => state.collectLoot)
 
 	return (
 		<Paper p='xs'>
@@ -15,6 +16,7 @@ const Loot: FC = () => {
 					compact
 					variant='default'
 					size='md'
+					onClick={collectLoot}
 				>
 					Collect All
 				</Button>
