@@ -1,8 +1,10 @@
 import { Box, Image, Text, createStyles } from '@mantine/core'
 import { Equipment } from 'data/items/equipment'
 import { Material } from 'data/items/materials'
-import { FC } from 'react'
+import { FC, MouseEventHandler } from 'react'
 import { colours } from 'utils/colours'
+
+import PlaceholderImage from './PlaceholderImage'
 
 interface ItemStyle {
 	colour: string;
@@ -25,18 +27,19 @@ const useStyles = createStyles((theme, { colour }: ItemStyle) => ({
 interface ItemProps {
 	itemData: Material | Equipment;
 	amount?: number;
+	onClick?: MouseEventHandler<HTMLDivElement>;
 }
 
-const Item: FC<ItemProps> = ({ itemData, amount = 1 }) => {
+const Item: FC<ItemProps> = ({ itemData, amount = 1, onClick }) => {
 
 	const { classes } = useStyles({ colour: colours[itemData.rarity] })
 
 	return (
-		<Box className={classes.container}>
+		<Box className={classes.container} onClick={onClick}>
 			<Image
 				withPlaceholder
 				src={`assets/items/${itemData.type}/${itemData.category}/${itemData.image}.png`}
-				placeholder={<Text style={{ height: '100%' }} align='center'>Unknown Image</Text>}
+				placeholder={<PlaceholderImage />}
 			/>
 			{amount !== 1 && <Text className={classes.amount}>{amount}</Text>}
 		</Box>
