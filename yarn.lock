@@ -812,13 +812,6 @@
   resolved "https://registry.yarnpkg.com/@mantine/hooks/-/hooks-5.0.0-alpha.19.tgz#57f984c89daf8acaf442372e010a829da3cc5dd9"
   integrity sha512-yiiTGhLlgVtZX+2aLwR6/t2oN9cqlL+1wVlx3MSTbQwZTXSj8v/ioj0nm1gqGqRF5FqfRVRXBGghfLq/GDiG5w==
 
-"@mantine/nprogress@^5.0.0-alpha.19":
-  version "5.0.0-alpha.19"
-  resolved "https://registry.yarnpkg.com/@mantine/nprogress/-/nprogress-5.0.0-alpha.19.tgz#af09b7476a02d0f5eb787b9b9010eddce2459a82"
-  integrity sha512-YE4UHG971/syJL1xnAYj0TVtjYo61paKFWpcTZBDeTOrmqZDvrEhMcW+Glf6YPFrzKvapvSik/X0yMRb5XCCzA==
-  dependencies:
-    "@mantine/utils" "5.0.0-alpha.19"
-
 "@mantine/styles@5.0.0-alpha.19":
   version "5.0.0-alpha.19"
   resolved "https://registry.yarnpkg.com/@mantine/styles/-/styles-5.0.0-alpha.19.tgz#6f1870641d17396716fe94ba62abd222f5bd7bf4"

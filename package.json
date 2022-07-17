@@ -13,7 +13,6 @@
   "dependencies": {
     "@mantine/core": "5.0.0-alpha.19",
     "@mantine/hooks": "5.0.0-alpha.19",
-    "@mantine/nprogress": "^5.0.0-alpha.19",
     "@tauri-apps/api": "^1.0.1",
     "localforage": "^1.10.0",
     "react": "^18.2.0",
