@@ -70,11 +70,15 @@ const createCombatActionSlice: Slice<CombatStore, CombatActionSlice> = (set, get
 			currentHealth: 10 // TODO add the actual max health
 		})
 	},
-	changeEquipment: (slot, equipmentId) => {
+	changeEquipment: (equipmentSlot, equipmentId) => {
+
+		// TODO add remove equipment action and remove slot from parameter
+		// const slot = useItemStore.getState().equipments[equipmentId]
+
 		set(state => ({
 			equipment: {
 				...state.equipment,
-				[slot]: equipmentId?.toString() ?? null
+				[equipmentSlot]: equipmentId?.toString() ?? null
 			}
 		}))
 	},

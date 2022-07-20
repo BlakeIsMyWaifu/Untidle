@@ -112,6 +112,7 @@ const createItemActionSlice: Slice<ItemStore, ItemActionSlice> = (set, get) => (
 				...state.equipments,
 				[nextNum]: {
 					...equipment,
+					id: nextNum,
 					quality,
 					stats: {
 						[statOne]: quality,

@@ -32,6 +32,7 @@ export interface Equipment extends Item {
 }
 
 export interface CollectedEquipment extends Equipment {
+	id: number;
 	quality: number;
 	stats: Partial<Record<StatsList, number>>;
 }
