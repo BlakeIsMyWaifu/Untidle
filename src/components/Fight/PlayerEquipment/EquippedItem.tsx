@@ -19,7 +19,8 @@ const EquippedItem: FC<EquipmentSlotProps> = ({ slot, gridArea }) => {
 
 	const equipment = useSlotEquipment(slot)
 
-	const changeEquipment = useCombatStore(state => state.changeEquipment)
+	const equipEquipment = useCombatStore(state => state.equipEquipment)
+	const removeEquipment = useCombatStore(state => state.removeEquipment)
 
 	return (
 		<Box style={{
@@ -54,10 +55,13 @@ const EquippedItem: FC<EquipmentSlotProps> = ({ slot, gridArea }) => {
 					{
 						equipment.map((item, i) => {
 							return <Menu.Item key={i} onClick={() => {
-								changeEquipment(item.category, item.id)
+								equipEquipment(item.id)
 							}}>{item.name}</Menu.Item>
 						})
 					}
+					<Menu.Item color='red' onClick={() => {
+						removeEquipment(slot)
+					}}>Remove</Menu.Item>
 				</Menu.Dropdown>
 			</Menu>
 		</Box>

@@ -3,11 +3,13 @@ import { EquipmentSlot } from 'data/items/equipment'
 import { usePlayerStats } from 'hooks/usePlayerStats'
 import { FC, useRef } from 'react'
 import { useCombatStore } from 'state/useCombatStore'
+import { useItemStore } from 'state/useItemStore'
 
 const CombatSection: FC = () => {
 
 	const combatStore = useCombatStore()
 	const stats = usePlayerStats()
+	const equipments = useItemStore(state => state.equipments)
 
 	const slotRef = useRef<HTMLInputElement>(null)
 	const idRef = useRef<HTMLInputElement>(null)
@@ -40,7 +42,8 @@ const CombatSection: FC = () => {
 					onClick={() => {
 						if (!slotRef.current?.value) return
 						if (!idRef.current?.value) return
-						combatStore.changeEquipment(slotRef.current?.value as EquipmentSlot, +idRef.current?.value ?? null)
+						if (!Object.keys(equipments).includes(idRef.current.value)) return
+						combatStore.equipEquipment(+idRef.current.value)
 					}}
 				>
 					Equip
@@ -49,7 +52,7 @@ const CombatSection: FC = () => {
 					variant='default'
 					onClick={() => {
 						if (!slotRef.current?.value) return
-						combatStore.changeEquipment(slotRef.current?.value as EquipmentSlot, null)
+						combatStore.removeEquipment(slotRef.current?.value as EquipmentSlot)
 					}}
 				>
 					Remove

@@ -50,11 +50,11 @@ interface CombatActionSlice {
 	 * It does not check if the equipmentId is valid so this must be done before called.
 	 * It also does not check if the equipment can be equipped in the given slot so it also should be checked before called.
 	 *
-	 * @param equipmentSlot - Slot where to equip the equipment
 	 * @param equipmentId - The id of the collected equipment
 	 * @returns void
 	 */
-	changeEquipment: (equipmentSlot: EquipmentSlot, equipmentId: number | null) => void;
+	equipEquipment: (equipmentId: number) => void;
+	removeEquipment: (equipmentSlot: EquipmentSlot) => void;
 	addLoot: (itemName: MaterialList | EquipmentList, itemType: ItemType, amount?: number) => void;
 	collectLoot: () => void;
 }
@@ -70,15 +70,22 @@ const createCombatActionSlice: Slice<CombatStore, CombatActionSlice> = (set, get
 			currentHealth: 10 // TODO add the actual max health
 		})
 	},
-	changeEquipment: (equipmentSlot, equipmentId) => {
-
-		// TODO add remove equipment action and remove slot from parameter
-		// const slot = useItemStore.getState().equipments[equipmentId]
+	equipEquipment: equipmentId => {
+		const collectedEquipment = useItemStore.getState().equipments[equipmentId]
+		if (!collectedEquipment) return
 
 		set(state => ({
 			equipment: {
 				...state.equipment,
-				[equipmentSlot]: equipmentId?.toString() ?? null
+				[collectedEquipment.category]: equipmentId.toString()
+			}
+		}))
+	},
+	removeEquipment: equipmentSlot => {
+		set(state => ({
+			equipment: {
+				...state.equipment,
+				[equipmentSlot]: null
 			}
 		}))
 	},
