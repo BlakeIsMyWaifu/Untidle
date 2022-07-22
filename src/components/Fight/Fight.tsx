@@ -1,7 +1,6 @@
 import { Box, createStyles } from '@mantine/core'
 import { FC } from 'react'
 
-import CombatLoop from './CombatLoop'
 import Enemy from './Enemy'
 import EnemyAttackBar from './EnemyAttackBar'
 import EnemyHealth from './EnemyHealth'
@@ -64,35 +63,30 @@ const Fight: FC = () => {
 	const { classes } = useStyle()
 
 	return (
-		<>
-			<CombatLoop />
-
-			<Box className={classes.grid}>
-				<Box className={classes.playerExtra}>
-					<PlayerStats />
-					<Placeholder area='Devotion' />
-					<Placeholder area='Slayer' />
-					<Placeholder area='Summon' />
-				</Box>
-
-				<Box className={classes.playerMain}>
-					<PlayerHealth />
-					<PlayerAttackBar />
-					<PlayerEquipment />
-					<Placeholder area='Potions' />
-				</Box>
-
-				<Box className={classes.enemy}>
-					<EnemyHealth />
-					<EnemyAttackBar />
-					<Enemy />
-					<EnemyStats />
-				</Box>
-
-				<Loot />
+		<Box className={classes.grid}>
+			<Box className={classes.playerExtra}>
+				<PlayerStats />
+				<Placeholder area='Devotion' />
+				<Placeholder area='Slayer' />
+				<Placeholder area='Summon' />
 			</Box>
 
-		</>
+			<Box className={classes.playerMain}>
+				<PlayerHealth />
+				<PlayerAttackBar />
+				<PlayerEquipment />
+				<Placeholder area='Potions' />
+			</Box>
+
+			<Box className={classes.enemy}>
+				<EnemyHealth />
+				<EnemyAttackBar />
+				<Enemy />
+				<EnemyStats />
+			</Box>
+
+			<Loot />
+		</Box>
 	)
 }
 

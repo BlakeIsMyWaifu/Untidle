@@ -14,13 +14,11 @@ type FightStore = FightStateSlice & FightActionSlice
 interface FightStateSlice {
 	enemyHealth: number;
 	enemy: EnemyData | null;
-	playerAttackSpeed: number;
 }
 
 const initialFightState: FightStateSlice = {
 	enemyHealth: 10,
-	enemy: null,
-	playerAttackSpeed: 5000
+	enemy: null
 }
 
 const createFightStateSlice: Slice<FightStore, FightStateSlice> = () => initialFightState
@@ -28,7 +26,6 @@ const createFightStateSlice: Slice<FightStore, FightStateSlice> = () => initialF
 interface FightActionSlice {
 	enemyTakeDamage: (amount: number) => void;
 	setEnemy: (enemy: EnemyData | null) => void;
-	setPlayerAttackSpeed: (amount: number) => void;
 	enemyDropLoot: () => void;
 }
 
@@ -43,9 +40,6 @@ const createFightActionSlice: Slice<FightStore, FightActionSlice> = (set, get) =
 			enemy,
 			enemyHealth: enemy?.stats['Maximum Health'] ?? 0 // TODO calculate health
 		})
-	},
-	setPlayerAttackSpeed: amount => {
-		set({ playerAttackSpeed: amount })
 	},
 	enemyDropLoot: () => {
 		const { enemy } = get()
