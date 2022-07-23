@@ -6,19 +6,17 @@ import { useActivityStore } from 'state/useActivityStore'
 const ActivityLoop: FC = () => {
 
 	const { runActivity, intervalTime, activityName, active, stopActivity } = useActivityStore()
-	const interval = useInterval(runActivity, intervalTime)
+	const { start, stop } = useInterval(runActivity, intervalTime ?? 0)
 
 	useMountEffect(() => {
 		stopActivity()
 	})
 
 	useEffect(() => {
-		if (active) {
-			interval.start()
+		if (active && intervalTime) {
+			start()
 		}
-		return () => {
-			interval.stop()
-		}
+		return stop
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [activityName])
 

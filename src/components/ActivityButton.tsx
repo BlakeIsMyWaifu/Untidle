@@ -14,6 +14,7 @@ const ActivityButton: FC<ActivityButtonProps> = ({ activity, unlocked }) => {
 	const currentlyActive = activityName === activity?.activityName
 
 	useEffect(() => {
+		// TODO bug stopping the current activity when changing pages
 		if (!unlocked) {
 			stopActivity()
 		}

@@ -55,7 +55,7 @@ interface ActivityStateSlice {
 	active: boolean;
 	activityName: string | null;
 	activitySkill: SubskillList | null;
-	intervalTime: number;
+	intervalTime: number | null;
 	reward: Reward;
 	cost: Cost;
 }
@@ -74,7 +74,7 @@ const createActivityStateSlice: Slice<ActivityStore, ActivityStateSlice> = () =>
 export interface ChangeActivityData {
 	activityName: string;
 	activitySkill: SubskillList;
-	intervalTime: number;
+	intervalTime: number | null;
 	reward: Reward;
 	cost?: Cost;
 }

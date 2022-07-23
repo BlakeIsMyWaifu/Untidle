@@ -5,6 +5,7 @@ import { FC } from 'react'
 import { useParams } from 'react-router'
 import { Link } from 'react-router-dom'
 
+import WildernessActivityLogic from './WildernessActivityLogic'
 import WildernessEnemyLogic from './WildernessEnemyLogic'
 
 const WildernessCombat: FC = () => {
@@ -21,6 +22,7 @@ const WildernessCombat: FC = () => {
 	return (
 		<>
 			<WildernessEnemyLogic enemies={enemies} />
+			<WildernessActivityLogic />
 
 			<Box>
 				<Group position='apart' p='md'>
