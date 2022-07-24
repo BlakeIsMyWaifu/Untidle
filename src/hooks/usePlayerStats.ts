@@ -5,6 +5,7 @@ import { useItemStore } from 'state/useItemStore'
 import { typedObject } from 'utils/typedObjectKeys'
 
 export const usePlayerStats = (): Record<StatsList, number> => {
+
 	const equippedEquipment = useCombatStore(state => state.equipment)
 	const collectedEquipment = useItemStore(state => state.equipments)
 
