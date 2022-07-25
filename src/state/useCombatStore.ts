@@ -42,7 +42,19 @@ const initialCombatState: CombatStateSlice = {
 const createCombatStateSlice: Slice<CombatStore, CombatStateSlice> = () => initialCombatState
 
 interface CombatActionSlice {
+	/**
+	 * The player takes damage equal to the amount.
+	 *
+	 * @param amount - Amount of damage to take
+	 * @returns void
+	 */
 	takeDamage: (amount: number) => void;
+
+	/**
+	 * Heals the player to full health
+	 *
+	 * @returns void
+	 */
 	healPlayer: () => void;
 
 	/**
@@ -54,8 +66,31 @@ interface CombatActionSlice {
 	 * @returns void
 	 */
 	equipEquipment: (equipmentId: number) => void;
+
+	/**
+	 * Removes a piece of equipment from the given slot
+	 *
+	 * @param equipmentSlot - A valid slot
+	 * @returns void
+	 */
 	removeEquipment: (equipmentSlot: EquipmentSlot) => void;
+
+	/**
+	 * Adds loot to the temporary loot tab.
+	 * Loot could be either materials or equipment.
+	 *
+	 * @param itemName - The name of the material or equipment
+	 * @param itemType - The type that the item is
+	 * @param amount - How much of the item is dropped. If not given, defaults to one.
+	 * @returns void
+	 */
 	addLoot: (itemName: MaterialList | EquipmentList, itemType: ItemType, amount?: number) => void;
+
+	/**
+	 * Adds all the items from the temporary loot tab into the main storage
+	 *
+	 * @returns void
+	 */
 	collectLoot: () => void;
 }
 
