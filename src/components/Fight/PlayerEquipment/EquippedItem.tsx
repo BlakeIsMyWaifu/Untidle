@@ -47,6 +47,7 @@ const EquippedItem: FC<EquipmentSlotProps> = ({ slot, gridArea }) => {
 									category: slot,
 									fixedStats: {}
 								}}
+								imageOverride={`combat/equipmentSlot/${slot}`}
 							/>
 					}
 				</Menu.Target>

@@ -28,9 +28,10 @@ interface ItemProps {
 	itemData: Material | Equipment;
 	amount?: number;
 	onClick?: MouseEventHandler<HTMLDivElement>;
+	imageOverride?: string;
 }
 
-const Item: FC<ItemProps> = ({ itemData, amount = 1, onClick }) => {
+const Item: FC<ItemProps> = ({ itemData, amount = 1, onClick, imageOverride }) => {
 
 	const { classes } = useStyles({ colour: colours[itemData.rarity] })
 
@@ -38,7 +39,7 @@ const Item: FC<ItemProps> = ({ itemData, amount = 1, onClick }) => {
 		<Box className={classes.container} onClick={onClick}>
 			<Image
 				withPlaceholder
-				src={`assets/items/${itemData.type}/${itemData.category}/${itemData.image}.png`}
+				src={imageOverride ? `assets/${imageOverride}.png` : `assets/items/${itemData.type}/${itemData.category}/${itemData.image}.png`}
 				placeholder={<PlaceholderImage />}
 			/>
 			{amount !== 1 && <Text className={classes.amount}>{amount}</Text>}
