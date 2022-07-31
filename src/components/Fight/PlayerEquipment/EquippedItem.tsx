@@ -45,7 +45,7 @@ const EquippedItem: FC<EquipmentSlotProps> = ({ slot, gridArea }) => {
 									type: 'equipment',
 									rarity: 'common',
 									category: slot,
-									fixedStats: {}
+									baseStats: {}
 								}}
 								imageOverride={`combat/equipmentSlot/${slot}`}
 							/>

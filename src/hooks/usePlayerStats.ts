@@ -26,20 +26,28 @@ export const usePlayerStats = (): Record<StatsList, number> => {
 			'Maximum Health Percentage': 0,
 			'Maximum Health': 0,
 			'Movement Speed': 0,
-			'Physical Damage': 5,
+			'Physical Damage': 0,
 			'Physical Penetration': 0,
 			'Physical Pierce': 0,
 			'Physical Resistance': 0,
 			'Slaying': 0
 		}
 
-		Object.values(equippedEquipment).forEach(equipmentId => {
+		typedObject.entries(equippedEquipment).forEach(([slot, equipmentId]) => {
+			if (slot === 'mainHand' && !equipmentId) {
+				stats['Physical Damage'] += 1
+				return
+			}
+
 			if (!equipmentId) return
 			const equipment = collectedEquipment[equipmentId]
 			if (!equipment) return
-			typedObject.entries(equipment.stats).forEach(([stat, amount]) => {
+
+			const addStats = ([stat, amount]: [StatsList, number]): void => {
 				stats[stat] += amount
-			})
+			}
+			typedObject.entries(equipment.baseStats).forEach(addStats)
+			typedObject.entries(equipment.stats).forEach(addStats)
 		})
 
 		return stats

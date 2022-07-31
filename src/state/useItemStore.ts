@@ -129,9 +129,7 @@ const createItemActionSlice: Slice<ItemStore, ItemActionSlice> = (set, get) => (
 		set(() => ({ equipments: equipment }))
 	},
 	resetEquipment: () => {
-		set({
-			equipments: {}
-		})
+		set({ equipments: {} })
 	}
 })
 

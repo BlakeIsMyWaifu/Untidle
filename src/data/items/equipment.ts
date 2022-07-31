@@ -28,7 +28,10 @@ export type StatsList = typeof statsList[number]
 export interface Equipment extends Item {
 	type: 'equipment';
 	category: EquipmentSlot;
-	fixedStats: Partial<Record<StatsList, number>>;
+	/**
+	 * baseStats on a mainHand **must** contain **either** physical or magical damage
+	 */
+	baseStats: Partial<Record<StatsList, number>>;
 }
 
 export interface CollectedEquipment extends Equipment {
@@ -64,7 +67,9 @@ const equipmentData: Record<string, Equipment> = {
 		type: 'equipment',
 		rarity: 'common',
 		category: 'mainHand',
-		fixedStats: {}
+		baseStats: {
+			'Physical Damage': 5
+		}
 	},
 	staff: {
 		name: 'staff',
@@ -72,7 +77,9 @@ const equipmentData: Record<string, Equipment> = {
 		type: 'equipment',
 		rarity: 'common',
 		category: 'mainHand',
-		fixedStats: {}
+		baseStats: {
+			'Magical Damage': 5
+		}
 	},
 	helmet: {
 		name: 'helmet',
@@ -80,7 +87,7 @@ const equipmentData: Record<string, Equipment> = {
 		type: 'equipment',
 		rarity: 'rare',
 		category: 'helmet',
-		fixedStats: {}
+		baseStats: {}
 	},
 	chest: {
 		name: 'chest',
@@ -88,7 +95,7 @@ const equipmentData: Record<string, Equipment> = {
 		type: 'equipment',
 		rarity: 'epic',
 		category: 'chest',
-		fixedStats: {}
+		baseStats: {}
 	},
 	ringOne: {
 		name: 'ringOne',
@@ -96,7 +103,7 @@ const equipmentData: Record<string, Equipment> = {
 		type: 'equipment',
 		rarity: 'legendary',
 		category: 'ring',
-		fixedStats: {}
+		baseStats: {}
 	},
 	ringTwo: {
 		name: 'ringTwo',
@@ -104,7 +111,7 @@ const equipmentData: Record<string, Equipment> = {
 		type: 'equipment',
 		rarity: 'mythic',
 		category: 'ring',
-		fixedStats: {}
+		baseStats: {}
 	},
 	ringThree: {
 		name: 'ringThree',
@@ -112,7 +119,7 @@ const equipmentData: Record<string, Equipment> = {
 		type: 'equipment',
 		rarity: 'common',
 		category: 'ring',
-		fixedStats: {}
+		baseStats: {}
 	}
 }
 
@@ -125,7 +132,7 @@ export const getEquipment = (equipmentName: string): Equipment => {
 		type: 'equipment',
 		rarity: 'common',
 		category: 'mainHand',
-		fixedStats: {}
+		baseStats: {}
 	}
 }
 
